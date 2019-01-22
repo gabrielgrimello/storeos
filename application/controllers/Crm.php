@@ -379,7 +379,7 @@ class Crm extends CI_Controller {
         $this->load->library('table');
         $this->load->library('pagination');
 
-        $config['base_url'] = base_url() . 'crm/gerenciarindicacao';
+        $config['base_url'] = base_url() . 'index.php/crm/gerenciarindicacao';
         $config['total_rows'] = $this->crm_model->count('indicacao_crm');
         $config['per_page'] = 10;
         $config['next_link'] = 'Próxima';
@@ -477,7 +477,7 @@ class Crm extends CI_Controller {
         $this->load->library('table');
         $this->load->library('pagination');
 
-        $config['base_url'] = base_url() . 'crm/gerenciarseguimento';
+        $config['base_url'] = base_url() . 'index.php/crm/gerenciarseguimento';
         $config['total_rows'] = $this->crm_model->count('seguimento_crm');
         $config['per_page'] = 10;
         $config['next_link'] = 'Próxima';
@@ -508,7 +508,7 @@ class Crm extends CI_Controller {
 
     public function addseguimento() {
 
-        if (!$this->permission->checkPermission($this->session->userdata('permissao'), 'aSeguimentoqq lead')) {
+        if (!$this->permission->checkPermission($this->session->userdata('permissao'), 'aSeguimentolead')) {
             $this->session->set_flashdata('error', 'Você não tem permissão para visualizar propostas.');
             redirect(base_url() . 'index.php/crm/gerenciar');
         }
