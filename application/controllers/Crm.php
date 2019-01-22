@@ -255,6 +255,10 @@ class Crm extends CI_Controller {
         $where_array2 = array();
         $where_array2['encerra'] = 1;
         $where_array2['status'] = 1;
+        
+        $where_array3 = array();
+        $where_array3['idLead_proposta'] = $this->uri->segment(3);
+        
         $data['seguimento'] = $this->crm_model->getConfig('seguimento_crm', 'idseguimento,descricao', 'status=1');
         $data['indicacao'] = $this->crm_model->getConfig('indicacao_crm', 'idindicacao,descricao', 'status=1');
         $data['statusfunil'] = $this->crm_model->getConfig('status_crm', 'idstatus,descricao,encerra', $where_array);
@@ -263,7 +267,8 @@ class Crm extends CI_Controller {
         $data['dadoslogin'] = $this->session->all_userdata();
         $data['permissao'] = $this->crm_model->getPermissao('permissoes', 'idPermissao,nome,data,situacao');
         $data['result'] = $this->crm_model->getById($this->uri->segment(3));
-
+        $data['proposta'] = $this->crm_model->getPropostas('propostas', 'numpropostas,fantasia,contato,data,status', $where_array3,'');
+        
         $this->load->view('crm/visualizarLead', $data);
     }
 
