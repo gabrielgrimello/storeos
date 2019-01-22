@@ -132,12 +132,142 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Possui sistema?</label>
+                            <select class="form-control" disabled name="possuisistema">
+                                <option value="0" <?php
+                                if ($result->possuisistema == 0) {
+                                    echo "selected";
+                                }
+                                ?>>Não</option>
+
+                                <option value="1" <?php
+                                if ($result->possuisistema == 1) {
+                                    echo "selected";
+                                }
+                                ?> >Sim</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+<div class="row">
+        <div class="col-md-12">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">PROPOSTAS CRIADAS PARA ESTE LEAD</h3>
+                </div>
+                <div class="box-body">
+                    <?php if (!$proposta) { ?>
+                        <div class="widget-box">
+                            <div class="widget-title">
+                                <span class="icon">
+                                    <i class="icon-barcode"></i>
+                                </span>
+                                <h5>Propostas</h5>
 
+                            </div>
+
+                            <div class="widget-content nopadding table-responsive">
+
+
+                                <table class="table table-bordered ">
+                                    <thead>
+                                        <tr style="backgroud-color: #2D335B">
+                                            <th>Nº Proposta</th>
+                                            <th>Cliente</th>
+                                            <th>Contato</th>
+                                            <th>Data</th>
+                                            <th>Status</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr>
+                                            <td colspan="5">Nenhuma proposta cadastrada</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    <?php } else { ?>
+
+                        <div class="widget-box">
+                            <div class="widget-title">
+                                <span class="icon">
+                                    <i class="icon-barcode"></i>
+                                </span>
+                            </div>
+
+                            <div class="widget-content nopadding table-responsive">
+
+
+                                <table class="table table-bordered ">
+                                    <thead>
+                                        <tr style="backgroud-color: #2D335B">
+                                            <th>Nº Proposta</th>
+                                            <th>Cliente</th>
+                                            <th>Contato</th>
+                                            <th>Data</th>
+                                            <th>Status</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($proposta as $r) { ?>
+                                            <tr> 
+                                                <td><?php echo $r->numpropostas; ?></td>
+                                                <td><?php echo $r->fantasia; ?></td> 
+                                                <td><?php echo $r->contato; ?></td> 
+                                                <td><?php echo $r->data; ?></td> 
+                                                <td><?php
+                                                    if ($r->status == 1) {
+                                                        echo "<span class='label label-primary'>Aguardando Aprovação</span>";
+                                                    }
+                                                    if ($r->status == 2) {
+                                                        echo "<span class='label label-success'>Fechado Ganho</span>";
+                                                    }
+                                                    if ($r->status == 3) {
+                                                        echo "<span class='label label-danger'>Fechado Perdido</span>";
+                                                    }
+                                                    ?>
+                                                </td>
+
+
+                                                <td class="text-center">
+                                                    <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'iProposta')) { ?>
+                                                        <a title="imprimir" href="<?php echo base_url() . 'index.php/proposta/imprimir/' . $r->numpropostas ?>" class="btn btn-warning btn-small">Imprimir <i class="fa-fw glyphicon glyphicon-print"></i> </a>
+                                                    <?php } ?>
+                                                    <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'eProposta')) { ?>
+                                                        <a title="editar" href="<?php echo base_url() ?>index.php/proposta/edit/<?php echo $r->numpropostas; ?>" class="btn btn-primary btn-small">Editar <i class="fa-fw glyphicon glyphicon-edit"></i> </a>
+                                                    <?php } ?>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                        }
+                                        ?>
+                                        <tr>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <?php
+                        
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- TIME LINE - INICIO DO CODIGO -->
 
