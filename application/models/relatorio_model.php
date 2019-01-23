@@ -15,6 +15,7 @@ class Relatorio_model extends CI_Model {
     
     function count($table, $where = '') {
         $this->db->select('*');
+        $this->db->from($table);
        if($where){
             $this->db->where($where);
         }
