@@ -48,6 +48,29 @@ class Crm_model extends CI_Model {
         return $result;
     }
 
+    public function filtro($vendedor, $status, $numero, $empresa) {
+        $this->db->select('*');
+        $this->db->from('crm');
+        if ($vendedor) {
+        $this->db->like('usuario', $vendedor);
+        }
+        if ($status) {
+        $this->db->like('status', $status);
+        }
+        if ($numero) {
+        $this->db->like('idcrm', $numero);
+        }
+        if ($empresa) {
+        $this->db->like('empresa', $empresa);
+        }
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return $query->result();
+        }
+    }
+
     function add($table, $dados) {
 
         $this->db->insert($table, $dados);
@@ -85,9 +108,8 @@ class Crm_model extends CI_Model {
     function count($table) {
         return $this->db->count_all($table);
     }
-    
- 
-    function getConfig($table, $fields,$where='') {
+
+    function getConfig($table, $fields, $where = '') {
 
         $this->db->select($fields);
         $this->db->from($table);
@@ -96,19 +118,19 @@ class Crm_model extends CI_Model {
         }
         return $this->db->get()->result();
     }
-    
+
     function getByIdStatus($id) {
         $this->db->where('idstatus', $id);
         $this->db->limit(1);
         return $this->db->get('status_crm')->row();
     }
-    
-    function getByIdConfig($id,$idtabela,$tabela) {
+
+    function getByIdConfig($id, $idtabela, $tabela) {
         $this->db->where($idtabela, $id);
         $this->db->limit(1);
         return $this->db->get($tabela)->row();
     }
-    
+
     public function getTimeline($id = null) {
 
         $this->db->select('*');
@@ -117,7 +139,7 @@ class Crm_model extends CI_Model {
         $this->db->order_by('idTimeline_crm', 'desc');
         return $this->db->get()->result();
     }
-    
+
     function delete($table, $fieldID, $ID) {
         $this->db->where($fieldID, $ID);
         $this->db->delete($table);
@@ -127,8 +149,8 @@ class Crm_model extends CI_Model {
 
         return FALSE;
     }
-    
-    function getPropostas($table, $fields, $where = '',$one = false) {
+
+    function getPropostas($table, $fields, $where = '', $one = false) {
 
         $this->db->select($fields);
         $this->db->from($table);
@@ -137,12 +159,11 @@ class Crm_model extends CI_Model {
         if ($where) {
             $this->db->where($where);
         }
-       
+
         $query = $this->db->get();
 
         $result = !$one ? $query->result() : $query->row();
         return $result;
     }
-    
 
 }
