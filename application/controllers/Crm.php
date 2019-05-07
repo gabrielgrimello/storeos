@@ -33,10 +33,10 @@ class Crm extends CI_Controller {
 
         $this->load->library('table');
         $this->load->library('pagination');
-        
+
 
         $where_array = array();
-
+/*
         $empresa = $this->input->get('empresa');
         $idcrm = $this->input->get('idcrm');
         $status = $this->input->get('status');
@@ -54,12 +54,9 @@ class Crm extends CI_Controller {
         if ($usuario) {
             $where_array['usuario'] = $usuario;
         }
-
-
-
-
+*/
         $config['base_url'] = base_url() . 'index.php/crm/gerenciar';
-        $config['total_rows'] = $this->crm_model->count('crm');
+        $config['total_rows'] = $this->crm_model->count('crm', '');
         $config['per_page'] = 10;
         $config['next_link'] = 'Próxima';
         $config['prev_link'] = 'Anterior';
@@ -85,8 +82,37 @@ class Crm extends CI_Controller {
         $this->data['indicacao'] = $this->crm_model->getConfig('indicacao_crm', 'idindicacao,descricao', '');
         $this->data['status'] = $this->crm_model->getConfig('status_crm', 'idstatus,descricao,encerra', '');
         $this->data['usuarios'] = $this->crm_model->getConfig('usuarios', 'idusuarios,nome', '');
-        $this->data['results'] = $this->crm_model->get('crm', 'idcrm,empresa,nome,telefone,status,seguimento,data,usuario',$where_array, $config['per_page'], $this->uri->segment(3), '', 'idcrm', 'desc');
+        $this->data['results'] = $this->crm_model->get('crm', 'idcrm,empresa,nome,telefone,status,seguimento,data,usuario', $where_array, $config['per_page'], $this->uri->segment(3), '', 'idcrm', 'desc');
         $this->load->view('crm/gerenciarLead', $this->data);
+    }
+
+    public function filtro() {
+        if (!$this->permission->checkPermission($this->session->userdata('permissao'), 'mCrm')) {
+            $this->session->set_flashdata('error', 'Você não tem permissão para visualizar propostas.');
+            redirect(base_url() . 'index.php/dashboard');
+        }
+         $this->load->library('table');
+        $this->load->library('pagination');
+        
+               
+        $empresa = $this->input->post('empresa');
+        $numero = $this->input->post('idcrm');
+        $status = $this->input->post('status');
+        $vendedor = $this->input->post('vendedor');
+        
+       
+        if (isset($vendedor)and !empty($vendedor) or isset($numero)and !empty($numero) or isset($status)and !empty($status) or isset($empresa)and !empty($empresa)) {
+            //$this->pagination->initialize($config);
+            $this->data['results'] = $this->crm_model->filtro($vendedor,$status,$numero,$empresa);
+            $this->data['seguimento'] = $this->crm_model->getConfig('seguimento_crm', 'idseguimento,descricao', '');
+            $this->data['indicacao'] = $this->crm_model->getConfig('indicacao_crm', 'idindicacao,descricao', '');
+            $this->data['status'] = $this->crm_model->getConfig('status_crm', 'idstatus,descricao,encerra', '');
+            $this->data['usuarios'] = $this->crm_model->getConfig('usuarios', 'idusuarios,nome', '');
+            $this->load->view('crm/gerenciarLead', $this->data);
+        }
+        else{
+            redirect(base_url() . 'index.php/crm/gerenciar');
+        }
     }
 
     public function add() {
@@ -219,10 +245,10 @@ class Crm extends CI_Controller {
         $where_array2 = array();
         $where_array2['encerra'] = 1;
         $where_array2['status'] = 1;
-        
+
         $where_array3 = array();
         $where_array3['idLead_proposta'] = $this->uri->segment(3);
-        
+
         $data['seguimento'] = $this->crm_model->getConfig('seguimento_crm', 'idseguimento,descricao', 'status=1');
         $data['indicacao'] = $this->crm_model->getConfig('indicacao_crm', 'idindicacao,descricao', 'status=1');
         $data['statusfunil'] = $this->crm_model->getConfig('status_crm', 'idstatus,descricao,encerra', $where_array);
@@ -231,7 +257,7 @@ class Crm extends CI_Controller {
         $data['dadoslogin'] = $this->session->all_userdata();
         $data['permissao'] = $this->crm_model->getPermissao('permissoes', 'idPermissao,nome,data,situacao');
         $data['result'] = $this->crm_model->getById($this->uri->segment(3));
-        $data['proposta'] = $this->crm_model->getPropostas('propostas', 'numpropostas,fantasia,contato,data,status', $where_array3,'');
+        $data['proposta'] = $this->crm_model->getPropostas('propostas', 'numpropostas,fantasia,contato,data,status', $where_array3, '');
 
         $this->load->view('crm/alterarLead', $data);
     }
@@ -255,10 +281,10 @@ class Crm extends CI_Controller {
         $where_array2 = array();
         $where_array2['encerra'] = 1;
         $where_array2['status'] = 1;
-        
+
         $where_array3 = array();
         $where_array3['idLead_proposta'] = $this->uri->segment(3);
-        
+
         $data['seguimento'] = $this->crm_model->getConfig('seguimento_crm', 'idseguimento,descricao', 'status=1');
         $data['indicacao'] = $this->crm_model->getConfig('indicacao_crm', 'idindicacao,descricao', 'status=1');
         $data['statusfunil'] = $this->crm_model->getConfig('status_crm', 'idstatus,descricao,encerra', $where_array);
@@ -267,8 +293,8 @@ class Crm extends CI_Controller {
         $data['dadoslogin'] = $this->session->all_userdata();
         $data['permissao'] = $this->crm_model->getPermissao('permissoes', 'idPermissao,nome,data,situacao');
         $data['result'] = $this->crm_model->getById($this->uri->segment(3));
-        $data['proposta'] = $this->crm_model->getPropostas('propostas', 'numpropostas,fantasia,contato,data,status', $where_array3,'');
-        
+        $data['proposta'] = $this->crm_model->getPropostas('propostas', 'numpropostas,fantasia,contato,data,status', $where_array3, '');
+
         $this->load->view('crm/visualizarLead', $data);
     }
 
