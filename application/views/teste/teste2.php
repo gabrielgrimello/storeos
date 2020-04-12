@@ -1,64 +1,333 @@
-<?php $this->load->view('template/menu'); ?>
-<section class="content-header">
-    <h1>
-        Propostas
-        <small>Adicionar propostas</small>
-    </h1>
-    <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li> Gerenciar propostas</li>
-        <li class="active"> Adicionar propostas</li>
-    </ol>
-</section>
-<section class="content">
-    <form action="<?php echo base_url() ?>index.php/proposta/add" method="post">
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>StoreOS</title>
+        <link rel="shortcut icon" href="<?php echo base_url('assets/favicon.png') ?>" type="image/x-png"
+              <!-- Tell the browser to be responsive to screen width -->
+              <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <!-- Bootstrap 3.3.7 -->
+        <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/bootstrap/dist/css/bootstrap.min.css') ?>">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/font-awesome/css/font-awesome.min.css') ?>">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/Ionicons/css/ionicons.min.css') ?>">
+        <!-- daterange picker -->
+        <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/bootstrap-daterangepicker/daterangepicker.css') ?>">
+        <!-- bootstrap datepicker -->
+        <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') ?>">
+        <!-- iCheck for checkboxes and radio inputs -->
+        <link rel="stylesheet" href="<?php echo base_url('assets/plugins/iCheck/all.css') ?>">
+        <!-- Bootstrap Color Picker -->
+        <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') ?>">
+        <!-- Bootstrap time Picker -->
+        <link rel="stylesheet" href="<?php echo base_url('assets/plugins/timepicker/bootstrap-timepicker.min.css') ?>">
+        <!-- Select2 -->
+        <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/select2/dist/css/select2.min.css') ?>">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/AdminLTE.min.css') ?>">
+        <!-- AdminLTE Skins. Choose a skin from the css/skins
+             folder instead of downloading all of them to reduce the load. -->
+        <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/skins/_all-skins.min.css') ?>">
+        <!-- Morris chart -->
+        <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/morris.js/morris.css') ?>">
+        <!-- jvectormap -->
+        <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/jvectormap/jquery-jvectormap.css') ?>">
+        <!-- Date Picker -->
+        <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') ?>">
+        <!-- Daterange picker -->
+        <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/bootstrap-daterangepicker/daterangepicker.css') ?>">
+        <!-- bootstrap wysihtml5 - text editor -->
+        <link rel="stylesheet" href="<?php echo base_url('assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') ?>">
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="box box-success">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Informações do cliente</h3>
-                    </div>
-                    <div class="box-body">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>CNPJ</label>
-                                <input type="text" class="form-control" id="cnpj" name="cnpj" onblur="teste2()" placeholder="Ex.: 11.111.111/0001-01">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Nome Fantasia</label>
-                                <input type="text" class="form-control" id="fantasia" name="fantasia" placeholder="Ex.: Empresa X">
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Endereço</label>
-                            <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Ex.: Rua Euclides da cunha,198">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label>Cidade</label>
-                            <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Ex.: Santos">
-                        </div>
-                    </div> <!-- /.box-body -->
-                </div> <!-- /.box box-info-->
-            </div> <!--/.col md-12) -->
-            <!-- right column -->
+        <link href="<?php echo base_url('assets/fullcalendar/packages/core/main.css') ?>" rel='stylesheet' />
+        <link href="<?php echo base_url('assets/fullcalendar/packages/daygrid/main.css') ?>" rel='stylesheet' />
+        <link href="<?php echo base_url('assets/fullcalendar/packages/timegrid/main.css') ?>" rel='stylesheet' />
+        <link href="<?php echo base_url('assets/fullcalendar/packages/list/main.css') ?>" rel='stylesheet' />
+        <script src="<?php echo base_url('assets/fullcalendar/packages/core/main.js') ?>"></script>
+        <script src="<?php echo base_url('assets/fullcalendar/packages/interaction/main.js') ?>"></script>
+        <script src="<?php echo base_url('assets/fullcalendar/packages/daygrid/main.js') ?>"></script>
+        <script src="<?php echo base_url('assets/fullcalendar/packages/timegrid/main.js') ?>"></script>
+        <script src="<?php echo base_url('assets/fullcalendar/packages/list/main.js') ?>"></script>
+        <script src="<?php echo base_url('assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') ?>"></script>
+        
+        <script>
+            function alterarOS() {
+                var idOSAlterar = document.getElementById('idOSAlterar');
+                window.location.href = '<?php echo base_url() ?>index.php/os/editarOS/' + idOSAlterar.value;
+            }
+        </script>
+        <!--        
+        USEI NO SELECT2 - desabilitei para ver se fazia diferença
+        
+                <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+                <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+                <link href="path/to/select2.min.css" rel="stylesheet" />
+                <script src="path/to/select2.min.js"></script>-->
 
 
-            <div  class="col-md-3">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
 
-            </div>
-            <div  class="col-md-6">
-                <button class="btn btn-block btn-success">AVANÇAR </button>
-            </div>
+        <!-- Google Font -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="starter-template.css" rel="stylesheet">
+  </head>
+ <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
+<body class="hold-transition skin-blue layout-top-nav">
+<div class="wrapper">
+
+  <header class="main-header">
+    <nav class="navbar navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="../../index2.html" class="navbar-brand"><b>Admin</b>LTE</a>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+            <i class="fa fa-bars"></i>
+          </button>
         </div>
-        <!-- /.row -->
 
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">Link</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+                <li class="divider"></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+          <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" id="navbar-search-input" placeholder="Search">
+            </div>
+          </form>
+        </div>
+        <!-- /.navbar-collapse -->
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <!-- Messages: style can be found in dropdown.less-->
+            <li class="dropdown messages-menu">
+              <!-- Menu toggle button -->
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-envelope-o"></i>
+                <span class="label label-success">4</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li class="header">You have 4 messages</li>
+                <li>
+                  <!-- inner menu: contains the messages -->
+                  <ul class="menu">
+                    <li><!-- start message -->
+                      <a href="#">
+                        <div class="pull-left">
+                          <!-- User Image -->
+                          <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        </div>
+                        <!-- Message title and timestamp -->
+                        <h4>
+                          Support Team
+                          <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                        </h4>
+                        <!-- The message -->
+                        <p>Why not buy a new awesome theme?</p>
+                      </a>
+                    </li>
+                    <!-- end message -->
+                  </ul>
+                  <!-- /.menu -->
+                </li>
+                <li class="footer"><a href="#">See All Messages</a></li>
+              </ul>
+            </li>
+            <!-- /.messages-menu -->
 
-    </form>
+            <!-- Notifications Menu -->
+            <li class="dropdown notifications-menu">
+              <!-- Menu toggle button -->
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-bell-o"></i>
+                <span class="label label-warning">10</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li class="header">You have 10 notifications</li>
+                <li>
+                  <!-- Inner Menu: contains the notifications -->
+                  <ul class="menu">
+                    <li><!-- start notification -->
+                      <a href="#">
+                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                      </a>
+                    </li>
+                    <!-- end notification -->
+                  </ul>
+                </li>
+                <li class="footer"><a href="#">View all</a></li>
+              </ul>
+            </li>
+            <!-- Tasks Menu -->
+            <li class="dropdown tasks-menu">
+              <!-- Menu Toggle Button -->
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-flag-o"></i>
+                <span class="label label-danger">9</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li class="header">You have 9 tasks</li>
+                <li>
+                  <!-- Inner menu: contains the tasks -->
+                  <ul class="menu">
+                    <li><!-- Task item -->
+                      <a href="#">
+                        <!-- Task title and progress text -->
+                        <h3>
+                          Design some buttons
+                          <small class="pull-right">20%</small>
+                        </h3>
+                        <!-- The progress bar -->
+                        <div class="progress xs">
+                          <!-- Change the css width attribute to simulate progress -->
+                          <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                            <span class="sr-only">20% Complete</span>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <!-- end task item -->
+                  </ul>
+                </li>
+                <li class="footer">
+                  <a href="#">View all tasks</a>
+                </li>
+              </ul>
+            </li>
+            <!-- User Account Menu -->
+            <li class="dropdown user user-menu">
+              <!-- Menu Toggle Button -->
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <!-- The user image in the navbar-->
+                <img src="../../dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                <span class="hidden-xs">Alexander Pierce</span>
+              </a>
+              <ul class="dropdown-menu">
+                <!-- The user image in the menu -->
+                <li class="user-header">
+                  <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
-</section>
-<?php $this->load->view('teste/script'); ?>
-<?php $this->load->view('template/footer'); ?>
+                  <p>
+                    Alexander Pierce - Web Developer
+                    <small>Member since Nov. 2012</small>
+                  </p>
+                </li>
+                <!-- Menu Body -->
+                <li class="user-body">
+                  <div class="row">
+                    <div class="col-xs-4 text-center">
+                      <a href="#">Followers</a>
+                    </div>
+                    <div class="col-xs-4 text-center">
+                      <a href="#">Sales</a>
+                    </div>
+                    <div class="col-xs-4 text-center">
+                      <a href="#">Friends</a>
+                    </div>
+                  </div>
+                  <!-- /.row -->
+                </li>
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                  <div class="pull-left">
+                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  </div>
+                  <div class="pull-right">
+                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-custom-menu -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+  </header>
+  <!-- Full Width Column -->
+  <div class="content-wrapper">
+    <div class="container">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          Top Navigation
+          <small>Example 2.0</small>
+        </h1>
+        <ol class="breadcrumb">
+          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li><a href="#">Layout</a></li>
+          <li class="active">Top Navigation</li>
+        </ol>
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="callout callout-info">
+          <h4>Tip!</h4>
+
+          <p>Add the layout-top-nav class to the body tag to get this layout. This feature can also be used with a
+            sidebar! So use this class if you want to remove the custom dropdown menus from the navbar and use regular
+            links instead.</p>
+        </div>
+        <div class="callout callout-danger">
+          <h4>Warning!</h4>
+
+          <p>The construction of this layout differs from the normal one. In other words, the HTML markup of the navbar
+            and the content will slightly differ than that of the normal layout.</p>
+        </div>
+        <div class="box box-default">
+          <div class="box-header with-border">
+            <h3 class="box-title">Blank Box</h3>
+          </div>
+          <div class="box-body">
+            The great content goes here
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.container -->
+  </div>

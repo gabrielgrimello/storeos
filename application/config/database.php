@@ -78,7 +78,7 @@ $db['default'] = array(
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'wba_propostas',
+	'database' => 'wba_storeos',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -93,27 +93,4 @@ $db['default'] = array(
 	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE
-);
-
-//Another database configuration
-$db['wba_db'] = array(
-    'dsn'       => 'DRIVER={SQL Server}; SERVER=Netuno2.database.windows.net; DATABASE=wbainterno;',
-    'hostname' => 'Netuno2.database.windows.net',
-    'username' => 'wba',
-    'password' => '2017@gestao',
-    'database' => 'wbainterno',
-    'dbdriver' => 'odbc',
-    'dbprefix' => '',
-    'pconnect' => FALSE,
-    'db_debug' => (ENVIRONMENT !== 'production'),
-    'cache_on' => FALSE,
-    'cachedir' => '',
-    'char_set' => 'utf8',
-    'dbcollat' => 'utf8_general_ci',
-    'swap_pre' => '',
-    'encrypt'  => FALSE,
-    'compress' => FALSE,
-    'stricton' => FALSE,
-    'failover' => array(),
-    'save_queries' => TRUE
 );
