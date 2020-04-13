@@ -13,7 +13,7 @@
                 </div>
             </div>
         </a>
-        <a href="<?php echo base_url() ?>index.php/os/gerenciar?garantia=1&encerrada=nao">
+<!--        <a href="<?php echo base_url() ?>index.php/os/gerenciar?garantia=1&encerrada=nao">
             <div class="col-md-3 text-center">
                 <div class="info-box">
                     <span class="info-box-icon bg-aqua"><i class="ion ion-android-desktop"></i></span>
@@ -23,7 +23,7 @@
                     </div>
                 </div>
             </div>
-        </a>
+        </a>-->
         <a href="<?php echo base_url() ?>index.php/os/gerenciar?encerrada=nao">
             <div class="col-md-3 text-center">
                 <div class="info-box">
