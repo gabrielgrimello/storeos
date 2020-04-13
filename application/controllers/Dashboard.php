@@ -29,7 +29,7 @@ class Dashboard extends CI_Controller {
         $this->data['totalAbertas'] = $this->dashboard_model->count('ordem_servico', $whereAbertas);
         
         //OS ABERTAS ÚLTIMOS 7 DIAS
-       // $this->data['totalAbertas7dias'] = $this->dashboard_model->count_ultimos_7dias('ordem_servico', date("Y-m-d", strtotime("-7 days")));
+        $this->data['totalAbertas7dias'] = $this->dashboard_model->count_ultimos_7dias('ordem_servico', date("Y-m-d", strtotime("-7 days")));
         
         
         $this->load->view('dashboard/dashboard', $this->data);
