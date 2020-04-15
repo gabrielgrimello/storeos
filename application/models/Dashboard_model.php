@@ -27,6 +27,14 @@ class Dashboard_model extends CI_Model {
         $this->db->where('dataEntrada >=', $data);
         return $this->db->count_all_results();
     }
+    
+     function count_garantia_prox_prazo($table,$data) {
+        $this->db->from($table);
+        $this->db->where('encerrada', 'nao');
+        $this->db->where('garantia', 1);
+        $this->db->where('dataEntrada <=', $data);
+        return $this->db->count_all_results();
+    }
 
     function get($mes_atual, $ultimos_6_meses, $where) {
         $this->db->select('*');

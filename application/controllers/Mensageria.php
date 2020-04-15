@@ -8,6 +8,7 @@ class Mensageria extends CI_Controller {
         if ((!session_id()) || (!$this->session->userdata('logado'))) {
             redirect(base_url() . 'index.php/login');
         }
+       
     }
 
     public function index() {
@@ -70,7 +71,7 @@ class Mensageria extends CI_Controller {
     }
 
     public function email() {
-        $dadoslogin = $this->session->all_userdata();
+               $dadoslogin = $this->session->all_userdata();
         $this->load->config('email');
         $this->load->library('email');
 

@@ -13,17 +13,28 @@
                 </div>
             </div>
         </a>
-<!--        <a href="<?php echo base_url() ?>index.php/os/gerenciar?garantia=1&encerrada=nao">
+        <a href="<?php echo base_url() ?>index.php/os/gerenciar?garantia=1&encerrada=nao">
             <div class="col-md-3 text-center">
                 <div class="info-box">
                     <span class="info-box-icon bg-aqua"><i class="ion ion-android-desktop"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">OS garantia próx. prazo </span>
-                        <span class="info-box-number"><h2><?php echo $totalGarantia ?></h2></span>
+                        <span class="info-box-text">OS garantia 25d+ </span>
+                        <span class="info-box-number"><h2><?php echo $totalAbertasGarantiaProxPrazo ?></h2></span>
                     </div>
                 </div>
             </div>
-        </a>-->
+        </a>
+        <a href="#">
+            <div class="col-md-3 text-center">
+                <div class="info-box">
+                    <span class="info-box-icon bg-red"><i class="ion ion-android-desktop"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">OS garantia vencida </span>
+                        <span class="info-box-number"><h2><?php echo $totalAbertasGarantiaVencida ?></h2></span>
+                    </div>
+                </div>
+            </div>
+        </a>
         <a href="<?php echo base_url() ?>index.php/os/gerenciar?encerrada=nao">
             <div class="col-md-3 text-center">
                 <div class="info-box">
