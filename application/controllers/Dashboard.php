@@ -31,11 +31,15 @@ class Dashboard extends CI_Controller {
         //OS ABERTAS ÚLTIMOS 7 DIAS
         $this->data['totalAbertas7dias'] = $this->dashboard_model->count_ultimos_7dias('ordem_servico', date("Y-m-d", strtotime("-7 days")));
         
-        //OS GARANTIA PRÓXIMA DO VENCIMENTO
+        //OS GARANTIA PRÓXIMA DO VENCIMENTO 25 DIAS+
         $this->data['totalAbertasGarantiaProxPrazo'] = $this->dashboard_model->count_garantia_prox_prazo('ordem_servico', date("Y-m-d", strtotime("-25 days")));
         
-        //OS GARANTIA VENCIDAS
+        //OS GARANTIA VENCIDAS 
         $this->data['totalAbertasGarantiaVencida'] = $this->dashboard_model->count_garantia_prox_prazo('ordem_servico', date("Y-m-d", strtotime("-30 days")));
+        
+        //OS Á 3 DIAS SEM INTERAÇÃO
+        $this->data['totalAbertasMais3diasSemInteracao'] = $this->dashboard_model->count_os_mais3dias_seminteracao('ordem_servico', date("Y-m-d", strtotime("-3 days")));
+        
         
         $this->load->view('dashboard/dashboard', $this->data);
     }

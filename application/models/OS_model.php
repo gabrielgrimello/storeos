@@ -32,23 +32,26 @@ class OS_model extends CI_Model {
 
         return FALSE;
     }
-
-    function get($table, $fields, $where = '', $perpage = 0, $start = 0, $one = false, $a, $b) {
+    
+    function get($table, $fields, $where = '', $perpage = 0, $start = 0, $one = false, $campoOrdem, $tipoOrdem,$whereRazaoOuFantasia) {
 
         $this->db->select($fields);
         $this->db->from($table);
-        $this->db->order_by($a, $b);
+        $this->db->order_by($campoOrdem, $tipoOrdem);
         $this->db->limit($perpage, $start);
         if ($where) {
-            $this->db->like($where);
+            $this->db->where($where);
         }
-
+        if ($whereRazaoOuFantasia) {
+            $this->db->like($whereDataEntrada);
+        }
+        
         $query = $this->db->get();
 
         $result = !$one ? $query->result() : $query->row();
         return $result;
     }
-
+   
     function getEquipamentoById($id) {
         $this->db->select('*');
         $this->db->from('equipamentos_cliente');

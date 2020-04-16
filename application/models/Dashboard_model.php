@@ -35,6 +35,13 @@ class Dashboard_model extends CI_Model {
         $this->db->where('dataEntrada <=', $data);
         return $this->db->count_all_results();
     }
+    
+    function count_os_mais3dias_seminteracao($table,$data) {
+        $this->db->from($table);
+        $this->db->where('encerrada', 'nao');
+        $this->db->where('dataAlteracao <', $data);
+        return $this->db->count_all_results();
+    }
 
     function get($mes_atual, $ultimos_6_meses, $where) {
         $this->db->select('*');

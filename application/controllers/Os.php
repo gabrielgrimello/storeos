@@ -34,45 +34,61 @@ class Os extends CI_Controller {
         $dadoslogin = $this->session->all_userdata();
 
         $where_array = array();
+        $whereRazaoOuFantasia = array();
+        $whereDataEntrada = array();
         $idOS = $this->input->get('idOS');
         $cnpjCliente = $this->input->get('cnpj');
         $nomeCliente = $this->input->get('nomeCliente');
         $fantasiaCliente = $this->input->get('fantasiaCliente');
         $status = $this->input->get('status');
-        $garantia= $this->input->get('garantia');
-        $encerrada= $this->input->get('encerrada');
+        $garantia = $this->input->get('garantia');
+        $encerrada = $this->input->get('encerrada');
         $dataEntrada = $this->input->get('dataEntrada');
-        
-        
+        $dataEntradaMenor = $this->input->get('dataEntradaMenor');
+        $dataEntradaMaior = $this->input->get('dataEntradaMaior');
+        $dataAlteracaoMenor = $this->input->get('dataAlteracaoMenor');
+
         if ($idOS) {
             $where_array['idOS'] = $idOS;
         }
         if ($nomeCliente) {
-            $where_array['nomeCliente'] = $nomeCliente;
+            $whereRazaoOuFantasia['nomeCliente'] = $nomeCliente;
         }
-        
+
         if ($fantasiaCliente) {
-            $where_array['fantasiaCliente'] = $fantasiaCliente;
+            $whereRazaoOuFantasia['fantasiaCliente'] = $fantasiaCliente;
         }
-        
+
         if ($cnpjCliente) {
             $where_array['cnpjCliente'] = $cnpjCliente;
         }
-        
+
         if ($status) {
             $where_array['status'] = $status;
         }
-        
-         if ($garantia) {
+
+        if ($garantia) {
             $where_array['garantia'] = $garantia;
         }
-        
-         if ($encerrada) {
+
+        if ($encerrada) {
             $where_array['encerrada'] = $encerrada;
         }
-        
+
         if ($dataEntrada) {
             $where_array['dataEntrada'] = $dataEntrada;
+        }
+        
+        if ($dataEntradaMenor) {
+            $where_array['dataEntrada <'] = $dataEntradaMenor;
+        }
+        
+        if ($dataEntradaMaior) {
+            $where_array['dataEntrada >'] = $dataEntradaMaior;
+        }
+        
+         if ($dataAlteracaoMenor) {
+            $where_array['dataAlteracao <'] = $dataAlteracaoMenor;
         }
 
         $config['base_url'] = base_url() . 'index.php/os/gerenciar';
@@ -99,7 +115,7 @@ class Os extends CI_Controller {
         $this->pagination->initialize($config);
 
         $this->data['status'] = $this->OS_model->getConfig('status_os', 'idStatus,descricao,encerra');
-        $this->data['results'] = $this->OS_model->get('ordem_servico', 'idOS,nomeCliente,fantasiaCliente,contatoCliente,telefoneCliente,celularCliente,emailCliente,dataEntrada,status', $where_array, $config['per_page'], $this->uri->segment(3), '', 'idos', 'DESC');
+        $this->data['results'] = $this->OS_model->get('ordem_servico', 'idOS,nomeCliente,fantasiaCliente,contatoCliente,telefoneCliente,celularCliente,emailCliente,dataEntrada,status', $where_array, $config['per_page'], $this->uri->segment(3), '', 'idos', 'DESC',$whereRazaoOuFantasia);
         $this->load->view('os/gerenciarOS', $this->data);
     }
 
@@ -134,7 +150,7 @@ class Os extends CI_Controller {
             $dadosOs['observacoes'] = $this->input->post('observacoes');
             $dadosOs['defeito'] = $this->input->post('defeito');
             $dadosOs['laudo'] = $this->input->post('laudo');
-            $dadosOs['dataalteracao'] = date('Y/m/d');
+            $dadosOs['dataAlteracao'] = date('Y/m/d');
             $dadosOs['garantia'] = $this->input->post('garantia');
             $dadosOs['prateleiraEntrada'] = $this->input->post('prateleiraEntrada');
             $dadosOs['prateleiraSaida'] = $this->input->post('prateleiraSaida');
@@ -202,6 +218,8 @@ class Os extends CI_Controller {
         $dadosOs['idOS'] = $this->input->post('idOS');
         $dadosOs['status'] = $this->input->post('status');
         $dadosOs['encerrada'] = "sim";
+        $dadosOs['dataAlteracao'] = date('Y/m/d');
+        $dadosOs['dataEncerra'] = date('Y/m/d');
 
         if ($this->OS_model->edit('ordem_servico', $dadosOs, 'idOS', $this->input->post('idOS')) == TRUE) {
             $this->session->set_flashdata('success_msg', 'Ordem de serviço atualizada com sucesso!');
@@ -302,7 +320,7 @@ class Os extends CI_Controller {
                 $dadosOs['telefoneCliente'] = $dadosClienteGet->value[0]->fone;
                 $dadosOs['contatoCliente'] = $dadosClienteGet->value[0]->contato;
                 $dadosOs['dataEntrada'] = date('Y/m/d');
-                $dadosOs['dataalteracao'] = date('Y/m/d');
+                $dadosOs['dataAlteracao'] = date('Y/m/d');
                 $dadosOs['garantia'] = 0;
                 $dadosOs['status'] = 1;
                 $dadosOs['encerrada'] = "nao";
@@ -342,7 +360,7 @@ class Os extends CI_Controller {
         $dadosOs['telefoneCliente'] = $dadosClienteGet->value[0]->fone;
         $dadosOs['contatoCliente'] = $dadosClienteGet->value[0]->contato;
         $dadosOs['dataEntrada'] = date('Y/m/d');
-        $dadosOs['dataalteracao'] = date('Y/m/d');
+        $dadosOs['dataAlteracao'] = date('Y/m/d');
         $dadosOs['garantia'] = 0;
         $dadosOs['status'] = 1;
         $dadosOs['encerrada'] = "nao";
@@ -829,7 +847,10 @@ class Os extends CI_Controller {
         );
 
         if ($this->OS_model->add('timeline_os', $data) == true) {
-             redirect(base_url() . 'index.php/os/editarOS/'.$idos);
+            $dadosOs['dataAlteracao'] = date('Y/m/d');
+            $this->OS_model->edit('ordem_servico', $dadosOs, 'idOS', $idos);
+
+            redirect(base_url() . 'index.php/os/editarOS/' . $idos);
         } else {
             echo json_encode(array('result' => false));
         }
@@ -839,10 +860,10 @@ class Os extends CI_Controller {
 
         $ID = $this->input->post('idTimeline_os');
         $idos = $this->input->post('idos');
-        
+
         if ($this->OS_model->delete('timeline_os', 'idTimeline_os', $ID) == true) {
 
-           redirect(base_url() . 'index.php/os/editarOS/'.$idos);
+            redirect(base_url() . 'index.php/os/editarOS/' . $idos);
         } else {
             echo json_encode(array('result' => false));
         }
