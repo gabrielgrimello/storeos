@@ -44,7 +44,7 @@
                                 <input type="text" class="form-control" name="descricao" value="<?= set_value('descricao') ?>">
                             </div>
                         </div>
-                        <div class=" col-md-3">
+                        <div class=" col-md-2">
                             <div class="form-group">
                                 <label>Status</label>
                                 <select class="form-control" name="status">
@@ -53,7 +53,13 @@
                                 </select>
                             </div>
                         </div>
-                        <div class=" col-md-3">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Posição menu </label>
+                                <input type="text" class="form-control" name="posicaoMenu" data-toggle="tooltip" data-placement="bottom" title="Ordem que vai aparecer na tela da OS" value="<?= set_value('posicaoMenu') ?>">
+                            </div>
+                        </div>
+                        <div class=" col-md-2">
                             <div class="form-group">
                                 <label>Encerra?</label>
                                 <select class="form-control" name="encerra">

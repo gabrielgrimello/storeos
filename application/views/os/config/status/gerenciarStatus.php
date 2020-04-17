@@ -55,6 +55,7 @@
                                             <th>ID</th>
                                             <th>Descrição</th>
                                             <th>Status</th>
+                                            <th>Posição Menu</th>
                                             <th>Encerra</th>
                                             <th>Ações</th>
                                         </tr>
@@ -71,6 +72,7 @@
                                                         echo "Desativado";
                                                     }
                                                     ?></td>
+                                                <td class="text-middle ng-binding"><?php echo $r->posicaoMenu; ?></td> 
                                                 <td class="text-middle ng-binding"><?php
                                                     if ($r->encerra == 0) {
                                                         echo "Não";

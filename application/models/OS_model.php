@@ -124,6 +124,7 @@ class OS_model extends CI_Model {
 
         $this->db->select('*');
         $this->db->from('status_os');
+        $this->db->order_by('posicaoMenu', 'ASC');
         $this->db->where('encerra',0);
         return $this->db->get()->result();
     }

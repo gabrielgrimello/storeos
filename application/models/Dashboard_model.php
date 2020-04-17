@@ -57,6 +57,15 @@ class Dashboard_model extends CI_Model {
 
         return $this->db->get()->result();
     }
+    
+    function getStatusAberto() {
+
+        $this->db->select('*');
+        $this->db->from('status_os');
+        $this->db->order_by('posicaoMenu', 'ASC');
+        $this->db->where('encerra',0);
+        return $this->db->get()->result();
+    }
 
     function count_fechado($table, $where = '') {
         $this->db->select('*');
@@ -70,6 +79,12 @@ class Dashboard_model extends CI_Model {
             $this->db->where($where1);
         }
 
+        return $this->db->count_all_results();
+    }
+    
+    function countOsStatus($idStatus) {
+        $this->db->from('ordem_servico');
+        $this->db->where('status',$idStatus);
         return $this->db->count_all_results();
     }
 

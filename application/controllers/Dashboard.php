@@ -39,7 +39,9 @@ class Dashboard extends CI_Controller {
         
         //OS Á 3 DIAS SEM INTERAÇÃO
         $this->data['totalAbertasMais3diasSemInteracao'] = $this->dashboard_model->count_os_mais3dias_seminteracao('ordem_servico', date("Y-m-d", strtotime("-3 days")));
-        
+                
+        //TOTAL DE OSs POR STATUS
+        $this->data['status'] = $this->dashboard_model->getStatusAberto();
         
         $this->load->view('dashboard/dashboard', $this->data);
     }

@@ -627,7 +627,7 @@ class Os extends CI_Controller {
 
         $this->pagination->initialize($config);
 
-        $this->data['results'] = $this->OS_model->get('status_os', 'idStatus,descricao,status,encerra', '', $config['per_page'], $this->uri->segment(3), '', 'idStatus', '');
+        $this->data['results'] = $this->OS_model->get('status_os', 'idStatus,descricao,status,posicaoMenu,encerra', '', $config['per_page'], $this->uri->segment(3), '', 'idStatus', '','');
 
         $this->load->view('os/config/status/gerenciarStatus', $this->data);
     }
@@ -646,6 +646,7 @@ class Os extends CI_Controller {
         } else {
             $dados['descricao'] = $this->input->post('descricao');
             $dados['status'] = $this->input->post('status');
+            $dados['posicaoMenu'] = $this->input->post('posicaoMenu');
             $dados['encerra'] = $this->input->post('encerra');
 
             $idLead = $this->OS_model->add('status_os', $dados);
@@ -678,13 +679,15 @@ class Os extends CI_Controller {
         } else {
             $dados['descricao'] = $this->input->post('descricao');
             $dados['status'] = $this->input->post('status');
+            $dados['posicaoMenu'] = $this->input->post('posicaoMenu');
             $dados['encerra'] = $this->input->post('encerra');
 
 
             if ($this->OS_model->edit('status_os', $dados, 'idStatus', $this->input->post('idStatus')) == TRUE) {
                 $this->session->set_flashdata('success_msg', 'Cadastro realizado com sucesso!');
                 $data['formErrors'] = null;
-                redirect(base_url() . 'index.php/os/editstatus/' . $this->input->post('idStatus'));
+                //redirect(base_url() . 'index.php/os/editstatus/' . $this->input->post('idStatus'));
+                redirect(base_url() . 'index.php/os/gerenciarstatus');
             } else {
                 $this->data['custom_error'] = '<div class="form_error"><p>Ocorreu um erro.</p></div>';
             }
@@ -727,7 +730,7 @@ class Os extends CI_Controller {
 
         $this->pagination->initialize($config);
 
-        $this->data['results'] = $this->OS_model->get('tipo_equipamento', 'idTipo,descricao,status', '', $config['per_page'], $this->uri->segment(3), '', 'idTipo', '');
+        $this->data['results'] = $this->OS_model->get('tipo_equipamento', 'idTipo,descricao,status', '', $config['per_page'], $this->uri->segment(3), '', 'idTipo', '','');
 
         $this->load->view('os/config/tipo/gerenciarTiposEquipamentos', $this->data);
     }

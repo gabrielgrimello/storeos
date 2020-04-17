@@ -2,6 +2,9 @@
 
 <div class="row">
     <div class="col-md-12">
+        <div class="text-center">
+            <h2>ALERTAS</h2>
+        </div>
         <div class="row">
             <a href="<?php echo base_url() ?>index.php/os/gerenciar?garantia=1&encerrada=nao&dataEntradaMenor=<?php echo date("Y-m-d", strtotime("-31 days")) ?>" target="_blank">
                 <div class="col-md-3 text-center">
@@ -73,6 +76,24 @@
                     </div>
                 </div>
             </a>
+        </div>
+        <div class="text-center">
+            <h2>QUANTIDADE DE OS's SEPARADAS POR STATUS</h2>
+        </div>
+        <div class="row">
+           <?php foreach ($status as $s) { ?>
+            <a href="<?php echo base_url() ?>index.php/os/gerenciar?status=<?php echo $s->idStatus ?>" target="_blank">
+                <div class="col-md-3 text-center">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-navy"><i class="ion ion-android-clipboard" target="_blank"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text"><?php echo $s->descricao ?> </span>
+                            <span class="info-box-number"><h2><?php echo $this->dashboard_model->countOsStatus($s->idStatus);?></h2></span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <?php }?>
         </div>
     </div>
 </div>

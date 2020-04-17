@@ -44,7 +44,7 @@
                                 <input type="text" class="form-control" name="descricao" value="<?php echo $result->descricao; ?>">
                             </div>
                         </div>
-                        <div class=" col-md-3">
+                        <div class=" col-md-2">
                             <div class="form-group">
                                 <label>Status</label>
                                 <select class="form-control" name="status">
@@ -57,7 +57,13 @@
                                 </select>
                             </div>
                         </div>
-                        <div class=" col-md-3">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Posição no menu </label>
+                                <input type="text" class="form-control" name="posicaoMenu" value="<?php echo $result->posicaoMenu; ?>">
+                            </div>
+                        </div>
+                        <div class=" col-md-2">
                             <label>Encerra?</label>
                             <select class="form-control" name="encerra">
                                     <option value="0" <?php if ($result->encerra == 0) {
