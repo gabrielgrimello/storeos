@@ -78,16 +78,16 @@ class Os extends CI_Controller {
         if ($dataEntrada) {
             $where_array['dataEntrada'] = $dataEntrada;
         }
-        
+
         if ($dataEntradaMenor) {
             $where_array['dataEntrada <'] = $dataEntradaMenor;
         }
-        
+
         if ($dataEntradaMaior) {
             $where_array['dataEntrada >'] = $dataEntradaMaior;
         }
-        
-         if ($dataAlteracaoMenor) {
+
+        if ($dataAlteracaoMenor) {
             $where_array['dataAlteracao <'] = $dataAlteracaoMenor;
         }
 
@@ -115,7 +115,7 @@ class Os extends CI_Controller {
         $this->pagination->initialize($config);
 
         $this->data['status'] = $this->OS_model->getConfig('status_os', 'idStatus,descricao,encerra');
-        $this->data['results'] = $this->OS_model->get('ordem_servico', 'idOS,nomeCliente,fantasiaCliente,contatoCliente,telefoneCliente,celularCliente,emailCliente,dataEntrada,status', $where_array, $config['per_page'], $this->uri->segment(3), '', 'idos', 'DESC',$whereRazaoOuFantasia);
+        $this->data['results'] = $this->OS_model->get('ordem_servico', 'idOS,nomeCliente,fantasiaCliente,contatoCliente,telefoneCliente,celularCliente,emailCliente,dataEntrada,status', $where_array, $config['per_page'], $this->uri->segment(3), '', 'idos', 'DESC', $whereRazaoOuFantasia);
         $this->load->view('os/gerenciarOS', $this->data);
     }
 
@@ -179,11 +179,7 @@ class Os extends CI_Controller {
         $this->data['countChecklistComputador'] = $this->OS_model->countChecklist('checklist_computador', $whereChecklist);
         $this->data['countChecklistNobreakEstabilizador'] = $this->OS_model->countChecklist('checklist_nobreakestabilizador', $whereChecklist);
         $this->data['equipamento'] = $this->OS_model->getEquipamentoById($this->data['os']->idEquipamento);
-
-//        var_dump($this->data['equipamento']);
-//        $data['servicos'] = $this->proposta_model->getServicos($this->uri->segment(3));
-//        $data['modulos'] = $this->proposta_model->getModulos($this->uri->segment(3));
-//        $data['result'] = $this->proposta_model->getById($this->uri->segment(3));
+        $this->data['checklistNobreakEstabilizador'] = $this->OS_model->getChecklistEquipamento('checklist_nobreakestabilizador', 'idCheckNobEst,idOS,tecnicoAvaliacao,dataAvaliacao,tecnicoReparo,dataReparo', $this->uri->segment(3));
         $this->load->view('os/alterarOS', $this->data);
     }
 
@@ -300,39 +296,46 @@ class Os extends CI_Controller {
             $dados['modelo'] = $this->input->post('modelo');
             $dados['patrimonio'] = $this->input->post('patrimonio');
 
-            $codigoEquipamentoSalvo = $this->OS_model->add('equipamentos_cliente', $dados); // cadastra o equipamento na tabela de equipamentos_cliente
-            if ($codigoEquipamentoSalvo != 0) {//se retornou diferente de 0(OK) pega todos os dados de cliente e equipamento e salva na tabela de ordem_servico
-                $dadosOs['codigoCliente'] = $dadosCliente[0];
-                $dadosClienteGet = file_get_contents('http://localhost:8886/OData/OData.svc/clientes?$filter=codigo eq ' . $dadosCliente[0] . '');
-                $dadosClienteGet = json_decode($dadosClienteGet);
-                var_dump($dadosClienteGet->value[0]);
-                echo $dadosClienteGet->value[0]->codigo;
-                $dadosOs['idEquipamento'] = $codigoEquipamentoSalvo;
-                $dadosOs['codigoCliente'] = $dadosClienteGet->value[0]->codigo;
-                $dadosOs['cnpjCliente'] = $dadosClienteGet->value[0]->cnpj;
-                $dadosOs['nomeCliente'] = $dadosClienteGet->value[0]->nome;
-                $dadosOs['fantasiaCliente'] = $dadosClienteGet->value[0]->fantasia;
-                $dadosOs['enderecoCliente'] = $dadosClienteGet->value[0]->ender;
-                $dadosOs['cidadeCliente'] = $dadosClienteGet->value[0]->cidade;
-                $dadosOs['estadoCliente'] = $dadosClienteGet->value[0]->estado;
-                $dadosOs['emailCliente'] = $dadosClienteGet->value[0]->email;
-                $dadosOs['celularCliente'] = $dadosClienteGet->value[0]->celular;
-                $dadosOs['telefoneCliente'] = $dadosClienteGet->value[0]->fone;
-                $dadosOs['contatoCliente'] = $dadosClienteGet->value[0]->contato;
-                $dadosOs['dataEntrada'] = date('Y/m/d');
-                $dadosOs['dataAlteracao'] = date('Y/m/d');
-                $dadosOs['garantia'] = 0;
-                $dadosOs['status'] = 1;
-                $dadosOs['encerrada'] = "nao";
-                $novaOS = $this->OS_model->add('ordem_servico', $dadosOs);
-                if ($novaOS != 0) {// se ao salvar ficou tudo certo, direciona para a tela de edição de OS
-                    redirect(base_url() . 'index.php/os/editarOS/' . $novaOS);
-                } else {
-                    $this->data['custom_error'] = '<div class="form_error"><p>Ocorreu um erro.</p></div>';
+            if ($this->OS_model->getEquipamentoByNs($this->input->post('serie')) == TRUE) {
+                echo "número de série já cadastrado";
+                header('refresh: 3;adicionarOS');
+            } else {
+
+
+                $codigoEquipamentoSalvo = $this->OS_model->add('equipamentos_cliente', $dados); // cadastra o equipamento na tabela de equipamentos_cliente
+                if ($codigoEquipamentoSalvo != 0) {//se retornou diferente de 0(OK) pega todos os dados de cliente e equipamento e salva na tabela de ordem_servico
+                    $dadosOs['codigoCliente'] = $dadosCliente[0];
+                    $dadosClienteGet = file_get_contents('http://localhost:8886/OData/OData.svc/clientes?$filter=codigo eq ' . $dadosCliente[0] . '');
+                    $dadosClienteGet = json_decode($dadosClienteGet);
+                    var_dump($dadosClienteGet->value[0]);
+                    echo $dadosClienteGet->value[0]->codigo;
+                    $dadosOs['idEquipamento'] = $codigoEquipamentoSalvo;
+                    $dadosOs['codigoCliente'] = $dadosClienteGet->value[0]->codigo;
+                    $dadosOs['cnpjCliente'] = $dadosClienteGet->value[0]->cnpj;
+                    $dadosOs['nomeCliente'] = $dadosClienteGet->value[0]->nome;
+                    $dadosOs['fantasiaCliente'] = $dadosClienteGet->value[0]->fantasia;
+                    $dadosOs['enderecoCliente'] = $dadosClienteGet->value[0]->ender;
+                    $dadosOs['cidadeCliente'] = $dadosClienteGet->value[0]->cidade;
+                    $dadosOs['estadoCliente'] = $dadosClienteGet->value[0]->estado;
+                    $dadosOs['emailCliente'] = $dadosClienteGet->value[0]->email;
+                    $dadosOs['celularCliente'] = $dadosClienteGet->value[0]->celular;
+                    $dadosOs['telefoneCliente'] = $dadosClienteGet->value[0]->fone;
+                    $dadosOs['contatoCliente'] = $dadosClienteGet->value[0]->contato;
+                    $dadosOs['dataEntrada'] = date('Y/m/d');
+                    $dadosOs['dataAlteracao'] = date('Y/m/d');
+                    $dadosOs['garantia'] = 0;
+                    $dadosOs['status'] = 1;
+                    $dadosOs['encerrada'] = "nao";
+                    $novaOS = $this->OS_model->add('ordem_servico', $dadosOs);
+                    if ($novaOS != 0) {// se ao salvar ficou tudo certo, direciona para a tela de edição de OS
+                        redirect(base_url() . 'index.php/os/editarOS/' . $novaOS);
+                    } else {
+                        $this->data['custom_error'] = '<div class="form_error"><p>Ocorreu um erro.</p></div>';
+                    }
                 }
+                $data = $this->OS_model->getConfig('tipo_equipamento', 'idTipo,descricao');
+                $this->load->view('os/selecionarEquipamentoOS', $data);
             }
-            $data = $this->OS_model->getConfig('tipo_equipamento', 'idTipo,descricao');
-            $this->load->view('os/selecionarEquipamentoOS', $data);
         }
     }
 
@@ -469,7 +472,111 @@ class Os extends CI_Controller {
     }
 
     public function adicionarChecklistNobreakEstabilizador() {
-        $this->load->view('os/checklist/adicionarChecklistNobreakEstabilizador');
+        if (!$this->permission->checkPermission($this->session->userdata('permissao'), 'eOS')) {
+            $this->session->set_flashdata('error', 'Você não tem permissão para editar OS.');
+            redirect(base_url() . 'index.php/dashboard');
+        }
+
+        $this->form_validation->set_rules('tecnicoAvaliacao', 'Técnico avaliação', 'trim|required|min_length[3]');
+
+        if ($this->form_validation->run() == FALSE) {//valida se campos estão OK
+            $data['formErrors'] = validation_errors();
+        } else {
+            $dadosChecklist['idOS'] = $this->input->post('idOS');
+            $dadosChecklist['tecnicoAvaliacao'] = $this->input->post('tecnicoAvaliacao');
+            $dadosChecklist['dataAvaliacao'] = $this->input->post('dataAvaliacao');
+            $dadosChecklist['tecnicoReparo'] = $this->input->post('tecnicoReparo');
+            $dadosChecklist['dataReparo'] = $this->input->post('dataReparo');
+            $dadosChecklist['avaliaCarregador'] = $this->input->post('carregadorRadios');
+            $dadosChecklist['obsCarregador'] = $this->input->post('obsCarregador');
+            $dadosChecklist['avaliaEstabilizaRede'] = $this->input->post('estabilizaRadios');
+            $dadosChecklist['obsEstabilizaRede'] = $this->input->post('obsEstabilizaRede');
+            $dadosChecklist['avaliaInverter'] = $this->input->post('inverterRadios');
+            $dadosChecklist['obsInverter'] = $this->input->post('obsInverter');
+            $dadosChecklist['avaliaSeletorTensao'] = $this->input->post('selTensaoRadios');
+            $dadosChecklist['obsSeletorTensao'] = $this->input->post('obsSeletorTensao');
+            $dadosChecklist['avaliaBarraSaida'] = $this->input->post('barraSaidaRadios');
+            $dadosChecklist['obsBarraSaida'] = $this->input->post('obsBarraSaida');
+            $dadosChecklist['avaliaTrafo'] = $this->input->post('trafoRadios');
+            $dadosChecklist['obsTrafo'] = $this->input->post('obsTrafo');
+            $dadosChecklist['avaliaPlaca'] = $this->input->post('placaRadios');
+            $dadosChecklist['obsPlaca'] = $this->input->post('obsPlaca');
+            $dadosChecklist['avaliaBateria'] = $this->input->post('bateriaRadios');
+            $dadosChecklist['modeloBateria'] = $this->input->post('modeloBateriaRadios');
+            $dadosChecklist['outrosModelosBateria'] = $this->input->post('outrosModelosBateria');
+            $dadosChecklist['quantidadeBateria'] = $this->input->post('quantidadeBateriaRadios');
+            $dadosChecklist['outrasQuantidadesBateria'] = $this->input->post('outrasQuantidadesBateria');
+            $dadosChecklist['obsBateria'] = $this->input->post('obsBateria');
+
+            //      var_dump($dadosCkecklist);
+
+            if ($this->OS_model->add('checklist_nobreakestabilizador', $dadosChecklist) == TRUE) {
+                $this->session->set_flashdata('success_msg', 'Checklist adicionado com sucesso!');
+                $this->data['formErrors'] = null;
+                redirect(base_url() . 'index.php/os/editarOS/' . $this->input->post('idOS'));
+            } else {
+                $this->data['custom_error'] = '<div class="form_error"><p>Ocorreu um erro.</p></div>';
+            }
+        }
+        $this->data['idOS'] = $this->uri->segment(3);
+        $this->load->view('os/checklist/adicionarChecklistNobreakEstabilizador', $this->data);
+    }
+
+    public function editarChecklistNobreakEstabilizador() {
+        if (!$this->permission->checkPermission($this->session->userdata('permissao'), 'eOS')) {
+            $this->session->set_flashdata('error', 'Você não tem permissão para editar OS.');
+            redirect(base_url() . 'index.php/dashboard');
+        }
+
+        if (!$this->uri->segment(3) || !is_numeric($this->uri->segment(3))) {
+            $this->session->set_flashdata('error', 'Item não pode ser encontrado, parâmetro não foi passado corretamente.');
+            redirect(base_url() . 'index.php/os/gerenciar');
+        }
+
+        $this->form_validation->set_rules('tecnicoAvaliacao', 'Técnico avaliação', 'trim|required|min_length[3]');
+
+        if ($this->form_validation->run() == FALSE) {//valida se campos estão OK
+            $data['formErrors'] = validation_errors();
+        } else {
+            $dadosChecklist['tecnicoAvaliacao'] = $this->input->post('tecnicoAvaliacao');
+            $dadosChecklist['dataAvaliacao'] = $this->input->post('dataAvaliacao');
+            $dadosChecklist['tecnicoReparo'] = $this->input->post('tecnicoReparo');
+            $dadosChecklist['dataReparo'] = $this->input->post('dataReparo');
+            $dadosChecklist['avaliaCarregador'] = $this->input->post('carregadorRadios');
+            $dadosChecklist['obsCarregador'] = $this->input->post('obsCarregador');
+            $dadosChecklist['avaliaEstabilizaRede'] = $this->input->post('estabilizaRadios');
+            $dadosChecklist['obsEstabilizaRede'] = $this->input->post('obsEstabilizaRede');
+            $dadosChecklist['avaliaInverter'] = $this->input->post('inverterRadios');
+            $dadosChecklist['obsInverter'] = $this->input->post('obsInverter');
+            $dadosChecklist['avaliaSeletorTensao'] = $this->input->post('selTensaoRadios');
+            $dadosChecklist['obsSeletorTensao'] = $this->input->post('obsSeletorTensao');
+            $dadosChecklist['avaliaBarraSaida'] = $this->input->post('barraSaidaRadios');
+            $dadosChecklist['obsBarraSaida'] = $this->input->post('obsBarraSaida');
+            $dadosChecklist['avaliaTrafo'] = $this->input->post('trafoRadios');
+            $dadosChecklist['obsTrafo'] = $this->input->post('obsTrafo');
+            $dadosChecklist['avaliaPlaca'] = $this->input->post('placaRadios');
+            $dadosChecklist['obsPlaca'] = $this->input->post('obsPlaca');
+            $dadosChecklist['avaliaBateria'] = $this->input->post('bateriaRadios');
+            $dadosChecklist['modeloBateria'] = $this->input->post('modeloBateriaRadios');
+            $dadosChecklist['outrosModelosBateria'] = $this->input->post('outrosModelosBateria');
+            $dadosChecklist['quantidadeBateria'] = $this->input->post('quantidadeBateriaRadios');
+            $dadosChecklist['outrasQuantidadesBateria'] = $this->input->post('outrasQuantidadesBateria');
+            $dadosChecklist['obsBateria'] = $this->input->post('obsBateria');
+
+            //      var_dump($dadosCkecklist);
+
+            if ($this->OS_model->edit('checklist_nobreakestabilizador', $dadosChecklist, 'idCheckNobEst', $this->input->post('idCheckNobEst')) == TRUE) {
+                $this->session->set_flashdata('success_msg', 'Checklist atualizado com sucesso!');
+                $this->data['formErrors'] = null;
+                redirect(base_url() . 'index.php/os/editarOS/' . $this->input->post('idOS'));
+            } else {
+                $this->data['custom_error'] = '<div class="form_error"><p>Ocorreu um erro.</p></div>';
+            }
+        }
+
+        $this->data['checklistNobreakEstabilizador'] = $this->OS_model->getByIdChecklistNobreakEstabilizador($this->uri->segment(3));
+        $this->data['idOS'] = $this->uri->segment(3);
+        $this->load->view('os/checklist/alterarChecklistNobreakEstabilizador', $this->data);
     }
 
     public function pesquisaProduto() {
@@ -560,6 +667,16 @@ class Os extends CI_Controller {
         }
     }
 
+    function excluirChecklistNobreakEstabilizador() {
+        $idChecklistNobreakEstabilizadorExcluir = $this->input->post('idChecklistNobreakEstabilizadorExcluir');
+        $idOS = $this->input->post('idOS');
+        if ($this->OS_model->delete('checklist_nobreakestabilizador', 'idCheckNobEst', $idChecklistNobreakEstabilizadorExcluir) == true) {
+            redirect(base_url() . 'index.php/os/editarOS/' . $idOS);
+        } else {
+            echo json_encode(array('result' => false));
+        }
+    }
+
     function excluirOS() {
         $idOS = $this->input->post('idOSExcluir');
 
@@ -627,7 +744,7 @@ class Os extends CI_Controller {
 
         $this->pagination->initialize($config);
 
-        $this->data['results'] = $this->OS_model->get('status_os', 'idStatus,descricao,status,posicaoMenu,encerra', '', $config['per_page'], $this->uri->segment(3), '', 'idStatus', '','');
+        $this->data['results'] = $this->OS_model->get('status_os', 'idStatus,descricao,status,posicaoMenu,encerra', '', $config['per_page'], $this->uri->segment(3), '', 'idStatus', '', '');
 
         $this->load->view('os/config/status/gerenciarStatus', $this->data);
     }
@@ -730,7 +847,7 @@ class Os extends CI_Controller {
 
         $this->pagination->initialize($config);
 
-        $this->data['results'] = $this->OS_model->get('tipo_equipamento', 'idTipo,descricao,status', '', $config['per_page'], $this->uri->segment(3), '', 'idTipo', '','');
+        $this->data['results'] = $this->OS_model->get('tipo_equipamento', 'idTipo,descricao,status', '', $config['per_page'], $this->uri->segment(3), '', 'idTipo', '', '');
 
         $this->load->view('os/config/tipo/gerenciarTiposEquipamentos', $this->data);
     }

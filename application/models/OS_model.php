@@ -32,8 +32,8 @@ class OS_model extends CI_Model {
 
         return FALSE;
     }
-    
-    function get($table, $fields, $where = '', $perpage = 0, $start = 0, $one = false, $campoOrdem, $tipoOrdem,$whereRazaoOuFantasia) {
+
+    function get($table, $fields, $where = '', $perpage = 0, $start = 0, $one = false, $campoOrdem, $tipoOrdem, $whereRazaoOuFantasia) {
 
         $this->db->select($fields);
         $this->db->from($table);
@@ -43,15 +43,23 @@ class OS_model extends CI_Model {
             $this->db->where($where);
         }
         if ($whereRazaoOuFantasia) {
-            $this->db->like($whereDataEntrada);
+            $this->db->like($whereRazaoOuFantasia);
         }
-        
+
         $query = $this->db->get();
 
         $result = !$one ? $query->result() : $query->row();
         return $result;
     }
-   
+
+    function getEquipamentoByNs($ns) {
+        $this->db->select('*');
+        $this->db->from('equipamentos_cliente');
+        $this->db->where('serie', $ns);
+        $this->db->limit(1);
+        return $this->db->get()->row();
+    }
+
     function getEquipamentoById($id) {
         $this->db->select('*');
         $this->db->from('equipamentos_cliente');
@@ -65,8 +73,8 @@ class OS_model extends CI_Model {
         $this->db->from($table);
         return $this->db->count_all_results();
     }
-    
-    function countChecklist($table,$whereOS) {
+
+    function countChecklist($table, $whereOS) {
         $this->db->select('*');
         $this->db->from($table);
         $this->db->where($whereOS);
@@ -111,21 +119,35 @@ class OS_model extends CI_Model {
         $this->db->from($table);
         return $this->db->get()->result();
     }
-    
+
+    function getChecklistEquipamento($table, $fields, $where) {
+
+        $this->db->select($fields);
+        $this->db->from($table);
+        $this->db->where('idOS', $where);
+        return $this->db->get()->result();
+    }
+
+    function getByIdChecklistNobreakEstabilizador($id) {
+        $this->db->where('idCheckNobEst', $id);
+        $this->db->limit(1);
+        return $this->db->get('checklist_nobreakestabilizador')->row();
+    }
+
     function getStatusEncerrado() {
 
         $this->db->select('*');
         $this->db->from('status_os');
-        $this->db->where('encerra',1);
+        $this->db->where('encerra', 1);
         return $this->db->get()->result();
     }
-    
+
     function getStatusAberto() {
 
         $this->db->select('*');
         $this->db->from('status_os');
         $this->db->order_by('posicaoMenu', 'ASC');
-        $this->db->where('encerra',0);
+        $this->db->where('encerra', 0);
         return $this->db->get()->result();
     }
 
@@ -177,8 +199,8 @@ class OS_model extends CI_Model {
 
         return FALSE;
     }
-    
-     public function getTimeline($id = null) {
+
+    public function getTimeline($id = null) {
 
         $this->db->select('*');
         $this->db->from('timeline_os');
