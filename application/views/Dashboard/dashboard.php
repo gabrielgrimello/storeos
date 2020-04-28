@@ -76,6 +76,18 @@
                     </div>
                 </div>
             </a>
+            <a href="<?php echo base_url() ?>index.php/os/gerenciar?encerrada=sim&dataEncerraMaior=<?php echo date("Y-m-d", strtotime("-7 days")) ?>">
+                <div class="col-md-3 text-center" target="_blank">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-purple-active"><i class="ion ion-android-desktop" ></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">OS fechadas últimos 7 dias</span>
+                            <span class="info-box-number"><h2><strong><?php echo $totalFechadas7dias ?></strong></h2></span>
+                        </div>
+                    </div>
+                </div>
+            </a>
         </div>
         <div class="text-center">
             <h2>QUANTIDADE DE OS's SEPARADAS POR STATUS</h2>

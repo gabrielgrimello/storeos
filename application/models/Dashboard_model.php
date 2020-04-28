@@ -28,6 +28,13 @@ class Dashboard_model extends CI_Model {
         return $this->db->count_all_results();
     }
     
+    function count_fechadas_ultimos_7dias($table,$data) {
+        $this->db->from($table);
+        $this->db->where('dataEncerra >=', $data);
+         $this->db->where('encerrada', "sim");
+        return $this->db->count_all_results();
+    }
+    
      function count_garantia_prox_prazo($table,$data) {
         $this->db->from($table);
         $this->db->where('encerrada', 'nao');

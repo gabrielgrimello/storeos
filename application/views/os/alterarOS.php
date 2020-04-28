@@ -49,13 +49,18 @@
                         <form action="<?php echo current_url(); ?>" method="post">
                             <div class="box box-success" >
                                 <div class="box-header with-border">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <h3 class="box-title">DADOS DO CLIENTE </h3>
                                     </div>
 
-                                    <div class="col-md-4 text-center">
+                                    <div class="col-md-2 text-center">
                                         <h3 class="box-title">ORDEM DE SERVIÇO 
                                             <span class="label label-danger"><?php echo $os->idOS; ?></span>
+                                        </h3>
+                                    </div>
+                                    <div class="col-md-3 text-center">
+                                        <h3 class="box-title">TOTAL <a href="<?php echo base_url(); ?>index.php/os/editarOS/<?php echo $os->idOS; ?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-refresh"></i></a>
+                                            <span class="label label-danger" data-toggle="tooltip" data-placement="top" title="Tooltip on top"><?php echo "R$ ".number_format($totalGeral, 2); ?></span>
                                         </h3>
                                     </div>
                                     <div class="col-md-4 text-right">
@@ -67,6 +72,8 @@
                                 </div>
                                 <div class="box-body">
                                     <input type="hidden" name="idOS" id="idOS" value="<?php echo $os->idOS; ?>">
+                                    <input type="hidden" name="valorTotal" id="valorTotal" value="<?php echo $totalGeral; ?>">
+                                    
                                     <div class="form-group col-md-2">
                                         <label>Código</label>
                                         <input type="text" class="form-control" id="codigo" name="codigo" readonly="" value="<?php echo $os->codigoCliente; ?>">
@@ -545,10 +552,10 @@
                                     <tbody>
 
                                         <?php
-                                        $total = 0;
+                                        $totalPecas = 0;
                                         foreach ($pecas as $p) {
 
-                                            $total = $total + $p->total;
+                                            $totalPecas = $totalPecas + $p->total;
                                             echo '<tr>';
                                             echo '<td>' . $p->codigoProduto . '</td>';
                                             echo '<td>' . $p->descricao . '</td>';
@@ -562,7 +569,7 @@
 
                                         <tr>
                                             <td colspan="4" style="text-align: right"><strong>Total:</strong></td>
-                                            <td><strong>R$ <?php echo number_format($total, 2, ',', '.'); ?><input type="hidden" id="total-venda" value="<?php echo number_format($total, 2); ?>"></strong></td>
+                                            <td><strong>R$ <?php echo number_format($totalPecas, 2, ',', '.'); ?><input type="hidden" id="total-venda" value="<?php echo number_format($totalPecas, 2); ?>"></strong></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -613,10 +620,10 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $total = 0;
+                                        $totalServicos = 0;
                                         foreach ($servicos as $s) {
 
-                                            $total = $total + $s->total;
+                                            $totalServicos = $totalServicos + $s->total;
                                             echo '<tr>';
                                             echo '<td>' . $s->codigoServico . '</td>';
                                             echo '<td>' . $s->descricao . '</td>';
@@ -629,7 +636,7 @@
                                         ?>
                                         <tr>
                                             <td colspan="4" style="text-align: right"><strong>Total:</strong></td>
-                                            <td><strong>R$ <?php echo number_format($total, 2, ',', '.'); ?><input type="hidden" id="total-venda" value="<?php echo number_format($total, 2); ?>"></strong></td>
+                                            <td><strong>R$ <?php echo number_format($totalServicos, 2, ',', '.'); ?><input type="hidden" id="total-venda" value="<?php echo number_format($totalServicos, 2); ?>"></strong></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -639,7 +646,6 @@
                 </div>
             </div>
         </div>
-
 </section>
 <?php $this->load->view('os/script'); ?>
 <?php $this->load->view('template/footer'); ?>

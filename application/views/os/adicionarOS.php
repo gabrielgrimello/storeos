@@ -45,7 +45,7 @@
                             </div>
                         </div>
                         <div class="form-group col-md-12">
-                            <input type="text" class="form-control" id="cliente" name="cliente" required="" minlength="11" placeholder="Pesquise aqui...">
+                            <input type="text" class="form-control" id="cliente" name="cliente" required="" minlength="16" placeholder="Pesquise aqui...">
                         </div>
 
                     </div> <!-- /.box-body -->
