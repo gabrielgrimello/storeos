@@ -59,8 +59,8 @@
                                         </h3>
                                     </div>
                                     <div class="col-md-3 text-center">
-                                        <h3 class="box-title">TOTAL <a href="<?php echo base_url(); ?>index.php/os/editarOS/<?php echo $os->idOS; ?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-refresh"></i></a>
-                                            <span class="label label-danger" data-toggle="tooltip" data-placement="top" title="Tooltip on top"><?php echo "R$ ".number_format($totalGeral, 2); ?></span>
+                                        <h3 class="box-title" data-toggle="tooltip" data-placement="top" title="Botão serve para recarregar a página e atualizar o valor total">TOTAL <a href="<?php echo base_url(); ?>index.php/os/editarOS/<?php echo $os->idOS; ?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-refresh"></i></a>
+                                            <span class="label label-danger" ><?php echo "R$ ".number_format($totalGeral, 2); ?></span>
                                         </h3>
                                     </div>
                                     <div class="col-md-4 text-right">
