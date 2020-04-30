@@ -85,6 +85,7 @@
                                     <thead>
                                         <tr style="backgroud-color: #2D335B">
                                             <th>OS</th>
+                                            <th>Equipamento</th>
                                             <th>Cliente</th>
                                             <th>Contato</th>
                                             <th>Telefone</th>
@@ -114,6 +115,7 @@
                                     <thead>
                                         <tr style="backgroud-color: #2D335B">
                                             <th>OS</th>
+                                            <th>Equipamento</th>
                                             <th>Cliente</th>
                                             <th>Contato</th>
                                             <th>Telefone</th>
@@ -127,6 +129,19 @@
                                         <?php foreach ($results as $r) { ?>
                                             <tr> 
                                                 <td class="text-middle ng-binding"><?php echo $r->idOS; ?></td>
+                                                <td class="text-middle ng-binding">
+                                                    <?php
+                                                    foreach ($equipamento as $valueEquipamento) {
+                                                        if ($r->idEquipamento == $valueEquipamento->idEquipamento) {
+                                                           foreach ($tipoEquipamento as $valueTipo) {
+                                                               if ($valueTipo->idTipo == $valueEquipamento->tipo) {
+                                                                   echo $valueTipo->descricao;
+                                                               }
+                                                           }
+                                                        }
+                                                    }
+                                                    ?>
+                                                </td>
                                                 <td width="32%" class="text-middle ng-binding"><?php echo $r->nomeCliente . " / " . $r->fantasiaCliente; ?></td> 
                                                 <td class="text-middle ng-binding"><?php echo $r->contatoCliente; ?></td> 
                                                 <td class="text-middle ng-binding"><?php echo $r->telefoneCliente . " / " . $r->celularCliente ?></td> 
