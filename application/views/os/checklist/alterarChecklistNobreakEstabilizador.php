@@ -40,7 +40,7 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="carregadorRadios" value="ok" required="" <?php if($checklistNobreakEstabilizador->avaliaCarregador=="ok") {echo "checked";}  ?>>
+                                        <input type="radio" name="carregadorRadios" value="ok" <?php if($checklistNobreakEstabilizador->avaliaCarregador=="ok") {echo "checked";}  ?>>
                                         Carregador OK
                                     </label>
                                 </div>
@@ -72,7 +72,7 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="estabilizaRadios" value="ok" required="" <?php if($checklistNobreakEstabilizador->avaliaEstabilizaRede=="ok") {echo "checked";}  ?>>
+                                        <input type="radio" name="estabilizaRadios" value="ok" <?php if($checklistNobreakEstabilizador->avaliaEstabilizaRede=="ok") {echo "checked";}  ?>>
                                         Estabiliza rede OK
                                     </label>
                                 </div>
@@ -104,7 +104,7 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="inverterRadios" value="ok" required="" <?php if($checklistNobreakEstabilizador->avaliaInverter=="ok") {echo "checked";}  ?>>
+                                        <input type="radio" name="inverterRadios" value="ok" <?php if($checklistNobreakEstabilizador->avaliaInverter=="ok") {echo "checked";}  ?>>
                                         Inverter OK
                                     </label>
                                 </div>
@@ -136,7 +136,7 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="selTensaoRadios" value="ok" required="" <?php if($checklistNobreakEstabilizador->avaliaSeletorTensao=="ok") {echo "checked";}  ?> >
+                                        <input type="radio" name="selTensaoRadios" value="ok" <?php if($checklistNobreakEstabilizador->avaliaSeletorTensao=="ok") {echo "checked";}  ?> >
                                         Sel. tensão OK
                                     </label>
                                 </div>
@@ -168,7 +168,7 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="barraSaidaRadios" value="ok" required="" <?php if($checklistNobreakEstabilizador->avaliaBarraSaida=="ok") {echo "checked";}  ?> >
+                                        <input type="radio" name="barraSaidaRadios" value="ok" <?php if($checklistNobreakEstabilizador->avaliaBarraSaida=="ok") {echo "checked";}  ?> >
                                         Barra de saída OK
                                     </label>
                                 </div>
@@ -200,7 +200,7 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="trafoRadios" value="ok" required=""  <?php if($checklistNobreakEstabilizador->avaliaTrafo=="ok") {echo "checked";}  ?>>
+                                        <input type="radio" name="trafoRadios" value="ok" <?php if($checklistNobreakEstabilizador->avaliaTrafo=="ok") {echo "checked";}  ?>>
                                         Trafo OK
                                     </label>
                                 </div>
@@ -240,7 +240,7 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="placaRadios" value="ok" required="" <?php if($checklistNobreakEstabilizador->avaliaPlaca=="ok") {echo "checked";}  ?>>
+                                        <input type="radio" name="placaRadios" value="ok" <?php if($checklistNobreakEstabilizador->avaliaPlaca=="ok") {echo "checked";}  ?>>
                                         Placa OK
                                     </label>
                                 </div>

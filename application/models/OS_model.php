@@ -133,6 +133,12 @@ class OS_model extends CI_Model {
         $this->db->limit(1);
         return $this->db->get('checklist_nobreakestabilizador')->row();
     }
+    
+    function getByIdChecklistComputador($id) {
+        $this->db->where('idCheckComputador', $id);
+        $this->db->limit(1);
+        return $this->db->get('checklist_computador')->row();
+    }
 
     function getStatusEncerrado() {
 

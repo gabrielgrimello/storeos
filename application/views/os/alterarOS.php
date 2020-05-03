@@ -174,8 +174,8 @@
                                     <div class="form-group col-md-4 text-right">
 
                                         <br>
-                                        <a href="<?php echo base_url(); ?>index.php/os/alterarEquipamentoOsExistente/<?php echo $os->idOS; ?>/<?php echo $os->codigoCliente; ?>" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-credit-card"></i> Alterar equipamento</a>
-                                        <a href="<?php echo base_url(); ?>index.php/os/editarEquipamentos/<?php echo $os->idOS; ?>/<?php echo $equipamento->idEquipamento; ?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-credit-card"></i> Editar dados do equipamento</a>
+                                        <a data-toggle="tooltip" data-placement="top" title="Aqui você altera o equipamento atual por outro equipamento." href="<?php echo base_url(); ?>index.php/os/alterarEquipamentoOsExistente/<?php echo $os->idOS; ?>/<?php echo $os->codigoCliente; ?>" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-credit-card"></i> Alterar equipamento</a>
+                                        <a data-toggle="tooltip" data-placement="top" title="Aqui você edita informações do equipamento como marca, modelo, serie, etc" href="<?php echo base_url(); ?>index.php/os/editarEquipamentos/<?php echo $os->idOS; ?>/<?php echo $equipamento->idEquipamento; ?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-credit-card"></i> Editar dados do equipamento</a>
                                     </div>
                                 </div>
                             </div>
@@ -405,32 +405,79 @@
                     <!-- ABA CHECKLIST-->
                     <div class="tab-pane" id="tab_3-3">
                         <?php if ($equipamento->tipo == 3 and $countChecklistComputador == 0) { ?>
-                            <a href="<?php echo base_url(); ?>index.php/os/adicionarChecklistComputador" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-plus-sign"></i> Adicionar Checklist</a>
+                            <a href="<?php echo base_url(); ?>index.php/os/adicionarChecklistComputador/<?php echo $os->idOS; ?>" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-plus-sign"></i> Adicionar Checklist</a>
                         <?php } ?>
                         <?php if (($equipamento->tipo == 1 or $equipamento->tipo == 2) and $countChecklistNobreakEstabilizador == 0) { ?>
                             <a href="<?php echo base_url(); ?>index.php/os/adicionarChecklistNobreakEstabilizador/<?php echo $os->idOS; ?>" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-plus-sign"></i> Adicionar Checklist</a>
                         <?php } ?>
                         <?php if ($equipamento->tipo == 3 and $countChecklistComputador > 0) { ?>
                             <div class="box box-success">
-                                <div class="box-header with-border">
-                                    <h3 class="box-title">Checklist Computador</h3>
-                                </div>
-                                <div class="box-body">
-                                    <form action="<?php echo base_url() ?>index.php/os/alterarChecklistComputador" method="post">
-                                        <div class="col-md-9">
-                                            <input type="hidden" name="idOS" id="idOS" value="<?php echo $os->idOS ?>" />
-                                            <label for="">Serviço</label>
-                                            <input type="text" name="servico" id="servico" class="form-control" placeholder="Digite o serviço">
-                                        </div>
-                                        <div class="col-md-2">
-                                            <label >Quantidade</label>
-                                            <input type="number" id="quantidadeserv" name="quantidadeserv" value="1" class="form-control" />
-                                        </div>
-                                        <div class="col-md-1">
-                                            <br>
-                                            <button class="btn btn-success span12" id="btnAdicionarServico"><i class="fa fa-plus"></i></button>
-                                        </div>
-                                    </form>
+                                <div class="widget-box">
+                                    <div class="widget-title">
+                                        <span class="icon">
+                                            <i class="icon-barcode"></i>
+                                        </span>
+                                    </div>
+                                    <div class="widget-content nopadding table-responsive">
+                                        <table class="table table-bordered table-hover table-striped table-condensed ">
+                                            <thead>
+                                                <tr style="backgroud-color: #2D335B">
+                                                    <th>ID checklist</th>
+                                                    <th>Técnico avaliação</th>
+                                                    <th>Data Avaliação</th>
+                                                    <th>Técnico reparo</th>
+                                                    <th>Data Reparo</th>
+                                                    <th>Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach ($checklistComputador as $r) { ?>
+                                                    <tr> 
+                                                        <td class="text-middle ng-binding"><?php echo $r->idCheckComputador; ?></td>
+                                                        <td class="text-middle ng-binding"><?php echo $r->tecnicoAvaliacao; ?></td> 
+                                                        <td class="text-middle ng-binding"><?php echo $r->dataAvaliacao; ?></td> 
+                                                        <td class="text-middle ng-binding"><?php echo $r->tecnicoReparo; ?></td> 
+                                                        <td class="text-middle ng-binding"><?php echo $r->dataReparo; ?></td> 
+                                                        <td class="text-center text-middle ng-binding">
+                                                            <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'eOS')) { ?>
+                                                                <a title="editar" href="<?php echo base_url() ?>index.php/os/editarChecklistComputador/<?php echo $r->idCheckComputador; ?>" class="btn btn-primary btn-xs "><i class="fa-fw glyphicon glyphicon-edit"></i> </a>
+                                                               <?php } ?>
+                                                               <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'dOS')) { ?>
+                                                                <a title="excluir"  class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger<?php echo $r->idCheckComputador; ?>"><i class="fa-fw glyphicon glyphicon-trash"></i> </a>
+                                                            <?php } ?>
+                                                            <!--MODAL BOTÃO EXCLUIR-->
+                                                            <div class="modal modal-default fade" id="modal-danger<?php echo $r->idCheckComputador; ?>">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">×</span></button>
+                                                                            <h4 class="modal-title">Deseja excluir o checklist da OS <?php echo $r->idOS; ?>?</h4>
+                                                                        </div>
+                                                                        <form action="<?php echo base_url() ?>index.php/os/excluirChecklistComputador" method="post">
+                                                                            <input type="hidden" id="idChecklistNobreakEstabilizadorExcluir" name="idChecklistComputadorExcluir" value="<?php echo $r->idCheckComputador; ?>">
+                                                                            <input type="hidden" id="idOS" name="idOS" value="<?php echo $r->idOS; ?>">
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-primary pull-left" data-dismiss="modal">Desistir</button>
+                                                                                <button type="submit" class="btn btn-danger ">Excluir<i class="icon-remove icon-white"></i></button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div><!-- /.modal-content -->
+                                                                </div><!-- /.modal-dialog -->
+                                                            </div>
+                                                            <!--MODAL BOTÃO EXCLUIR-->
+                                                        </td>
+                                                    </tr>
+
+                                                    <?php
+                                                }
+                                                ?>
+                                                <tr>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         <?php } ?>

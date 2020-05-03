@@ -39,7 +39,7 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="carregadorRadios" value="ok" required="" >
+                                        <input type="radio" name="carregadorRadios" value="ok" >
                                         Carregador OK
                                     </label>
                                 </div>
@@ -71,7 +71,7 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="estabilizaRadios" value="ok" required="">
+                                        <input type="radio" name="estabilizaRadios" value="ok">
                                         Estabiliza rede OK
                                     </label>
                                 </div>
@@ -103,7 +103,7 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="inverterRadios" value="ok" required="" >
+                                        <input type="radio" name="inverterRadios" value="ok">
                                         Inverter OK
                                     </label>
                                 </div>
@@ -135,7 +135,7 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="selTensaoRadios" value="ok" required="" >
+                                        <input type="radio" name="selTensaoRadios" value="ok">
                                         Sel. tensão OK
                                     </label>
                                 </div>
@@ -167,7 +167,7 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="barraSaidaRadios" value="ok" required="" >
+                                        <input type="radio" name="barraSaidaRadios" value="ok">
                                         Barra de saída OK
                                     </label>
                                 </div>
@@ -199,7 +199,7 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="trafoRadios" value="ok" required="" >
+                                        <input type="radio" name="trafoRadios" value="ok">
                                         Trafo OK
                                     </label>
                                 </div>
@@ -239,7 +239,7 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="placaRadios" value="ok" required="">
+                                        <input type="radio" name="placaRadios" value="ok">
                                         Placa OK
                                     </label>
                                 </div>
