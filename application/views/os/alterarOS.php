@@ -404,13 +404,13 @@
                     </div>
                     <!-- ABA CHECKLIST-->
                     <div class="tab-pane" id="tab_3-3">
-                        <?php if ($equipamento->tipo == 3 and $countChecklistComputador == 0) { ?>
+                        <?php if (($equipamento->tipo == 3 or $equipamento->tipo == 10) and $countChecklistComputador == 0) { ?>
                             <a href="<?php echo base_url(); ?>index.php/os/adicionarChecklistComputador/<?php echo $os->idOS; ?>" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-plus-sign"></i> Adicionar Checklist</a>
                         <?php } ?>
                         <?php if (($equipamento->tipo == 1 or $equipamento->tipo == 2) and $countChecklistNobreakEstabilizador == 0) { ?>
                             <a href="<?php echo base_url(); ?>index.php/os/adicionarChecklistNobreakEstabilizador/<?php echo $os->idOS; ?>" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-plus-sign"></i> Adicionar Checklist</a>
                         <?php } ?>
-                        <?php if ($equipamento->tipo == 3 and $countChecklistComputador > 0) { ?>
+                        <?php if (($equipamento->tipo == 3 or $equipamento->tipo == 10) and $countChecklistComputador > 0) { ?>
                             <div class="box box-success">
                                 <div class="widget-box">
                                     <div class="widget-title">
