@@ -97,7 +97,7 @@ class Os extends CI_Controller {
         }
 
         $config['base_url'] = base_url() . 'index.php/os/gerenciar';
-        $config['total_rows'] = $this->OS_model->countGerenciar('ordem_servico', $where_array);
+        $config['total_rows'] = $this->OS_model->countGerenciar('ordem_servico', $where_array,$whereRazaoOuFantasia);
         $config['per_page'] = 20;
         $config['next_link'] = 'Próxima';
         $config['prev_link'] = 'Anterior';

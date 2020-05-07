@@ -81,11 +81,14 @@ class OS_model extends CI_Model {
         return $this->db->count_all_results();
     }
 
-    function countGerenciar($table, $where) {
+    function countGerenciar($table, $where, $whereRazaoOuFantasia) {
         $this->db->select('*');
         $this->db->from($table);
         if ($where) {
             $this->db->where($where);
+        }
+        if ($whereRazaoOuFantasia) {
+            $this->db->where($whereRazaoOuFantasia);
         }
         return $this->db->count_all_results();
     }
