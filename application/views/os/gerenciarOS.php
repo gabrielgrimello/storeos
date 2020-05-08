@@ -120,7 +120,8 @@
                                             <th>Contato</th>
                                             <th>Telefone</th>
                                             <th>E-mail</th>
-                                            <th>Data entrada</th>
+                                            <th>Entrada</th>
+                                            <th>Saída</th>
                                             <th>Status</th>
                                             <th>Ações</th>
                                         </tr>
@@ -133,11 +134,11 @@
                                                     <?php
                                                     foreach ($equipamento as $valueEquipamento) {
                                                         if ($r->idEquipamento == $valueEquipamento->idEquipamento) {
-                                                           foreach ($tipoEquipamento as $valueTipo) {
-                                                               if ($valueTipo->idTipo == $valueEquipamento->tipo) {
-                                                                   echo $valueTipo->descricao;
-                                                               }
-                                                           }
+                                                            foreach ($tipoEquipamento as $valueTipo) {
+                                                                if ($valueTipo->idTipo == $valueEquipamento->tipo) {
+                                                                    echo $valueTipo->descricao;
+                                                                }
+                                                            }
                                                         }
                                                     }
                                                     ?>
@@ -147,6 +148,7 @@
                                                 <td class="text-middle ng-binding"><?php echo $r->telefoneCliente . " / " . $r->celularCliente ?></td> 
                                                 <td class="text-middle ng-binding"><?php echo $r->emailCliente; ?></td> 
                                                 <td class="text-middle ng-binding"><?php echo $r->dataEntrada; ?></td> 
+                                                <td class="text-middle ng-binding"><?php echo $r->dataEncerra; ?></td> 
                                                 <td class="text-middle ng-binding">
                                                     <?php
                                                     foreach ($status as $value) {

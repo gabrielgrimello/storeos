@@ -120,7 +120,7 @@ class Os extends CI_Controller {
         $this->pagination->initialize($config);
 
         $this->data['status'] = $this->OS_model->getConfig('status_os', 'idStatus,descricao,encerra');
-        $this->data['results'] = $this->OS_model->get('ordem_servico', 'idOS,idEquipamento,nomeCliente,fantasiaCliente,contatoCliente,telefoneCliente,celularCliente,emailCliente,dataEntrada,status', $where_array, $config['per_page'], $this->uri->segment(3), '', 'idos', 'DESC', $whereRazaoOuFantasia);
+        $this->data['results'] = $this->OS_model->get('ordem_servico', 'idOS,idEquipamento,nomeCliente,fantasiaCliente,contatoCliente,telefoneCliente,celularCliente,emailCliente,dataEntrada,status,dataEncerra,encerrada', $where_array, $config['per_page'], $this->uri->segment(3), '', 'idos', 'DESC', $whereRazaoOuFantasia);
         $this->data['equipamento'] = $this->OS_model->getConfig('equipamentos_cliente', 'idEquipamento,tipo');
         $this->data['tipoEquipamento'] = $this->OS_model->getConfig('tipo_equipamento', 'idTipo,descricao');
         $this->load->view('os/gerenciarOS', $this->data);
