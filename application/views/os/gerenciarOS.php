@@ -147,8 +147,8 @@
                                                 <td class="text-middle ng-binding"><?php echo $r->contatoCliente; ?></td> 
                                                 <td class="text-middle ng-binding"><?php echo $r->telefoneCliente . " / " . $r->celularCliente ?></td> 
                                                 <td class="text-middle ng-binding"><?php echo $r->emailCliente; ?></td> 
-                                                <td class="text-middle ng-binding"><?php echo $r->dataEntrada; ?></td> 
-                                                <td class="text-middle ng-binding"><?php echo $r->dataEncerra; ?></td> 
+                                                <td class="text-middle ng-binding"><?php $dateEntrada = date_create_from_format('Y-m-d', $r->dataEntrada); echo date_format($dateEntrada, 'd-m-Y'); ?></td> 
+                                                <td class="text-middle ng-binding"><?php if($r->dataEncerra != NULL){  $dateSaida = date_create_from_format('Y-m-d', $r->dataEncerra); echo date_format($dateSaida, 'd-m-Y'); }?></td> 
                                                 <td class="text-middle ng-binding">
                                                     <?php
                                                     foreach ($status as $value) {
