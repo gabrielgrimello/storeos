@@ -694,7 +694,6 @@
             </div>
         </div>
 </section>
-<?php $this->load->view('os/script'); ?>
 <?php $this->load->view('template/footer'); ?>
 
 <script type="text/javascript">

@@ -13,7 +13,6 @@
 <section class="content">
 
     <form action="<?php echo base_url() ?>index.php/os/selecionarEquipamento" method="post">
-
         <div class="row">
             <div class="col-md-12">
                 <div class="box box-success">

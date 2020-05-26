@@ -490,6 +490,10 @@ class Os extends CI_Controller {
             echo $data;
         }
     }
+    
+    public function botaoAlterarOS(){
+       redirect(base_url() . 'index.php/os/editarOS/' . $this->input->post('idOSAlterar'));
+    }
 
     public function adicionarChecklistNobreakEstabilizador() {
         if (!$this->permission->checkPermission($this->session->userdata('permissao'), 'eOS')) {

@@ -57,12 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <script src="<?php echo base_url('assets/fullcalendar/packages/list/main.js') ?>"></script>
         <script src="<?php echo base_url('assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') ?>"></script>
 
-        <script>
-            function alterarOS() {
-                var idOSAlterar = document.getElementById('idOSAlterar');
-                window.location.href = '<?php echo base_url() ?>index.php/os/editarOS/' + idOSAlterar.value;
-            }
-        </script>
+        
         <!--        
         USEI NO SELECT2 - desabilitei para ver se fazia diferença
         
@@ -106,11 +101,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </li>
 
                                 <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'mOS')) { ?>
-                                        <!--                                    <li class="<?= ($this->router->fetch_class() == 'calendario') ? 'active' : null; ?>">
-                                                                                <a href="<?php echo base_url() ?>index.php/calendario">
-                                                                                    <i class="fa fa-calendar"></i> <span>Calendario</span>
-                                                                                </a>
-                                                                            </li>-->
+                                            <!--                                    <li class="<?= ($this->router->fetch_class() == 'calendario') ? 'active' : null; ?>">
+                                                                                    <a href="<?php echo base_url() ?>index.php/calendario">
+                                                                                        <i class="fa fa-calendar"></i> <span>Calendario</span>
+                                                                                    </a>
+                                                                                </li>-->
                                 <?php } ?>
                                 <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'mBiblioteca')) { ?>
                                     <!--                                    <li>
@@ -322,16 +317,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-md-12">
+                                <form action="<?php echo base_url() ?>index.php/os/botaoAlterarOS" method="post">
                                     <div class="col-md-12">
-                                        <input type="text" name="idOSAlterar" id="idOSAlterar" class="form-control">
+                                        <div class="col-md-12">
+                                            <input type="text" name="idOSAlterar" id="idOSAlterar" class="form-control">
+                                        </div>
+                                        <br> <br>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary pull-left" data-dismiss="modal">Desistir</button>
+                                            <button type="submit" class="btn btn-success ">Abrir OS</button>
+                                        </div>
                                     </div>
-                                    <br> <br>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary pull-left" data-dismiss="modal">Desistir</button>
-                                        <button onclick="alterarOS()" class="btn btn-success ">Abrir OS<i class="icon-remove icon-white"></i></button>
-                                    </div>
-                                </div>
+                                </form>
                             </div>
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal-dialog -->

@@ -19,6 +19,10 @@ class Teste extends CI_Controller {
     public function teste() {
         $this->load->view('teste/teste2');
     }
+    
+    public function alterarOS(){
+       redirect(base_url() . 'index.php/os/editarOS/' . $this->input->post('idOSAlterar'));
+    }
 
     public function select2() {
         $term = $this->input->get('term');
