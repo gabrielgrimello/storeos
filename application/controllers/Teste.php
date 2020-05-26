@@ -11,19 +11,81 @@ class Teste extends CI_Controller {
 //        }
 
         $this->load->model('teste_model');
+        $this->load->model('OS_model');
+
         $this->load->library('javascript', 'jquery', 'ajax');
     }
+
     public function teste() {
         $this->load->view('teste/teste2');
+    }
+
+    public function select2() {
+        $term = $this->input->get('term');
+        $tipo = $this->input->get('tipo');
+
+        if ($tipo == "cpf") {
+            $this->db->like('nome', $term);
+            $data = file_get_contents('http://localhost:8886/OData/OData.svc/clientes?$filter=cnpj%20like%20(%27%%25' . $term . '%%25%27)');
+            echo $data;
+        }
+        if ($tipo == "razao") {
+            $this->db->like('nome', $term);
+            $data = file_get_contents('http://localhost:8886/OData/OData.svc/clientes?$filter=nome%20like%20(%27%%25' . $term . '%%25%27)');
+            echo $data;
+        }
+
+        if ($tipo == "fantasia") {
+            $this->db->like('nome', $term);
+            $data = file_get_contents('http://localhost:8886/OData/OData.svc/clientes?$filter=fantasia%20like%20(%27%%25' . $term . '%%25%27)');
+            echo $data;
+        }
+    }
+
+    public function select2result() {
+        if (!$this->permission->checkPermission($this->session->userdata('permissao'), 'eOS')) {
+            $this->session->set_flashdata('error', 'Você não tem permissão para editar OS.');
+            redirect(base_url() . 'index.php/dashboard');
+        }
+        $this->form_validation->set_rules('select', 'Select', 'required'); // recebe informação carregada do form da view adicionarOS
+
+        if ($this->form_validation->run() == FALSE) {//valida se o campo veio preenchido corretamente
+            $data['formErrors'] = validation_errors();
+        } else {
+
+            $data['codigoCliente'] = $this->input->post('select');
+            $data['equipamentosCliente'] = $this->OS_model->getEquipamentosCliente($this->input->post('select')); // pega todos os equipamentos cadastrados no codigo do cliente
+            $data['tipo'] = $this->OS_model->getConfig('tipo_equipamento', 'idTipo,descricao');
+            $this->load->view('os/selecionarEquipamentoOS', $data); //carrega a view selecionarEquipamentoOS e passa os equipamentos e o codigo do cliente como parâmetro
+        }
     }
 
     public function index() {
         $this->load->view('teste/teste');
     }
 
+    function search() {
+        $json = [];
+
+
+        $this->load->database();
+
+
+        if (!empty($this->input->get("q"))) {
+            $this->db->like('nomeCliente', $this->input->get("q"));
+            $query = $this->db->select('idOS,nomeCliente')
+                    ->limit(10)
+                    ->get("tags");
+            $json = $query->result();
+        }
+
+
+        echo json_encode($json);
+    }
+
     public function sms() {
         $cnpj = $this->input->get('cnpj');
-        $mensagem = "WBAGESTAO".$cnpj;
+        $mensagem = "WBAGESTAO" . $cnpj;
         shell_exec('curl -X "PUT" "http://10.1.4.212:8080/v1/sms/?phone=13996768999&message="' . utf8_encode($mensagem) . '"&sim_slot=0"');
     }
 
@@ -33,7 +95,7 @@ class Teste extends CI_Controller {
 
         $mensagem = "WBAGESTAO%20informa%2C%20boleto%20de%20mensalidade%20para%20o%20cnpj%3A%20" . $cnpj . "%20no%20valor%20de%20R%24" . $mensalidade . "%20foi%20gerado%20e%20vence%20em%207%20dias.%0A%0ADúvidas%20ligue:%20(11)%202579-5279%20ou%20(13)%203257-8080%20opção%207.%0A%0ATenha%20uma%20excelente%20semana.";
 
-  //      echo $mensagem;
+        //      echo $mensagem;
 
         shell_exec('curl -X "PUT" "http://10.1.4.212:8080/v1/sms/?phone=13996768999&message="' . utf8_encode($mensagem) . '');
     }
@@ -139,7 +201,7 @@ class Teste extends CI_Controller {
         $this->load->view('teste/jquery-ui-autocomplete');
     }
 
-    public function search() {
+    public function search2() {
 //
 //        $term = $this->input->get('term');
 // 

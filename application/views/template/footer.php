@@ -42,7 +42,6 @@
 <!-- jQuery Knob Chart -->
 <script src="<?php echo base_url('assets/bower_components/jquery-knob/dist/jquery.knob.min.js') ?>"></script>
 <!-- daterangepicker -->
-<script src="<?php echo base_url('assets/bower_components/moment/min/moment.min.js') ?>'"></script>
 <script src="<?php echo base_url('assets/bower_components/bootstrap-daterangepicker/daterangepicker.js') ?>"></script>
 <!-- datepicker -->
 <script src="<?php echo base_url('assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') ?>"></script>
@@ -63,10 +62,6 @@
 
 <!-- Select2 -->
 <script src="<?php echo base_url('assets/bower_components/select2/dist/js/select2.full.min.js') ?>"></script>
-<!-- InputMask -->
-<script src="<?php echo base_url('assets/plugins/input-mask/jquery.inputmask.js') ?>../../plugins"></script>
-<script src="<?php echo base_url('assets/plugins/input-mask/jquery.inputmask.date.extensions.js') ?>"></script>
-<script src="<?php echo base_url('assets/plugins/input-mask/jquery.inputmask.extensions.js') ?>"></script>
 
 
 <!-- SlimScroll -->

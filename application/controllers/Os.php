@@ -263,15 +263,14 @@ class Os extends CI_Controller {
             $this->session->set_flashdata('error', 'Você não tem permissão para editar OS.');
             redirect(base_url() . 'index.php/dashboard');
         }
-        $this->form_validation->set_rules('cliente', 'Cliente', 'trim|required'); // recebe informação carregada do form da view adicionarOS
+        $this->form_validation->set_rules('select', 'Select', 'required'); // recebe informação carregada do form da view adicionarOS
 
         if ($this->form_validation->run() == FALSE) {//valida se o campo veio preenchido corretamente
             $data['formErrors'] = validation_errors();
         } else {
-            $cliente = ($this->input->post('cliente'));
-            $dadosCliente = explode(" - ", $cliente); //recebe os dados separados por - divide em cada posicao do array
-            $data['codigoCliente'] = $dadosCliente[0]; // pega a primeira posição do array que é o codigo do cliente
-            $data['equipamentosCliente'] = $this->OS_model->getEquipamentosCliente($dadosCliente[0]); // pega todos os equipamentos cadastrados no codigo do cliente
+
+            $data['codigoCliente'] = $this->input->post('select');
+            $data['equipamentosCliente'] = $this->OS_model->getEquipamentosCliente($this->input->post('select')); // pega todos os equipamentos cadastrados no codigo do cliente
             $data['tipo'] = $this->OS_model->getConfig('tipo_equipamento', 'idTipo,descricao');
             $this->load->view('os/selecionarEquipamentoOS', $data); //carrega a view selecionarEquipamentoOS e passa os equipamentos e o codigo do cliente como parâmetro
         }

@@ -28,6 +28,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <link rel="stylesheet" href="<?php echo base_url('assets/plugins/timepicker/bootstrap-timepicker.min.css') ?>">
         <!-- Select2 -->
         <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/select2/dist/css/select2.min.css') ?>">
+        <!-- Select2 -->
+        <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/select2/dist/js/select2.full.js') ?>">
         <!-- Theme style -->
         <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/AdminLTE.min.css') ?>">
         <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -184,7 +186,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <a href="#">
                                                         <div class="pull-left">
                                                             <!-- User Image -->
-                                                            <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                                            <img src="" class="img-circle" alt="User Image">
                                                         </div>
                                                         <!-- Message title and timestamp -->
                                                         <h4>
