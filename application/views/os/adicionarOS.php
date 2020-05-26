@@ -68,6 +68,7 @@
         ajax: {
             url: BASE_URL + 'index.php/os/autocompleteCliente',
             dataType: "json",
+            quietMillis: 500,
             type: "GET",
             data: function (params) {
                 var checkbox = $(".integrar_ajax:checked").val();
