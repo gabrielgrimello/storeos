@@ -66,8 +66,8 @@
                                     <div class="col-md-4 text-right">
                                         <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'aLead')) { ?>
                                             <a href="<?php echo base_url(); ?>index.php/os/gerenciar" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-credit-card"></i> Alterar cliente</a>
-                                            <a href="<?php echo base_url(); ?>index.php/os/abrirOSMesmoCliente/<?php echo $os->codigoCliente; ?>" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-plus-sign"></i> Abrir nova OS para o mesmo cliente</a>
                                         <?php } ?>
+                                            <a href="<?php echo base_url(); ?>index.php/os/abrirOSMesmoCliente/<?php echo $os->codigoCliente; ?>" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-plus-sign"></i> Abrir nova OS para o mesmo cliente</a>
                                     </div>
                                 </div>
                                 <div class="box-body">
