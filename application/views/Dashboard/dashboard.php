@@ -39,6 +39,17 @@
                     </div>
                 </div>
             </a>
+            <a href="#">
+                <div class="col-md-3 text-center">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-red"><i class="ion ion-android-warning"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">OS Aguardando Entrega </span>
+                            <span class="info-box-number"><h2><?php echo $aguardandoEntrega ?></h2></span>
+                        </div>
+                    </div>
+                </div>
+            </a>
         </div>
         <div class="row">
             <a href="<?php echo base_url() ?>index.php/os/gerenciar?garantia=1&encerrada=nao" target="_blank">

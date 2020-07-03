@@ -86,7 +86,7 @@
 
 
                                                 <td class="text-middle ng-binding text-center">
-                                                    <a href="<?php echo base_url(); ?>index.php/usuario/alterarsenha/<?php echo $dadoslogin['idusuarios']; ?>" class="btn btn-success btn-xs">Alterar senha<i class="fa-fw glyphicon glyphicon-user"></i></a>
+                                                    <a href="<?php echo base_url(); ?>index.php/usuario/alterarsenha/<?php echo $r->idusuarios; ?>" class="btn btn-success btn-xs">Alterar senha<i class="fa-fw glyphicon glyphicon-user"></i></a>
                                                     <a title="editar" href="<?php echo base_url() ?>index.php/usuario/edit/<?php echo $r->idusuarios; ?>" class="btn btn-primary btn-xs"><i class="fa-fw glyphicon glyphicon-edit"></i> </a>
                                                 </td>
                                             </tr>

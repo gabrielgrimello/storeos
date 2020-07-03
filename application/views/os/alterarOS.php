@@ -60,20 +60,20 @@
                                     </div>
                                     <div class="col-md-3 text-center">
                                         <h3 class="box-title" data-toggle="tooltip" data-placement="top" title="Botão serve para recarregar a página e atualizar o valor total">TOTAL <a href="<?php echo base_url(); ?>index.php/os/editarOS/<?php echo $os->idOS; ?>" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-refresh"></i></a>
-                                            <span class="label label-danger" ><?php echo "R$ ".number_format($totalGeral, 2); ?></span>
+                                            <span class="label label-danger" ><?php echo "R$ " . number_format($totalGeral, 2); ?></span>
                                         </h3>
                                     </div>
                                     <div class="col-md-4 text-right">
                                         <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'aLead')) { ?>
                                             <a href="<?php echo base_url(); ?>index.php/os/gerenciar" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-credit-card"></i> Alterar cliente</a>
                                         <?php } ?>
-                                            <a href="<?php echo base_url(); ?>index.php/os/abrirOSMesmoCliente/<?php echo $os->codigoCliente; ?>" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-plus-sign"></i> Abrir nova OS para o mesmo cliente</a>
+                                        <a href="<?php echo base_url(); ?>index.php/os/abrirOSMesmoCliente/<?php echo $os->codigoCliente; ?>" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-plus-sign"></i> Abrir nova OS para o mesmo cliente</a>
                                     </div>
                                 </div>
                                 <div class="box-body">
                                     <input type="hidden" name="idOS" id="idOS" value="<?php echo $os->idOS; ?>">
                                     <input type="hidden" name="valorTotal" id="valorTotal" value="<?php echo $totalGeral; ?>">
-                                    
+
                                     <div class="form-group col-md-2">
                                         <label>Código</label>
                                         <input type="text" class="form-control" id="codigo" name="codigo" readonly="" value="<?php echo $os->codigoCliente; ?>">
@@ -181,8 +181,17 @@
                             </div>
                             <div class="box box-success" >
                                 <div class="box-header with-border">
-                                    <div class="col-md-7">
+                                    <div class="col-md-3">
                                         <h3 class="box-title">DADOS DA OS</h3>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h4 class="box-title">Data Entrada: <?php $dateEntrada = date_create_from_format('Y-m-d', $os->dataEntrada); echo date_format($dateEntrada, 'd-m-Y'); ?> </h4> 
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h4 class="box-title">Data Alteração: <?php $dateAlteracao = date_create_from_format('Y-m-d', $os->dataAlteracao); echo date_format($dateAlteracao, 'd-m-Y'); ?>  </h4> 
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h4 class="box-title">Data Saída: <?php if($os->dataEncerra != NULL){  $dateSaida = date_create_from_format('Y-m-d', $os->dataEncerra); echo date_format($dateSaida, 'd-m-Y'); }?> </h4> 
                                     </div>
                                 </div>
                                 <div class="box-body">
@@ -268,13 +277,13 @@
                                         <textarea id="laudo" name="laudo" class="form-control" rows="10" ><?php echo $os->laudo ?></textarea>
                                     </div>
                                     <div class="form-group col-md-6 text-left">
-                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalEncerrarOS">
+                                        <button <?php if($os->dataEncerra == TRUE){echo "disabled";} ?> type="button" class="btn btn-success" data-toggle="modal" data-target="#modalEncerrarOS">
                                             Encerrar OS
                                         </button>
                                     </div>
                                     <div class="form-group col-md-6 text-right">
                                         <a title="cancelar" href="<?php echo base_url() ?>index.php/os/gerenciar" class="btn btn-danger btn-small"><i class="glyphicon glyphicon-remove"></i></a>
-                                        <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-floppy-disk"></i></button>
+                                        <button <?php if($os->dataEncerra == TRUE){echo "disabled";}?> type="submit"  class="btn btn-success"><i class="glyphicon glyphicon-floppy-disk"></i></button>
                                     </div>
                                 </div> <!-- /.box-body -->
                             </div> <!-- /.box box-info-->
@@ -441,8 +450,8 @@
                                                         <td class="text-center text-middle ng-binding">
                                                             <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'eOS')) { ?>
                                                                 <a title="editar" href="<?php echo base_url() ?>index.php/os/editarChecklistComputador/<?php echo $r->idCheckComputador; ?>" class="btn btn-primary btn-xs "><i class="fa-fw glyphicon glyphicon-edit"></i> </a>
-                                                               <?php } ?>
-                                                               <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'dOS')) { ?>
+                                                            <?php } ?>
+                                                            <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'dOS')) { ?>
                                                                 <a title="excluir"  class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger<?php echo $r->idCheckComputador; ?>"><i class="fa-fw glyphicon glyphicon-trash"></i> </a>
                                                             <?php } ?>
                                                             <!--MODAL BOTÃO EXCLUIR-->
@@ -512,8 +521,8 @@
                                                         <td class="text-center text-middle ng-binding">
                                                             <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'eOS')) { ?>
                                                                 <a title="editar" href="<?php echo base_url() ?>index.php/os/editarChecklistNobreakEstabilizador/<?php echo $r->idCheckNobEst; ?>" class="btn btn-primary btn-xs "><i class="fa-fw glyphicon glyphicon-edit"></i> </a>
-                                                               <?php } ?>
-                                                               <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'dOS')) { ?>
+                                                            <?php } ?>
+                                                            <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'dOS')) { ?>
                                                                 <a title="excluir"  class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger<?php echo $r->idCheckNobEst; ?>"><i class="fa-fw glyphicon glyphicon-trash"></i> </a>
                                                             <?php } ?>
                                                             <!--MODAL BOTÃO EXCLUIR-->

@@ -47,7 +47,7 @@
                        <div class="col-md-12">
                             <div class="form-group text-left">
                                 <button type="submit" class="btn btn-success"> SALVAR </button>
-                                <a title="cancelar" href="<?php echo base_url() ?>index.php/dashboard" class="btn btn-danger btn-small">CANCELAR </a>
+                                <a title="cancelar" href="<?php echo base_url() ?>index.php/usuario/gerenciar" class="btn btn-danger btn-small">CANCELAR </a>
                             </div>
                         </div>
                     </div>

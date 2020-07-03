@@ -167,4 +167,11 @@ class Dashboard_model extends CI_Model {
         return FALSE;
     }
 
+    function getStatusAguardandoEntrega() {
+        $this->db->from('ordem_servico');
+        $this->db->where('status',23);
+        $this->db->or_where('status',24);
+        $this->db->or_where('status',25);
+        return $this->db->count_all_results();
+    }
 }

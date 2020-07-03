@@ -46,6 +46,9 @@ class Dashboard extends CI_Controller {
         //TOTAL DE OSs POR STATUS
         $this->data['status'] = $this->dashboard_model->getStatusAberto();
         
+         //TOTAL DE OSs POR STATUS
+        $this->data['aguardandoEntrega'] = $this->dashboard_model->getStatusAguardandoEntrega();
+        
         $this->load->view('dashboard/dashboard', $this->data);
     }
 
