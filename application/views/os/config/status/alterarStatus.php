@@ -37,7 +37,7 @@
                         <h3 class="box-title">PREENCHA OS DADOS DO STATUS</h3>
                     </div>
                     <div class="box-body">
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <?php echo form_hidden('idStatus', $result->idStatus) ?>
                             <div class="form-group">
                                 <label>Descricao </label>
@@ -48,12 +48,16 @@
                             <div class="form-group">
                                 <label>Status</label>
                                 <select class="form-control" name="status">
-                                    <option value="0" <?php if ($result->status == 0) {
-                                echo "selected";
-                            } ?>>Inativo</option>
-                                    <option value="1" <?php if ($result->status == 1) {
-                                echo "selected";
-                            } ?>>Ativo</option>
+                                    <option value="0" <?php
+                                    if ($result->status == 0) {
+                                        echo "selected";
+                                    }
+                                    ?>>Inativo</option>
+                                    <option value="1" <?php
+                                    if ($result->status == 1) {
+                                        echo "selected";
+                                    }
+                                    ?>>Ativo</option>
                                 </select>
                             </div>
                         </div>
@@ -66,18 +70,24 @@
                         <div class=" col-md-2">
                             <label>Encerra?</label>
                             <select class="form-control" name="encerra">
-                                    <option value="0" <?php if ($result->encerra == 0) {
-                                echo "selected";
-                            } ?>>Não</option>
-                                    <option value="1" <?php if ($result->encerra== 1) {
-                                echo "selected";
-                            } ?>>Sim</option>
-                                </select>
+                                <option value="0" <?php
+                                if ($result->encerra == 0) {
+                                    echo "selected";
+                                }
+                                ?>>Não</option>
+                                <option value="1" <?php
+                                if ($result->encerra == 1) {
+                                    echo "selected";
+                                }
+                                ?>>Sim</option>
+                            </select>
                         </div>
-
-
-
-
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label>Cor <i class="fa fa-square" style="color: <?php echo $result->cor ?>"></i></label>
+                                <input required="" type="text" class="form-control" name="cor" data-toggle="tooltip" data-placement="top" title="Exemplo: #000000" value="<?php echo $result->cor ?>">
+                            </div>
+                        </div>
                         <div class="col-md-12">
                             <div class="form-group text-left">
                                 <button type="submit" class="btn btn-success"> SALVAR </button>

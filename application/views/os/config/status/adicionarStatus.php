@@ -38,7 +38,7 @@
                         <h3 class="box-title">PREENCHA AS INFORMAÇÕES ABAIXO</h3>
                     </div>
                     <div class="box-body">
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label>Descrição </label>
                                 <input type="text" class="form-control" name="descricao" value="<?= set_value('descricao') ?>">
@@ -66,6 +66,12 @@
                                     <option selected="" value="0">Não</option>
                                     <option value="1">Sim</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label>Cor</label>
+                                <input required="" type="text" class="form-control" name="cor" data-toggle="tooltip" data-placement="top" title="Exemplo: #000000">
                             </div>
                         </div>
                         <div class="col-md-12">

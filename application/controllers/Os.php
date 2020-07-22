@@ -928,7 +928,7 @@ class Os extends CI_Controller {
 
         $this->pagination->initialize($config);
 
-        $this->data['results'] = $this->OS_model->get('status_os', 'idStatus,descricao,status,posicaoMenu,encerra', '', $config['per_page'], $this->uri->segment(3), '', 'idStatus', '', '');
+        $this->data['results'] = $this->OS_model->get('status_os', 'idStatus,descricao,status,posicaoMenu,encerra,cor', '', $config['per_page'], $this->uri->segment(3), '', 'idStatus', '', '');
 
         $this->load->view('os/config/status/gerenciarStatus', $this->data);
     }
@@ -949,6 +949,7 @@ class Os extends CI_Controller {
             $dados['status'] = $this->input->post('status');
             $dados['posicaoMenu'] = $this->input->post('posicaoMenu');
             $dados['encerra'] = $this->input->post('encerra');
+            $dados['cor'] = $this->input->post('cor');
 
             $idLead = $this->OS_model->add('status_os', $dados);
             if ($idLead != 0) {
@@ -982,7 +983,7 @@ class Os extends CI_Controller {
             $dados['status'] = $this->input->post('status');
             $dados['posicaoMenu'] = $this->input->post('posicaoMenu');
             $dados['encerra'] = $this->input->post('encerra');
-
+            $dados['cor'] = $this->input->post('cor');
 
             if ($this->OS_model->edit('status_os', $dados, 'idStatus', $this->input->post('idStatus')) == TRUE) {
                 $this->session->set_flashdata('success_msg', 'Cadastro realizado com sucesso!');

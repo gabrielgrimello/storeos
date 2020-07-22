@@ -108,7 +108,7 @@
             <a href="<?php echo base_url() ?>index.php/os/gerenciar?status=<?php echo $s->idStatus ?>" target="_blank">
                 <div class="col-md-3 text-center">
                     <div class="info-box">
-                        <span class="info-box-icon bg-navy"><i class="ion ion-android-clipboard" target="_blank"></i></span>
+                        <span class="info-box-icon" style="background: <?php echo $s->cor; ?>"><i class="ion ion-android-clipboard" style="color: white" target="_blank"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text"><?php echo $s->descricao ?> </span>
                             <span class="info-box-number"><h2><?php echo $this->dashboard_model->countOsStatus($s->idStatus);?></h2></span>

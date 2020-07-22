@@ -63,8 +63,8 @@
                                     <tbody>
                                         <?php foreach ($results as $r) { ?>
                                             <tr> 
-                                                <td class="text-middle ng-binding"><?php echo $r->idStatus; ?></td>
-                                                <td class="text-middle ng-binding"><?php echo $r->descricao; ?></td> 
+                                                <td class="text-middle ng-binding"><?php echo $r->idStatus; ?> <i class="fa fa-square" style="color: <?php echo $r->cor ?>"></i></td>
+                                                <td class="text-middle ng-binding"><?php echo $r->descricao?> </td> 
                                                 <td class="text-middle ng-binding"><?php
                                                     if ($r->status == 1) {
                                                         echo "Ativo";
