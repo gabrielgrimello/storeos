@@ -57,6 +57,9 @@ class OS_model extends CI_Model {
         $this->db->from('equipamentos_cliente');
         $this->db->where('serie', $ns);
         $this->db->limit(1);
+        if ($ns == "nao"){
+            return FALSE;
+        }
         return $this->db->get()->row();
     }
 

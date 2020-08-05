@@ -327,7 +327,7 @@ class Os extends CI_Controller {
                     $dadosOs['codigoCliente'] = $dadosCliente[0];
                     $dadosClienteGet = file_get_contents('http://localhost:8886/OData/OData.svc/clientes?$filter=codigo eq ' . $dadosCliente[0] . '');
                     $dadosClienteGet = json_decode($dadosClienteGet);
-                    var_dump($dadosClienteGet->value[0]);
+                    //var_dump($dadosClienteGet->value[0]);
                     echo $dadosClienteGet->value[0]->codigo;
                     $dadosOs['idEquipamento'] = $codigoEquipamentoSalvo;
                     $dadosOs['codigoCliente'] = $dadosClienteGet->value[0]->codigo;
