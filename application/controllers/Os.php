@@ -121,7 +121,7 @@ class Os extends CI_Controller {
         $this->pagination->initialize($config);
 
         $this->data['status'] = $this->OS_model->getConfig('status_os', 'idStatus,descricao,encerra');
-        $this->data['results'] = $this->OS_model->get('ordem_servico', 'idOS,idEquipamento,nomeCliente,fantasiaCliente,contatoCliente,telefoneCliente,celularCliente,emailCliente,dataEntrada,status,dataEncerra,encerrada', $where_array, $config['per_page'], $this->uri->segment(3), '', 'idos', 'DESC', $whereRazaoOuFantasia);
+        $this->data['results'] = $this->OS_model->get('ordem_servico', 'idOS,idEquipamento,nomeCliente,fantasiaCliente,contatoCliente,telefoneCliente,celularCliente,emailCliente,dataEntrada,status,dataEncerra,encerrada', $where_array, $config['per_page'], $this->uri->segment(3), '', 'idos', 'CRES', $whereRazaoOuFantasia);
         $this->data['equipamento'] = $this->OS_model->getConfig('equipamentos_cliente', 'idEquipamento,tipo');
         $this->data['tipoEquipamento'] = $this->OS_model->getConfig('tipo_equipamento', 'idTipo,descricao');
         $this->load->view('os/gerenciarOS', $this->data);
@@ -769,6 +769,7 @@ class Os extends CI_Controller {
         $data = file_get_contents('http://localhost:8886/OData/OData.svc/produtos?select=nome&$filter=nome%20like%20(%27%%25' . $term . '%%25%27)%20and%20filial%20eq%20%271%27%20and%20inservico%20eq%20%27S%27');
 
         echo $data;
+       //echo json_encode(array('value' => array("codigo"=>"300","nome"=>"VINHORRRRR","precovenda"=>49)));
     }
 
     public function imprimir() {

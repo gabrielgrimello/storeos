@@ -185,13 +185,24 @@
                                         <h3 class="box-title">DADOS DA OS</h3>
                                     </div>
                                     <div class="col-md-3">
-                                        <h4 class="box-title">Data Entrada: <?php $dateEntrada = date_create_from_format('Y-m-d', $os->dataEntrada); echo date_format($dateEntrada, 'd-m-Y'); ?> </h4> 
+                                        <h4 class="box-title">Data Entrada: <?php
+                                            $dateEntrada = date_create_from_format('Y-m-d', $os->dataEntrada);
+                                            echo date_format($dateEntrada, 'd-m-Y');
+                                            ?> </h4> 
                                     </div>
                                     <div class="col-md-3">
-                                        <h4 class="box-title">Data Alteração: <?php $dateAlteracao = date_create_from_format('Y-m-d', $os->dataAlteracao); echo date_format($dateAlteracao, 'd-m-Y'); ?>  </h4> 
+                                        <h4 class="box-title">Data Alteração: <?php
+                                            $dateAlteracao = date_create_from_format('Y-m-d', $os->dataAlteracao);
+                                            echo date_format($dateAlteracao, 'd-m-Y');
+                                            ?>  </h4> 
                                     </div>
                                     <div class="col-md-3">
-                                        <h4 class="box-title">Data Saída: <?php if($os->dataEncerra != NULL){  $dateSaida = date_create_from_format('Y-m-d', $os->dataEncerra); echo date_format($dateSaida, 'd-m-Y'); }?> </h4> 
+                                        <h4 class="box-title">Data Saída: <?php
+                                            if ($os->dataEncerra != NULL) {
+                                                $dateSaida = date_create_from_format('Y-m-d', $os->dataEncerra);
+                                                echo date_format($dateSaida, 'd-m-Y');
+                                            }
+                                            ?> </h4> 
                                     </div>
                                 </div>
                                 <div class="box-body">
@@ -277,13 +288,21 @@
                                         <textarea id="laudo" name="laudo" class="form-control" rows="10" ><?php echo $os->laudo ?></textarea>
                                     </div>
                                     <div class="form-group col-md-6 text-left">
-                                        <button <?php if($os->dataEncerra == TRUE){echo "disabled";} ?> type="button" class="btn btn-success" data-toggle="modal" data-target="#modalEncerrarOS">
+                                        <button <?php
+                                        if ($os->dataEncerra == TRUE) {
+                                            echo "disabled";
+                                        }
+                                        ?> type="button" class="btn btn-success" data-toggle="modal" data-target="#modalEncerrarOS">
                                             Encerrar OS
                                         </button>
                                     </div>
                                     <div class="form-group col-md-6 text-right">
                                         <a title="cancelar" href="<?php echo base_url() ?>index.php/os/gerenciar" class="btn btn-danger btn-small"><i class="glyphicon glyphicon-remove"></i></a>
-                                        <button <?php if($os->dataEncerra == TRUE){echo "disabled";}?> type="submit"  class="btn btn-success"><i class="glyphicon glyphicon-floppy-disk"></i></button>
+                                        <button <?php
+                                        if ($os->dataEncerra == TRUE) {
+                                            echo "disabled";
+                                        }
+                                        ?> type="submit"  class="btn btn-success"><i class="glyphicon glyphicon-floppy-disk"></i></button>
                                     </div>
                                 </div> <!-- /.box-body -->
                             </div> <!-- /.box box-info-->
@@ -305,7 +324,7 @@
                                                 <div >
                                                     <div>
                                                         <div class="col-md-12">
-                                                            <?php echo form_hidden('idOS', $os->idOS) ?>
+<?php echo form_hidden('idOS', $os->idOS) ?>
                                                             <div class="form-group">
                                                                 <label>Status</label>
                                                                 <select class="form-control" name="status">
@@ -313,7 +332,7 @@
                                                                     foreach ($statusEncerrado as &$value) {
                                                                         ?>
                                                                         <option value = <?php echo $value->idStatus; ?> >
-                                                                            <?php echo $value->descricao; ?></option>
+                                                                        <?php echo $value->descricao; ?></option>
                                                                         <?php
                                                                     }
                                                                     ?>
@@ -392,7 +411,7 @@
                                         <i class="fa fa-comments bg-yellow"></i> <!-- timeline icon -->
                                         <div class="timeline-item" >
                                             <h3 class="timeline-header"><a class="text blue"><?php echo $t->nome; ?> </a> 
-                                                <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'dAgenda')) { ?>
+    <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'dAgenda')) { ?>
                                                     <form  action="<?php echo base_url() ?>os/excluirTimeline" method="post">
                                                         <input type="hidden" name="idTimeline_os" id="idTimeline_os" value="<?php echo $t->idTimeline_os ?> ">
                                                         <input type="hidden" name="idos" id="id_os" value="<?php echo $os->idOS ?> ">
@@ -401,7 +420,7 @@
                                                 <?php } ?>                                    
                                             </h3>
                                             <div class="timeline-body">
-                                                <?php echo nl2br($t->descricao) ?>
+    <?php echo nl2br($t->descricao) ?>
                                             </div>  
                                         </div>
                                     </li><!-- TIME LINE - FIM DO CODIGO -->
@@ -418,8 +437,8 @@
                         <?php } ?>
                         <?php if (($equipamento->tipo == 1 or $equipamento->tipo == 2) and $countChecklistNobreakEstabilizador == 0) { ?>
                             <a href="<?php echo base_url(); ?>index.php/os/adicionarChecklistNobreakEstabilizador/<?php echo $os->idOS; ?>" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-plus-sign"></i> Adicionar Checklist</a>
-                        <?php } ?>
-                        <?php if (($equipamento->tipo == 3 or $equipamento->tipo == 10) and $countChecklistComputador > 0) { ?>
+<?php } ?>
+<?php if (($equipamento->tipo == 3 or $equipamento->tipo == 10) and $countChecklistComputador > 0) { ?>
                             <div class="box box-success">
                                 <div class="widget-box">
                                     <div class="widget-title">
@@ -440,7 +459,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($checklistComputador as $r) { ?>
+    <?php foreach ($checklistComputador as $r) { ?>
                                                     <tr> 
                                                         <td class="text-middle ng-binding"><?php echo $r->idCheckComputador; ?></td>
                                                         <td class="text-middle ng-binding"><?php echo $r->tecnicoAvaliacao; ?></td> 
@@ -453,7 +472,7 @@
                                                             <?php } ?>
                                                             <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'dOS')) { ?>
                                                                 <a title="excluir"  class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger<?php echo $r->idCheckComputador; ?>"><i class="fa-fw glyphicon glyphicon-trash"></i> </a>
-                                                            <?php } ?>
+        <?php } ?>
                                                             <!--MODAL BOTÃO EXCLUIR-->
                                                             <div class="modal modal-default fade" id="modal-danger<?php echo $r->idCheckComputador; ?>">
                                                                 <div class="modal-dialog">
@@ -489,8 +508,8 @@
                                     </div>
                                 </div>
                             </div>
-                        <?php } ?>
-                        <?php if (($equipamento->tipo == 1 or $equipamento->tipo == 2) and $countChecklistNobreakEstabilizador > 0) { ?>
+<?php } ?>
+<?php if (($equipamento->tipo == 1 or $equipamento->tipo == 2) and $countChecklistNobreakEstabilizador > 0) { ?>
                             <div class="box box-success">
                                 <div class="widget-box">
                                     <div class="widget-title">
@@ -511,7 +530,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($checklistNobreakEstabilizador as $r) { ?>
+    <?php foreach ($checklistNobreakEstabilizador as $r) { ?>
                                                     <tr> 
                                                         <td class="text-middle ng-binding"><?php echo $r->idCheckNobEst; ?></td>
                                                         <td class="text-middle ng-binding"><?php echo $r->tecnicoAvaliacao; ?></td> 
@@ -524,7 +543,7 @@
                                                             <?php } ?>
                                                             <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'dOS')) { ?>
                                                                 <a title="excluir"  class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger<?php echo $r->idCheckNobEst; ?>"><i class="fa-fw glyphicon glyphicon-trash"></i> </a>
-                                                            <?php } ?>
+        <?php } ?>
                                                             <!--MODAL BOTÃO EXCLUIR-->
                                                             <div class="modal modal-default fade" id="modal-danger<?php echo $r->idCheckNobEst; ?>">
                                                                 <div class="modal-dialog">
@@ -560,7 +579,7 @@
                                     </div>
                                 </div>
                             </div>
-                        <?php } ?>
+<?php } ?>
                     </div>
                     <!-- ABA PEÇAS  -->
                     <div class="tab-pane" id="tab_4-4">
@@ -574,7 +593,7 @@
                                     <div class="col-md-9">
                                         <input type="hidden" name="idOS" id="idOS" value="<?php echo $os->idOS; ?>" />
                                         <label for="">Produto</label>
-                                        <input type="text" name="produto" id="produto" class="form-control" placeholder="Digite o produto">
+                                        <select class="produtos-js-ajax col-md-12" id="produto" name="produto" placeholder="Digite o produto" style="width: 100%"></select>
                                     </div>
                                     <div class="col-md-2">
                                         <label for="">Quantidade</label>
@@ -644,7 +663,8 @@
                                     <div class="col-md-9">
                                         <input type="hidden" name="idOS" id="idOS" value="<?php echo $os->idOS ?>" />
                                         <label for="">Serviço</label>
-                                        <input type="text" name="servico" id="servico" class="form-control" placeholder="Digite o serviço">
+                                        <select class="servicos-js-ajax col-md-12" id="servico" name="servico" placeholder="Digite o serviço" style="width: 100%"></select>
+<!--                                    <input type="text" name="servico" id="servico" class="form-control" placeholder="Digite o serviço">-->
                                     </div>
                                     <div class="col-md-2">
                                         <label >Quantidade</label>
@@ -848,36 +868,74 @@
 </script>
 <script>
     var BASE_URL = "<?php echo base_url(); ?>";
+    $(".produtos-js-ajax").select2({
+        //    tags: true, //PODE ESCOLHER O QUE DIGITOU MESMO QUE NAO TENHA NA BUSCA
+        //multiple: true, //PODE ESCOLHER MAIS DE UMA OPÇÃO
 
-    $(document).ready(function () {
-
-        $("#produto").autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: BASE_URL + "index.php/os/pesquisaProduto",
-                    data: {
-                        term: request.term
-
-                    },
-                    dataType: "json",
-                    success: function (data) {
-                        var resp = $.map(data.value, function (obj) {
-                            return obj.codigo + " - " + obj.nome + " - " + obj.precovenda;
-
-                        });
-
-                        response(resp);
-
-                    }
-                });
+        tokenSeparators: [',', ' '],
+        minimumInputLength: 3,
+        minimumResultsForSearch: 10,
+        ajax: {
+            url: BASE_URL + 'index.php/os/pesquisaProduto',
+            dataType: "json",
+            quietMillis: 500,
+            type: "GET",
+            data: function (params) {
+                var queryParameters = {
+                    term: params.term
+                };
+                return queryParameters;
             },
-            minLength: 3,
-            delay: 1000
+            processResults: function (data) {
+                return {
+                    results: $.map(data.value, function (item) {
+                        return {
+                            text: item.codigo + " - " + item.nome + " - " + item.precovenda,
+                            id: item.codigo + " - " + item.nome + " - " + item.precovenda
+                        };
+                    })
+                };
+            }
+        }
 
-        });
     });
 
-</script> 
+</script>   
+<script>
+    var BASE_URL = "<?php echo base_url(); ?>";
+    $(".servicos-js-ajax").select2({
+        //    tags: true, //PODE ESCOLHER O QUE DIGITOU MESMO QUE NAO TENHA NA BUSCA
+        //multiple: true, //PODE ESCOLHER MAIS DE UMA OPÇÃO
+
+        tokenSeparators: [',', ' '],
+        minimumInputLength: 3,
+        minimumResultsForSearch: 10,
+        ajax: {
+            url: BASE_URL + 'index.php/os/pesquisaServico',
+            dataType: "json",
+            quietMillis: 500,
+            type: "GET",
+            data: function (params) {
+                var queryParameters = {
+                    term: params.term
+                };
+                return queryParameters;
+            },
+            processResults: function (data) {
+                return {
+                    results: $.map(data.value, function (item) {
+                        return {
+                            text: item.codigo + " - " + item.nome + " - " + item.precovenda,
+                            id: item.codigo + " - " + item.nome + " - " + item.precovenda
+                        };
+                    })
+                };
+            }
+        }
+
+    });
+
+</script>   
 <script>
     var BASE_URL = "<?php echo base_url(); ?>";
 
