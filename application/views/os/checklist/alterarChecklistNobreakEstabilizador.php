@@ -391,6 +391,10 @@
                             </div>
 
                         </div>
+                        <div class="form-group col-md-12">
+                            <label>Laudo técnico(preenchido pelo técnico)</label>
+                            <textarea id="laudo" name="laudo" class="form-control" rows="10" ><?php echo $os->laudo ?></textarea>
+                        </div>
                         <div class="col-md-12">
                             <div class="form-group text-left">
                                 <button type="submit" class="btn btn-success"> SALVAR </button>

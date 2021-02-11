@@ -539,7 +539,7 @@
                                                         <td class="text-middle ng-binding"><?php echo $r->dataReparo; ?></td> 
                                                         <td class="text-center text-middle ng-binding">
                                                             <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'eOS')) { ?>
-                                                                <a title="editar" href="<?php echo base_url() ?>index.php/os/editarChecklistNobreakEstabilizador/<?php echo $r->idCheckNobEst; ?>" class="btn btn-primary btn-xs "><i class="fa-fw glyphicon glyphicon-edit"></i> </a>
+                                                                <a title="editar" href="<?php echo base_url() ?>index.php/os/editarChecklistNobreakEstabilizador/<?php echo $r->idCheckNobEst; ?>/<?php echo $r->idOS; ?>" class="btn btn-primary btn-xs "><i class="fa-fw glyphicon glyphicon-edit"></i> </a>
                                                             <?php } ?>
                                                             <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'dOS')) { ?>
                                                                 <a title="excluir"  class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger<?php echo $r->idCheckNobEst; ?>"><i class="fa-fw glyphicon glyphicon-trash"></i> </a>

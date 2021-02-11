@@ -532,9 +532,11 @@ class Os extends CI_Controller {
             $dadosChecklist['outrasQuantidadesBateria'] = $this->input->post('outrasQuantidadesBateria');
             $dadosChecklist['obsBateria'] = $this->input->post('obsBateria');
 
+            $dadosOS['laudo'] = $this->input->post('laudo');
 //      var_dump($dadosCkecklist);
 
             if ($this->OS_model->add('checklist_nobreakestabilizador', $dadosChecklist) == TRUE) {
+                 $this->OS_model->edit('ordem_servico', $dadosOS, 'idOS', $this->input->post('idOS'));
                 $this->session->set_flashdata('success_msg', 'Checklist adicionado com sucesso!');
                 $this->data['formErrors'] = null;
                 redirect(base_url() . 'index.php/os/editarOS/' . $this->input->post('idOS'));
@@ -542,6 +544,7 @@ class Os extends CI_Controller {
                 $this->data['custom_error'] = '<div class="form_error"><p>Ocorreu um erro.</p></div>';
             }
         }
+        $this->data['os'] = $this->OS_model->getOS($this->uri->segment(3));
         $this->data['idOS'] = $this->uri->segment(3);
         $this->load->view('os/checklist/adicionarChecklistNobreakEstabilizador', $this->data);
     }
@@ -586,10 +589,13 @@ class Os extends CI_Controller {
             $dadosChecklist['quantidadeBateria'] = $this->input->post('quantidadeBateriaRadios');
             $dadosChecklist['outrasQuantidadesBateria'] = $this->input->post('outrasQuantidadesBateria');
             $dadosChecklist['obsBateria'] = $this->input->post('obsBateria');
+            
+            $dadosOS['laudo'] = $this->input->post('laudo');
 
 //      var_dump($dadosCkecklist);
 
             if ($this->OS_model->edit('checklist_nobreakestabilizador', $dadosChecklist, 'idCheckNobEst', $this->input->post('idCheckNobEst')) == TRUE) {
+                $this->OS_model->edit('ordem_servico', $dadosOS, 'idOS', $this->input->post('idOS'));
                 $this->session->set_flashdata('success_msg', 'Checklist atualizado com sucesso!');
                 $this->data['formErrors'] = null;
                 redirect(base_url() . 'index.php/os/editarOS/' . $this->input->post('idOS'));
@@ -599,7 +605,8 @@ class Os extends CI_Controller {
         }
 
         $this->data['checklistNobreakEstabilizador'] = $this->OS_model->getByIdChecklistNobreakEstabilizador($this->uri->segment(3));
-        $this->data['idOS'] = $this->uri->segment(3);
+        $this->data['os'] = $this->OS_model->getOS($this->uri->segment(4));
+       // $this->data['idOS'] = $this->uri->segment(3);
         $this->load->view('os/checklist/alterarChecklistNobreakEstabilizador', $this->data);
     }
 
