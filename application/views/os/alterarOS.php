@@ -663,8 +663,8 @@
                                     <div class="col-md-9">
                                         <input type="hidden" name="idOS" id="idOS" value="<?php echo $os->idOS ?>" />
                                         <label for="">Serviço</label>
-                                        <select class="servicos-js-ajax col-md-12" id="servico" name="servico" placeholder="Digite o serviço" style="width: 100%"></select>
-<!--                                    <input type="text" name="servico" id="servico" class="form-control" placeholder="Digite o serviço">-->
+<!--                                        <select class="servicos-js-ajax col-md-12" id="servico" name="servico" placeholder="Digite o serviço" style="width: 100%"></select>-->
+                                    <input type="text" name="servico" id="servico" class="form-control" placeholder="Digite o serviço">
                                     </div>
                                     <div class="col-md-2">
                                         <label >Quantidade</label>
@@ -901,7 +901,7 @@
     });
 
 </script>   
-<script>
+<!--<script>
     var BASE_URL = "<?php echo base_url(); ?>";
     $(".servicos-js-ajax").select2({
         //    tags: true, //PODE ESCOLHER O QUE DIGITOU MESMO QUE NAO TENHA NA BUSCA
@@ -935,7 +935,7 @@
 
     });
 
-</script>   
+</script>   -->
 <script>
     var BASE_URL = "<?php echo base_url(); ?>";
 
