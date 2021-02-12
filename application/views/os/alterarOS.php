@@ -593,7 +593,8 @@
                                     <div class="col-md-9">
                                         <input type="hidden" name="idOS" id="idOS" value="<?php echo $os->idOS; ?>" />
                                         <label for="">Produto</label>
-                                        <select class="produtos-js-ajax col-md-12" id="produto" name="produto" placeholder="Digite o produto" style="width: 100%"></select>
+<!--                                        <select class="produtos-js-ajax col-md-12" id="produto" name="produto" placeholder="Digite o produto" style="width: 100%"></select>-->
+                                         <input type="text" name="produto" id="produto" class="form-control" placeholder="Digite o serviço">
                                     </div>
                                     <div class="col-md-2">
                                         <label for="">Quantidade</label>
@@ -866,7 +867,7 @@
     });
 
 </script>
-<script>
+<!--<script>
     var BASE_URL = "<?php echo base_url(); ?>";
     $(".produtos-js-ajax").select2({
         //    tags: true, //PODE ESCOLHER O QUE DIGITOU MESMO QUE NAO TENHA NA BUSCA
@@ -900,7 +901,7 @@
 
     });
 
-</script>   
+</script>   -->
 <!--<script>
     var BASE_URL = "<?php echo base_url(); ?>";
     $(".servicos-js-ajax").select2({
@@ -945,6 +946,39 @@
             source: function (request, response) {
                 $.ajax({
                     url: BASE_URL + "index.php/os/pesquisaServico",
+                    data: {
+                        term: request.term
+
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        var resp = $.map(data.value, function (obj) {
+                            return obj.codigo + " - " + obj.nome + " - " + obj.precovenda;
+
+                        });
+
+                        response(resp);
+
+                    }
+                });
+            },
+            minLength: 3,
+            delay: 1000
+
+        });
+    });
+
+</script> 
+
+<script>
+    var BASE_URL = "<?php echo base_url(); ?>";
+
+    $(document).ready(function () {
+
+        $("#produto").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: BASE_URL + "index.php/os/pesquisaProduto",
                     data: {
                         term: request.term
 
