@@ -56,8 +56,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <script src="<?php echo base_url('assets/fullcalendar/packages/timegrid/main.js') ?>"></script>
         <script src="<?php echo base_url('assets/fullcalendar/packages/list/main.js') ?>"></script>
         <script src="<?php echo base_url('assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') ?>"></script>
-
         
+        <!-- ARRASTA E SOLTA FOTOS OS -->
+        <script type="text/javascript" src="<?php echo base_url('assets/js/dropzone/dist/dropzone.js') ?>"></script>
+        <link rel="stylesheet" href="<?php echo base_url('assets/js/dropzone/dist/dropzone.css') ?>">
+
         <!--        
         USEI NO SELECT2 - desabilitei para ver se fazia diferença
         
@@ -101,11 +104,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </li>
 
                                 <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'mOS')) { ?>
-                                            <!--                                    <li class="<?= ($this->router->fetch_class() == 'calendario') ? 'active' : null; ?>">
-                                                                                    <a href="<?php echo base_url() ?>index.php/calendario">
-                                                                                        <i class="fa fa-calendar"></i> <span>Calendario</span>
-                                                                                    </a>
-                                                                                </li>-->
+                                                    <!--                                    <li class="<?= ($this->router->fetch_class() == 'calendario') ? 'active' : null; ?>">
+                                                                                            <a href="<?php echo base_url() ?>index.php/calendario">
+                                                                                                <i class="fa fa-calendar"></i> <span>Calendario</span>
+                                                                                            </a>
+                                                                                        </li>-->
                                 <?php } ?>
                                 <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'mBiblioteca')) { ?>
                                     <!--                                    <li>
@@ -270,7 +273,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <!-- The user image in the menu -->
                                         <li class="user-header">
                                             <p>
-                                                <?php echo $dadoslogin['nome']; ?>
+                                                <?php echo $this->session->nome; ?>
 
                                             </p>
                                         </li>

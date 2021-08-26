@@ -391,8 +391,12 @@
 
                         </div>
                         <div class="form-group col-md-12">
-                            <label>Laudo técnico(preenchido pelo técnico)</label>
-                            <textarea id="laudo" name="laudo" class="form-control" rows="10" ><?php echo $os->laudo ?></textarea>
+                            <label>Laudo técnico - VISÍVEL PARA O CLIENTE </label> <a id="bt-copiar" class="btn btn-primary btn-xs">Copiar da observação interna</a>
+                            <textarea id="laudo" name="laudo" class="form-control bg-red" rows="5" ><?php echo $os->laudo ?></textarea>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>Observação interna - NÃO VÍSIVEL</label>
+                            <textarea id="observacaoInterna" name="observacaoInterna" class="form-control bg-green" rows="5" ><?php echo $os->observacaoInterna ?></textarea>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group text-left">
@@ -408,3 +412,8 @@
 
 </section>
 <?php $this->load->view('template/footer'); ?>
+<script>
+$('#bt-copiar').on('click', function(){
+  $('#laudo').val($('#observacaoInterna').val());    
+});
+</script>

@@ -37,9 +37,10 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#tab_1-1" data-toggle="tab">OS</a></li>
                     <li><a href="#tab_2-2" data-toggle="tab">Timeline</a></li>
-                    <li><a href="#tab_3-3" data-toggle="tab">Ckecklist</a></li>
+                    <li><a href="#tab_3-3" data-toggle="tab">Checklist</a></li>
                     <li><a href="#tab_4-4" data-toggle="tab">Peças</a></li>
                     <li><a href="#tab_5-5" data-toggle="tab">Serviços</a></li>
+                    <li><a title="foto" href="<?php echo base_url() . 'index.php/os/arquivoUpload/' . $os->idOS ?>" >Fotos </a></li>
                     <li class="btn-small btn-success btn-small"><a title="imprimir" href="<?php echo base_url() . 'index.php/os/imprimir/' . $os->idOS ?>" >Imprimir <i class="fa-fw glyphicon glyphicon-print"></i> </a></li>
 
                     <li class="pull-right header"><i class="fa fa-th"></i> Selecione as abas desejadas</li>
@@ -284,8 +285,12 @@
                                         <textarea id="defeito" name="defeito" class="form-control" rows="4" required="" ><?php echo $os->defeito ?></textarea>
                                     </div>
                                     <div class="form-group col-md-12">
-                                        <label>Laudo técnico(preenchido pelo técnico)</label>
-                                        <textarea id="laudo" name="laudo" class="form-control" rows="10" ><?php echo $os->laudo ?></textarea>
+                                        <label>Laudo técnico - VISÍVEL PARA O CLIENTE </label> <a id="bt-copiar" class="btn btn-primary btn-xs">Copiar da observação interna</a>
+                                        <textarea id="laudo" name="laudo" class="form-control bg-red" rows="5" ><?php echo $os->laudo ?></textarea>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label>Observação interna - NÃO VÍSIVEL</label>
+                                        <textarea id="observacaoInterna" name="observacaoInterna" class="form-control bg-green" rows="5" ><?php echo $os->observacaoInterna ?></textarea>
                                     </div>
                                     <div class="form-group col-md-6 text-left">
                                         <button <?php
@@ -324,7 +329,7 @@
                                                 <div >
                                                     <div>
                                                         <div class="col-md-12">
-<?php echo form_hidden('idOS', $os->idOS) ?>
+                                                            <?php echo form_hidden('idOS', $os->idOS) ?>
                                                             <div class="form-group">
                                                                 <label>Status</label>
                                                                 <select class="form-control" name="status">
@@ -332,7 +337,7 @@
                                                                     foreach ($statusEncerrado as &$value) {
                                                                         ?>
                                                                         <option value = <?php echo $value->idStatus; ?> >
-                                                                        <?php echo $value->descricao; ?></option>
+                                                                            <?php echo $value->descricao; ?></option>
                                                                         <?php
                                                                     }
                                                                     ?>
@@ -411,7 +416,7 @@
                                         <i class="fa fa-comments bg-yellow"></i> <!-- timeline icon -->
                                         <div class="timeline-item" >
                                             <h3 class="timeline-header"><a class="text blue"><?php echo $t->nome; ?> </a> 
-    <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'dAgenda')) { ?>
+                                                <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'dAgenda')) { ?>
                                                     <form  action="<?php echo base_url() ?>os/excluirTimeline" method="post">
                                                         <input type="hidden" name="idTimeline_os" id="idTimeline_os" value="<?php echo $t->idTimeline_os ?> ">
                                                         <input type="hidden" name="idos" id="id_os" value="<?php echo $os->idOS ?> ">
@@ -420,7 +425,7 @@
                                                 <?php } ?>                                    
                                             </h3>
                                             <div class="timeline-body">
-    <?php echo nl2br($t->descricao) ?>
+                                                <?php echo nl2br($t->descricao) ?>
                                             </div>  
                                         </div>
                                     </li><!-- TIME LINE - FIM DO CODIGO -->
@@ -437,8 +442,8 @@
                         <?php } ?>
                         <?php if (($equipamento->tipo == 1 or $equipamento->tipo == 2) and $countChecklistNobreakEstabilizador == 0) { ?>
                             <a href="<?php echo base_url(); ?>index.php/os/adicionarChecklistNobreakEstabilizador/<?php echo $os->idOS; ?>" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-plus-sign"></i> Adicionar Checklist</a>
-<?php } ?>
-<?php if (($equipamento->tipo == 3 or $equipamento->tipo == 10) and $countChecklistComputador > 0) { ?>
+                        <?php } ?>
+                        <?php if (($equipamento->tipo == 3 or $equipamento->tipo == 10) and $countChecklistComputador > 0) { ?>
                             <div class="box box-success">
                                 <div class="widget-box">
                                     <div class="widget-title">
@@ -459,7 +464,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-    <?php foreach ($checklistComputador as $r) { ?>
+                                                <?php foreach ($checklistComputador as $r) { ?>
                                                     <tr> 
                                                         <td class="text-middle ng-binding"><?php echo $r->idCheckComputador; ?></td>
                                                         <td class="text-middle ng-binding"><?php echo $r->tecnicoAvaliacao; ?></td> 
@@ -472,7 +477,7 @@
                                                             <?php } ?>
                                                             <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'dOS')) { ?>
                                                                 <a title="excluir"  class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger<?php echo $r->idCheckComputador; ?>"><i class="fa-fw glyphicon glyphicon-trash"></i> </a>
-        <?php } ?>
+                                                            <?php } ?>
                                                             <!--MODAL BOTÃO EXCLUIR-->
                                                             <div class="modal modal-default fade" id="modal-danger<?php echo $r->idCheckComputador; ?>">
                                                                 <div class="modal-dialog">
@@ -508,8 +513,8 @@
                                     </div>
                                 </div>
                             </div>
-<?php } ?>
-<?php if (($equipamento->tipo == 1 or $equipamento->tipo == 2) and $countChecklistNobreakEstabilizador > 0) { ?>
+                        <?php } ?>
+                        <?php if (($equipamento->tipo == 1 or $equipamento->tipo == 2) and $countChecklistNobreakEstabilizador > 0) { ?>
                             <div class="box box-success">
                                 <div class="widget-box">
                                     <div class="widget-title">
@@ -530,7 +535,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-    <?php foreach ($checklistNobreakEstabilizador as $r) { ?>
+                                                <?php foreach ($checklistNobreakEstabilizador as $r) { ?>
                                                     <tr> 
                                                         <td class="text-middle ng-binding"><?php echo $r->idCheckNobEst; ?></td>
                                                         <td class="text-middle ng-binding"><?php echo $r->tecnicoAvaliacao; ?></td> 
@@ -543,7 +548,7 @@
                                                             <?php } ?>
                                                             <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'dOS')) { ?>
                                                                 <a title="excluir"  class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger<?php echo $r->idCheckNobEst; ?>"><i class="fa-fw glyphicon glyphicon-trash"></i> </a>
-        <?php } ?>
+                                                            <?php } ?>
                                                             <!--MODAL BOTÃO EXCLUIR-->
                                                             <div class="modal modal-default fade" id="modal-danger<?php echo $r->idCheckNobEst; ?>">
                                                                 <div class="modal-dialog">
@@ -579,7 +584,7 @@
                                     </div>
                                 </div>
                             </div>
-<?php } ?>
+                        <?php } ?>
                     </div>
                     <!-- ABA PEÇAS  -->
                     <div class="tab-pane" id="tab_4-4">
@@ -594,7 +599,7 @@
                                         <input type="hidden" name="idOS" id="idOS" value="<?php echo $os->idOS; ?>" />
                                         <label for="">Produto</label>
 <!--                                        <select class="produtos-js-ajax col-md-12" id="produto" name="produto" placeholder="Digite o produto" style="width: 100%"></select>-->
-                                         <input type="text" name="produto" id="produto" class="form-control" placeholder="Digite o serviço">
+                                        <input type="text" name="produto" id="produto" class="form-control" placeholder="Digite o serviço">
                                     </div>
                                     <div class="col-md-2">
                                         <label for="">Quantidade</label>
@@ -665,7 +670,7 @@
                                         <input type="hidden" name="idOS" id="idOS" value="<?php echo $os->idOS ?>" />
                                         <label for="">Serviço</label>
 <!--                                        <select class="servicos-js-ajax col-md-12" id="servico" name="servico" placeholder="Digite o serviço" style="width: 100%"></select>-->
-                                    <input type="text" name="servico" id="servico" class="form-control" placeholder="Digite o serviço">
+                                        <input type="text" name="servico" id="servico" class="form-control" placeholder="Digite o serviço">
                                     </div>
                                     <div class="col-md-2">
                                         <label >Quantidade</label>
@@ -720,12 +725,59 @@
                             </div>
                         </div>
                     </div>
+
+                    <!--  ABA FOTOS -->
+                    <div class="tab-pane" id="tab_6-6">
+                        <?php echo form_open_multipart('biblioteca/add'); ?>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="box box-success">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">PREENCHA OS DADOS DO ARQUIVO</h3>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Nome </label>
+                                                <input type="text" class="form-control" name="nome" placeholder="Ex.: Arquivo XXXX" value="<?= set_value('nome') ?>">
+                                                <input type="hidden" class="form-control" name="idOS" value="<?php echo $os->idOS ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="form-group">
+                                                <label for="">Descrição</label>
+                                                <textarea class="form-control" name="descricao" id="descricao" rows="3" placeholder="Descreva mais informações sobre o arquivo"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="form-group">
+                                                <label for="">Arquivo (pdf | png | jpeg | jpg | tamanho máximo 15mb)</label>
+                                                <input type="file" class="form-control-file" name="arquivo">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group text-left">
+                                                <button type="submit" class="btn btn-success"> SALVAR </button>
+                                                <a title="cancelar" href="<?php echo base_url() ?>index.php/biblioteca/gerenciar" class="btn btn-danger btn-small">CANCELAR </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
 </section>
 <?php $this->load->view('template/footer'); ?>
 
+<script>
+$('#bt-copiar').on('click', function(){
+  $('#laudo').val($('#observacaoInterna').val());    
+});
+</script>
 <script type="text/javascript">
     $(document).ready(function () {
         $(function () {

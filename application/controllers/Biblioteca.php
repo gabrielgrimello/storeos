@@ -72,7 +72,7 @@ class Biblioteca extends CI_Controller {
         $data['dadoslogin'] = $this->session->all_userdata();
 
         $this->form_validation->set_rules('descricao', 'Descrição', 'trim|required|min_length[3]');
-        $this->form_validation->set_rules('nome', 'Nome', 'trim|required|min_length[3]');
+       // $this->form_validation->set_rules('nome', 'Nome', 'trim|required|min_length[3]');
         // $this->form_validation->set_rules('arquivo', 'Arquivo', 'required');
 
 
@@ -80,7 +80,7 @@ class Biblioteca extends CI_Controller {
             $data['formErrors'] = validation_errors();
         } else {
             $config['upload_path'] = './upload/';
-            $config['allowed_types'] = 'pdf|png|jpeg';
+            $config['allowed_types'] = 'pdf|png|jpeg|jpg';
             $config['max_size'] = 15000;
            // $config['max_width'] = 1024;
            // $config['max_height'] = 768;
@@ -100,12 +100,12 @@ class Biblioteca extends CI_Controller {
                 $dados['nome'] = $this->input->post('nome');
                 $dados['descricao'] = $this->input->post('descricao');
                 $dados['data'] = date('Y/m/d');
-                $dados['usuario'] = $this->input->post('usuario');
+                $dados['usuario'] = $this->session->idusuarios;
                 $dados['caminho'] = $data['orig_name'];
 
                 $idBiblioteca = $this->Biblioteca_model->add('biblioteca', $dados);
                 if ($idBiblioteca != 0) {
-                    redirect(base_url() . 'index.php/biblioteca/gerenciar');
+                    redirect(base_url() . 'index.php/os/editarOS/'.$this->input->post('idOS'));
                 } else {
                     $this->data['custom_error'] = '<div class="form_error"><p>Ocorreu um erro.</p></div>';
                 }

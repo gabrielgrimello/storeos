@@ -23,7 +23,7 @@
                 </div> <!-- /.box-header -->
                 <div class="box-body">
                     <form method="get" action="<?php echo base_url(); ?>index.php/os/gerenciar"> <!-- INICIO DE FORM DE FILTRO DE BUSCA -->
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             <input class="form-control" type="number" name="idOS"  id="idOS"  placeholder="OS" value="<?= set_value('idOS') ?>" >
                         </div>
                         <div class="col-md-2">
@@ -35,23 +35,25 @@
                         <div class="col-md-2">
                             <input class="form-control" type="text" name="fantasiaCliente"  id="cnpj"  placeholder="Fantasia" value="<?= set_value('fantasiaCliente') ?>" >
                         </div>
-                        <div class="col-md-3">
-                            <select name="status" id="status" class="form-control" value="<?= set_value('status') ?>">
-                                <option value="">Selecione status</option>
+                        <div class="form-group col-md-4">
+                            <select name="status[]" id="status" class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Selecione um ou mais status" style="width: 100%;" tabindex="-1" aria-hidden="true">
                                 <?php
                                 foreach ($status as $value) {
                                     ?>
                                     <option value = "<?php echo $value->idStatus; ?>" <?php
-//                                    if ($value->idStatus == $statuspost) {
-//                                        echo "selected";
-//                                    }
+                                    if ($statusget) {
+                                        for ($i = 0; $i < sizeof($statusget); $i++) {
+                                            if ($value->idStatus == $statusget[$i]) {
+                                                echo "selected";
+                                            }
+                                        }
+                                    }
                                     ?> ><?php echo $value->descricao; ?></option>
                                             <?php
                                         }
                                         ?>
                             </select>
                         </div>
-
                         <div class="col-md-1 text-right">
                             <a href="<?php echo base_url(); ?>index.php/os/gerenciar" class="btn btn-primary"><i class="glyphicon glyphicon-erase"></i></a>
                             <button class="btn btn-danger"> <i class="glyphicon glyphicon-search"></i></button>
@@ -66,10 +68,13 @@
         <div class="col-md-12">
             <div class="box box-success">
                 <div class="box-body">
-                    <div class="col-md-12">
+                    <div class="col-md-10">
                         <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'aOS')) { ?>
                             <a href="<?php echo base_url(); ?>index.php/os/adicionarOS" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-plus-sign"></i> Adicionar OS</a>
                         <?php } ?>
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <a class="btn btn-success btn-xs"><?php echo "Total: ". $totalEquipamentos ?></a>
                     </div>
                     <br><br>
                     <?php if (!$results) { ?>
@@ -90,6 +95,7 @@
                                             <th>Contato</th>
                                             <th>Telefone</th>
                                             <th>E-mail</th>
+                                            <th>Total</th>
                                             <th>Data entrada</th>
                                             <th>Status</th>
                                             <th>Ações</th>
@@ -120,6 +126,7 @@
                                             <th>Contato</th>
                                             <th>Telefone</th>
                                             <th>E-mail</th>
+                                            <th>Total</th>
                                             <th>Entrada</th>
                                             <th>Saída</th>
                                             <th>Status</th>
@@ -147,8 +154,17 @@
                                                 <td class="text-middle ng-binding"><?php echo $r->contatoCliente; ?></td> 
                                                 <td class="text-middle ng-binding"><?php echo $r->telefoneCliente . " / " . $r->celularCliente ?></td> 
                                                 <td class="text-middle ng-binding"><?php echo $r->emailCliente; ?></td> 
-                                                <td class="text-middle ng-binding"><?php $dateEntrada = date_create_from_format('Y-m-d', $r->dataEntrada); echo date_format($dateEntrada, 'd-m-Y'); ?></td> 
-                                                <td class="text-middle ng-binding"><?php if($r->dataEncerra != NULL){  $dateSaida = date_create_from_format('Y-m-d', $r->dataEncerra); echo date_format($dateSaida, 'd-m-Y'); }?></td> 
+                                                <td class="text-middle ng-binding"><?php echo "R$" . $r->valorTotal; ?></td> 
+                                                <td class="text-middle ng-binding"><?php
+                                                    $dateEntrada = date_create_from_format('Y-m-d', $r->dataEntrada);
+                                                    echo date_format($dateEntrada, 'd-m-Y');
+                                                    ?></td> 
+                                                <td class="text-middle ng-binding"><?php
+                                                    if ($r->dataEncerra != NULL) {
+                                                        $dateSaida = date_create_from_format('Y-m-d', $r->dataEncerra);
+                                                        echo date_format($dateSaida, 'd-m-Y');
+                                                    }
+                                                    ?></td> 
                                                 <td class="text-middle ng-binding">
                                                     <?php
                                                     foreach ($status as $value) {
@@ -158,9 +174,15 @@
                                                     }
                                                     ?>
                                                 </td>
-                                                <td class="text-center text-middle ng-binding">
-                                                    <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'iOS')) { ?>
-                                                        <a title="imprimir" href="<?php echo base_url() . 'index.php/os/imprimir/' . $r->idOS ?>" class="btn btn-warning btn-xs"><i class="fa-fw glyphicon glyphicon-print"></i> </a>
+                                                <td class="text-center text-middle ng-binding" width="6%">
+                                                    <?php
+                                                    if ($this->permission->checkPermission($this->session->userdata('permissao'), 'iOS')) {
+                                                        if ($r->encerrada == "sim") {
+                                                            ?>
+                                                            <a title="imprimir" href="<?php echo base_url() . 'index.php/os/imprimirEncerramentoOS/' . $r->idOS ?>" class="btn btn-warning btn-xs"><i class="fa-fw glyphicon glyphicon-print"></i> </a>
+                                                        <?php } else { ?>
+                                                            <a title="imprimir" href="<?php echo base_url() . 'index.php/os/imprimir/' . $r->idOS ?>" class="btn btn-warning btn-xs"><i class="fa-fw glyphicon glyphicon-print"></i> </a>
+                                                        <?php } ?>
                                                     <?php } ?>
                                                     <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'iOS')) { ?>
                                                         <a title="visualizar" href="<?php echo base_url() . 'index.php/os/visualizarOS/' . $r->idOS ?>" class="btn btn-success btn-xs"><i class="fa-fw glyphicon glyphicon-eye-open"></i> </a>
@@ -228,3 +250,10 @@
 
 </section>
 <?php $this->load->view('template/footer'); ?>
+<script>
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2();
+    }
+    )
+</script>
