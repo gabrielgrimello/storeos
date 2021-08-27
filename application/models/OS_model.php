@@ -99,7 +99,7 @@ class OS_model extends CI_Model {
             $this->db->where($where);
         }
         if ($whereRazaoOuFantasia) {
-            $this->db->where($whereRazaoOuFantasia);
+            $this->db->like($whereRazaoOuFantasia);
         }
         
         if ($where_status) {

@@ -31,12 +31,12 @@ class Os extends CI_Controller {
         }
         $this->load->library('table');
         $this->load->library('pagination');
-        $dadoslogin = $this->session->all_userdata();
+        
 
         $where_array = array();
         $where_status = array();
         $whereRazaoOuFantasia = array();
-        $whereDataEntrada = array();
+       
         $idOS = $this->input->get('idOS');
         $cnpjCliente = $this->input->get('cnpj');
         $nomeCliente = $this->input->get('nomeCliente');
