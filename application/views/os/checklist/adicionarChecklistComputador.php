@@ -1,4 +1,7 @@
 <?php $this->load->view('template/menu'); ?>
+<div class="col-md-12">
+    <a title="voltar" href="<?php echo base_url() ?>index.php/os/editarOS/<?php echo $idOS ?>" class="btn btn-danger btn-small"><i class="fa fa-arrow-left"></i>Voltar para a OS </a>
+</div>
 <section class="content">
     <form action="<?php echo base_url() ?>index.php/os/adicionarChecklistComputador" method="post">
         <div class="row">
@@ -37,7 +40,7 @@
                         </div>
                         <div class="row">
                             <div class=" col-md-3">
-                                <div class="form-group">
+                                <div class="form-group" >
                                     <label>
                                         <input type="radio" name="placaMaeRadios" value="ok" >
                                         Placa Mãe OK
@@ -45,7 +48,7 @@
                                 </div>
                             </div>
                             <div class=" col-md-3">
-                                <div class="form-group">
+                                <div class="form-group" >
                                     <label>
                                         <input type="radio" name="placaMaeRadios" value="substituir">
                                         Placa Mãe Substituir
@@ -500,16 +503,32 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class=" col-md-2">
                                 <div class="form-group">
-                                    <label>Marca fonte</label>
-                                    <input type="text" class="form-control" name="marcaFonte" value="<?= set_value('marcaFonte') ?>">
+                                    <label>
+                                        <input type="radio" name="fonteInternaRadios" value="interna">
+                                        Interna
+                                    </label>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class=" col-md-2">
+                                <div class="form-group">
+                                    <label>
+                                        <input type="radio" name="fonteInternaRadios" value="externa">
+                                        Externa
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Marca fonte</label>
+                                    <input type="text" class="form-control" name="marcaFonte" >
+                                </div>
+                            </div>
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Potência fonte</label>
-                                    <input type="text" class="form-control" name="potenciaFonte" value="<?= set_value('potenciaFonte') ?>">
+                                    <input type="text" class="form-control" name="potenciaFonte" >
                                 </div>
                             </div>
                         </div>
@@ -605,6 +624,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group col-md-12">
+                            <label>Laudo técnico - VISÍVEL PARA O CLIENTE </label> <a id="bt-copiar" class="btn btn-primary btn-xs">Copiar da observação interna</a>
+                            <textarea id="laudo" name="laudo" class="form-control bg-red" rows="5" ><?php echo $os->laudo ?></textarea>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>Observação interna - NÃO VÍSIVEL</label>
+                            <textarea id="observacaoInterna" name="observacaoInterna" class="form-control bg-green" rows="5" ><?php echo $os->observacaoInterna ?></textarea>
+                        </div>
                         <div class="col-md-12">
                             <div class="form-group text-left">
                                 <button type="submit" class="btn btn-success"> SALVAR </button>
@@ -619,3 +646,8 @@
 
 </section>
 <?php $this->load->view('template/footer'); ?>
+<script>
+$('#bt-copiar').on('click', function(){
+  $('#laudo').val($('#observacaoInterna').val());    
+});
+</script>
