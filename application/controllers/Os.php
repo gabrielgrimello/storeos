@@ -569,7 +569,7 @@ class Os extends CI_Controller {
             }
         }
         $this->data['os'] = $this->OS_model->getOS($this->uri->segment(3));
-        $this->data['idOS'] = $this->uri->segment(4);
+        $this->data['idOS'] = $this->uri->segment(3);
         $this->load->view('os/checklist/adicionarChecklistNobreakEstabilizador', $this->data);
     }
 
@@ -636,7 +636,7 @@ class Os extends CI_Controller {
 
         $this->data['checklistNobreakEstabilizador'] = $this->OS_model->getByIdChecklistNobreakEstabilizador($this->uri->segment(3));
         $this->data['os'] = $this->OS_model->getOS($this->uri->segment(4));
-        // $this->data['idOS'] = $this->uri->segment(3);
+        $this->data['idOS'] = $this->uri->segment(4);
         $this->load->view('os/checklist/alterarChecklistNobreakEstabilizador', $this->data);
     }
 
@@ -710,8 +710,8 @@ class Os extends CI_Controller {
                 $this->data['custom_error'] = '<div class="form_error"><p>Ocorreu um erro.</p></div>';
             }
         }
-        $this->data['idOS'] = $this->uri->segment(4);
-        $this->data['os'] = $this->OS_model->getOS($this->uri->segment(4));
+        $this->data['idOS'] = $this->uri->segment(3);
+        $this->data['os'] = $this->OS_model->getOS($this->uri->segment(3));
         $this->load->view('os/checklist/adicionarChecklistComputador', $this->data);
     }
 
