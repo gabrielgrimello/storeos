@@ -105,7 +105,7 @@
         </div>
         <div class="row">
            <?php foreach ($status as $s) { ?>
-            <a href="<?php echo base_url() ?>index.php/os/gerenciar?status=<?php echo $s->idStatus ?>" target="_blank">
+            <a href="<?php echo base_url() ?>index.php/os/gerenciar?status%5B%5D=<?php echo $s->idStatus ?>" target="_blank">
                 <div class="col-md-3 text-center">
                     <div class="info-box">
                         <span class="info-box-icon" style="background: <?php echo $s->cor; ?>"><i class="ion ion-android-clipboard" style="color: white" target="_blank"></i></span>

@@ -122,6 +122,11 @@ class Os extends CI_Controller {
         $this->pagination->initialize($config);
 
         $this->data['statusget'] = $this->input->get('status');
+        $this->data['osget'] = $this->input->get('idOS');
+        $this->data['cnpjget'] = $this->input->get('cnpj');
+        $this->data['razaoget'] = $this->input->get('nomeCliente');
+        $this->data['fantasiaget'] = $this->input->get('fantasiaCliente');
+        
 
         $this->data['totalEquipamentos'] = $this->OS_model->countGerenciar('ordem_servico', $where_array, $whereRazaoOuFantasia, $where_status);
         $this->data['status'] = $this->OS_model->getConfig('status_os', 'idStatus,descricao,encerra');

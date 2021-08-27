@@ -55,7 +55,7 @@
     <body>
         <!--        DESCOMENTAR PARA USAR PLANO DE FUNDO 
                         <div id="container-imagem"></div>
-                        <img class="page-break" src="<?php // echo base_url()                                                          ?>/assets/imagens/teste.png">-->
+                        <img class="page-break" src="<?php // echo base_url()                                                           ?>/assets/imagens/teste.png">-->
 
         <a class="no-print" style="font-size: 20px;" name="imprimir" href='javascript:window.print()' >IMPRIMIR</a>
 
@@ -472,6 +472,7 @@
                         <td  width="30%"> <strong>Nome: ____________________</strong></td>
                     <?php } elseif ($os->status == 4) { ?>
                         <td rowspan="0" width="70%"><strong>Recebi o equipamento descrito nesta O.S. conforme minha autorização nas mesmas condições em que foi entregue. (&nbsp&nbsp&nbsp&nbsp)Sem reparo   (&nbsp&nbsp&nbsp&nbsp) Sem conserto </strong></td>    
+                        <td  width="30%"> <strong>Nome: ____________________</strong></td>
                     <?php } ?>
                 </tr>
                 <tr align="left">

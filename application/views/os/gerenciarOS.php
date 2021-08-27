@@ -24,16 +24,32 @@
                 <div class="box-body">
                     <form method="get" action="<?php echo base_url(); ?>index.php/os/gerenciar"> <!-- INICIO DE FORM DE FILTRO DE BUSCA -->
                         <div class="col-md-1">
-                            <input class="form-control" type="number" name="idOS"  id="idOS"  placeholder="OS" value="<?= set_value('idOS') ?>" >
+                            <input class="form-control" type="number" name="idOS"  id="idOS"  placeholder="OS" value="<?php
+                                if ($osget) {
+                                    echo $osget;
+                                }
+                                ?>" > 
                         </div>
                         <div class="col-md-2">
-                            <input class="form-control" type="number" name="cnpj"  id="cnpj"  placeholder="CNPJ" value="<?= set_value('cnpj') ?>" >
+                            <input class="form-control" type="number" name="cnpj"  id="cnpj"  placeholder="CNPJ" value="<?php
+                                if ($cnpjget) {
+                                    echo $cnpjget;
+                                }
+                                ?>" > 
                         </div>
                         <div class="col-md-2">
-                            <input class="form-control" type="text" name="nomeCliente"  id="cnpj"  placeholder="Razão social" value="<?= set_value('nomeCliente') ?>" >
+                            <input class="form-control" type="text" name="nomeCliente"  id="cnpj"  placeholder="Razão social" value="<?php
+                                if ($razaoget) {
+                                    echo $razaoget;
+                                }
+                                ?>" > 
                         </div>
                         <div class="col-md-2">
-                            <input class="form-control" type="text" name="fantasiaCliente"  id="cnpj"  placeholder="Fantasia" value="<?= set_value('fantasiaCliente') ?>" >
+                            <input class="form-control" type="text" name="fantasiaCliente"  id="cnpj"  placeholder="Fantasia" value="<?php
+                                if ($fantasiaget) {
+                                    echo $fantasiaget;
+                                }
+                                ?>" > 
                         </div>
                         <div class="form-group col-md-4">
                             <select name="status[]" id="status" class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Selecione um ou mais status" style="width: 100%;" tabindex="-1" aria-hidden="true">
