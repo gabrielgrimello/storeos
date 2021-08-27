@@ -1,4 +1,7 @@
 <?php $this->load->view('template/menu'); ?>
+<div class="col-md-12">
+    <a title="voltar" href="<?php echo base_url() ?>index.php/os/editarOS/<?php echo $checklistComputador->idOS ?>" class="btn btn-danger btn-small"><i class="fa fa-arrow-left"></i>Voltar para a OS </a>
+</div>
 <section class="content">
     <form action="<?php echo current_url(); ?>" method="post">
         <div class="row">
@@ -40,9 +43,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="carregadorRadios" value="ok" <?php if ($checklistNobreakEstabilizador->avaliaCarregador == "ok") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="carregadorRadios" value="ok" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaCarregador == "ok") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Carregador OK
                                     </label>
                                 </div>
@@ -50,9 +55,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="carregadorRadios" value="reparado" <?php if ($checklistNobreakEstabilizador->avaliaCarregador == "reparado") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="carregadorRadios" value="reparado" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaCarregador == "reparado") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Carregador Reparado
                                     </label>
                                 </div>
@@ -60,9 +67,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="carregadorRadios" value="reparar" <?php if ($checklistNobreakEstabilizador->avaliaCarregador == "reparar") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="carregadorRadios" value="reparar" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaCarregador == "reparar") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Carregador Reparar
                                     </label>
                                 </div>
@@ -78,9 +87,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="estabilizaRadios" value="ok" <?php if ($checklistNobreakEstabilizador->avaliaEstabilizaRede == "ok") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="estabilizaRadios" value="ok" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaEstabilizaRede == "ok") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Estabiliza rede OK
                                     </label>
                                 </div>
@@ -88,9 +99,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="estabilizaRadios" value="reparado" <?php if ($checklistNobreakEstabilizador->avaliaEstabilizaRede == "reparado") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="estabilizaRadios" value="reparado" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaEstabilizaRede == "reparado") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Estabiliza rede Reparado
                                     </label>
                                 </div>
@@ -98,9 +111,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="estabilizaRadios" value="reparar" <?php if ($checklistNobreakEstabilizador->avaliaEstabilizaRede == "reparar") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="estabilizaRadios" value="reparar" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaEstabilizaRede == "reparar") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Estabiliza rede Reparar
                                     </label>
                                 </div>
@@ -116,9 +131,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="inverterRadios" value="ok" <?php if ($checklistNobreakEstabilizador->avaliaInverter == "ok") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="inverterRadios" value="ok" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaInverter == "ok") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Inverter OK
                                     </label>
                                 </div>
@@ -126,9 +143,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="inverterRadios" value="reparado" <?php if ($checklistNobreakEstabilizador->avaliaInverter == "reparado") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="inverterRadios" value="reparado" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaInverter == "reparado") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Inverter Reparado
                                     </label>
                                 </div>
@@ -136,9 +155,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="inverterRadios" value="reparar" <?php if ($checklistNobreakEstabilizador->avaliaInverter == "reparar") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="inverterRadios" value="reparar" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaInverter == "reparar") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Inverter Reparar
                                     </label>
                                 </div>
@@ -154,9 +175,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="selTensaoRadios" value="ok" <?php if ($checklistNobreakEstabilizador->avaliaSeletorTensao == "ok") {
-    echo "checked";
-} ?> >
+                                        <input type="radio" name="selTensaoRadios" value="ok" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaSeletorTensao == "ok") {
+                                            echo "checked";
+                                        }
+                                        ?> >
                                         Sel. tensão OK
                                     </label>
                                 </div>
@@ -164,9 +187,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="selTensaoRadios" value="reparado" <?php if ($checklistNobreakEstabilizador->avaliaSeletorTensao == "reparado") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="selTensaoRadios" value="reparado" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaSeletorTensao == "reparado") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Sel. tensão Reparado
                                     </label>
                                 </div>
@@ -174,9 +199,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="selTensaoRadios" value="reparar" <?php if ($checklistNobreakEstabilizador->avaliaSeletorTensao == "reparar") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="selTensaoRadios" value="reparar" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaSeletorTensao == "reparar") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Sel. tensão Reparar
                                     </label>
                                 </div>
@@ -192,9 +219,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="barraSaidaRadios" value="ok" <?php if ($checklistNobreakEstabilizador->avaliaBarraSaida == "ok") {
-    echo "checked";
-} ?> >
+                                        <input type="radio" name="barraSaidaRadios" value="ok" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaBarraSaida == "ok") {
+                                            echo "checked";
+                                        }
+                                        ?> >
                                         Barra de saída OK
                                     </label>
                                 </div>
@@ -202,9 +231,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="barraSaidaRadios" value="reparado" <?php if ($checklistNobreakEstabilizador->avaliaBarraSaida == "reparado") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="barraSaidaRadios" value="reparado" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaBarraSaida == "reparado") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Barra de saída Reparado
                                     </label>
                                 </div>
@@ -212,9 +243,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="barraSaidaRadios" value="trocar" <?php if ($checklistNobreakEstabilizador->avaliaBarraSaida == "trocar") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="barraSaidaRadios" value="trocar" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaBarraSaida == "trocar") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Barra de saída Trocar
                                     </label>
                                 </div>
@@ -230,9 +263,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="trafoRadios" value="ok" <?php if ($checklistNobreakEstabilizador->avaliaTrafo == "ok") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="trafoRadios" value="ok" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaTrafo == "ok") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Trafo OK
                                     </label>
                                 </div>
@@ -240,9 +275,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="trafoRadios" value="reparado" <?php if ($checklistNobreakEstabilizador->avaliaTrafo == "reparado") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="trafoRadios" value="reparado" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaTrafo == "reparado") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Trafo Reparado
                                     </label>
                                 </div>
@@ -250,9 +287,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="trafoRadios" value="reparar" <?php if ($checklistNobreakEstabilizador->avaliaTrafo == "reparar") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="trafoRadios" value="reparar" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaTrafo == "reparar") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Trafo Reparar
                                     </label>
                                 </div>
@@ -260,9 +299,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="trafoRadios" value="substituir" <?php if ($checklistNobreakEstabilizador->avaliaTrafo == "substituir") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="trafoRadios" value="substituir" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaTrafo == "substituir") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Trafo Substituir
                                     </label>
                                 </div>
@@ -278,9 +319,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="placaRadios" value="ok" <?php if ($checklistNobreakEstabilizador->avaliaPlaca == "ok") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="placaRadios" value="ok" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaPlaca == "ok") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Placa OK
                                     </label>
                                 </div>
@@ -288,9 +331,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="placaRadios" value="reparado" <?php if ($checklistNobreakEstabilizador->avaliaPlaca == "reparado") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="placaRadios" value="reparado" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaPlaca == "reparado") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Placa Reparado
                                     </label>
                                 </div>
@@ -298,9 +343,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="placaRadios" value="reparar" <?php if ($checklistNobreakEstabilizador->avaliaPlaca == "reparar") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="placaRadios" value="reparar" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaPlaca == "reparar") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Placa Reparar
                                     </label>
                                 </div>
@@ -308,9 +355,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="placaRadios" value="substituir" <?php if ($checklistNobreakEstabilizador->avaliaPlaca == "substituir") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="placaRadios" value="substituir" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaPlaca == "substituir") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Placa Substituir
                                     </label>
                                 </div>
@@ -326,9 +375,11 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="bateriaRadios" value="nao" <?php if ($checklistNobreakEstabilizador->avaliaBateria == "nao") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="bateriaRadios" value="nao" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaBateria == "nao") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Não possui bateria
                                     </label>
                                 </div>
@@ -336,9 +387,11 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="bateriaRadios" value="ok"  <?php if ($checklistNobreakEstabilizador->avaliaBateria == "ok") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="bateriaRadios" value="ok"  <?php
+                                        if ($checklistNobreakEstabilizador->avaliaBateria == "ok") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Bateria OK
                                     </label>
                                 </div>
@@ -346,9 +399,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="bateriaRadios" value="substituir" <?php if ($checklistNobreakEstabilizador->avaliaBateria == "substituir") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="bateriaRadios" value="substituir" <?php
+                                        if ($checklistNobreakEstabilizador->avaliaBateria == "substituir") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         Bateria Substituir
                                     </label>
                                 </div>
@@ -365,9 +420,11 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="modeloBateriaRadios" value="5" <?php if ($checklistNobreakEstabilizador->modeloBateria == "5") {
-    echo "checked";
-} ?> >
+                                        <input type="radio" name="modeloBateriaRadios" value="5" <?php
+                                        if ($checklistNobreakEstabilizador->modeloBateria == "5") {
+                                            echo "checked";
+                                        }
+                                        ?> >
                                         12v/5ah
                                     </label>
                                 </div>
@@ -375,9 +432,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="modeloBateriaRadios" value="7" <?php if ($checklistNobreakEstabilizador->modeloBateria == "7") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="modeloBateriaRadios" value="7" <?php
+                                        if ($checklistNobreakEstabilizador->modeloBateria == "7") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         12v/7ah
                                     </label>
                                 </div>
@@ -385,9 +444,11 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="modeloBateriaRadios" value="9"  <?php if ($checklistNobreakEstabilizador->modeloBateria == "9") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="modeloBateriaRadios" value="9"  <?php
+                                        if ($checklistNobreakEstabilizador->modeloBateria == "9") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         12v/9ah
                                     </label>
                                 </div>
@@ -395,9 +456,11 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="modeloBateriaRadios" value="18" <?php if ($checklistNobreakEstabilizador->modeloBateria == "18") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="modeloBateriaRadios" value="18" <?php
+                                        if ($checklistNobreakEstabilizador->modeloBateria == "18") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         12v/18ah
                                     </label>
                                 </div>
@@ -414,9 +477,11 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="quantidadeBateriaRadios" value="1" <?php if ($checklistNobreakEstabilizador->quantidadeBateria == "1") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="quantidadeBateriaRadios" value="1" <?php
+                                        if ($checklistNobreakEstabilizador->quantidadeBateria == "1") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         1
                                     </label>
                                 </div>
@@ -424,9 +489,11 @@
                             <div class=" col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="quantidadeBateriaRadios" value="2" <?php if ($checklistNobreakEstabilizador->quantidadeBateria == "2") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="quantidadeBateriaRadios" value="2" <?php
+                                        if ($checklistNobreakEstabilizador->quantidadeBateria == "2") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         2
                                     </label>
                                 </div>
@@ -434,9 +501,11 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="quantidadeBateriaRadios" value="4" <?php if ($checklistNobreakEstabilizador->quantidadeBateria == "4") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="quantidadeBateriaRadios" value="4" <?php
+                                        if ($checklistNobreakEstabilizador->quantidadeBateria == "4") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         4
                                     </label>
                                 </div>
@@ -444,9 +513,11 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>
-                                        <input type="radio" name="quantidadeBateriaRadios" value="16" <?php if ($checklistNobreakEstabilizador->quantidadeBateria == "16") {
-    echo "checked";
-} ?>>
+                                        <input type="radio" name="quantidadeBateriaRadios" value="16" <?php
+                                        if ($checklistNobreakEstabilizador->quantidadeBateria == "16") {
+                                            echo "checked";
+                                        }
+                                        ?>>
                                         16
                                     </label>
                                 </div>
@@ -482,7 +553,7 @@
 </section>
 <?php $this->load->view('template/footer'); ?>
 <script>
-$('#bt-copiar').on('click', function(){
-  $('#laudo').val($('#observacaoInterna').val());    
-});
+    $('#bt-copiar').on('click', function () {
+        $('#laudo').val($('#observacaoInterna').val());
+    });
 </script>

@@ -691,16 +691,18 @@ class Os extends CI_Controller {
             $dadosChecklist['obsRede'] = $this->input->post('obsRede');
             $dadosChecklist['avaliaBateria'] = $this->input->post('bateriaRadios');
             $dadosChecklist['avaliaFonte'] = $this->input->post('fonteRadios');
+            $dadosChecklist['fonteInterna'] = $this->input->post('fonteInternaRadios');
             $dadosChecklist['marcaFonte'] = $this->input->post('marcaFonte');
             $dadosChecklist['potenciaFonte'] = $this->input->post('potenciaFonte');
             $dadosChecklist['avaliaGabinete'] = $this->input->post('gabineteRadios');
             $dadosChecklist['corGabinete'] = $this->input->post('corGabineteRadios');
             $dadosChecklist['avaliaLimpeza'] = $this->input->post('limpezaCheckbox');
             $dadosChecklist['nomeComputador'] = $this->input->post('nomeComputador');
-            //var_dump($dadosChecklist);
+            $dadosOs['laudo'] = $this->input->post('laudo');
 
 
             if ($this->OS_model->add('checklist_computador', $dadosChecklist) == TRUE) {
+                $this->OS_model->edit('ordem_servico', $dadosOs, 'idOS', $this->input->post('idOS'));
                 $this->session->set_flashdata('success_msg', 'Checklist adicionado com sucesso!');
                 $this->data['formErrors'] = null;
                 redirect(base_url() . 'index.php/os/editarOS/' . $this->input->post('idOS'));
@@ -709,6 +711,7 @@ class Os extends CI_Controller {
             }
         }
         $this->data['idOS'] = $this->uri->segment(3);
+        $this->data['os'] = $this->OS_model->getOS($this->uri->segment(4));
         $this->load->view('os/checklist/adicionarChecklistComputador', $this->data);
     }
 
@@ -768,16 +771,19 @@ class Os extends CI_Controller {
             $dadosChecklist['obsRede'] = $this->input->post('obsRede');
             $dadosChecklist['avaliaBateria'] = $this->input->post('bateriaRadios');
             $dadosChecklist['avaliaFonte'] = $this->input->post('fonteRadios');
+            $dadosChecklist['fonteInterna'] = $this->input->post('fonteInternaRadios');
             $dadosChecklist['marcaFonte'] = $this->input->post('marcaFonte');
             $dadosChecklist['potenciaFonte'] = $this->input->post('potenciaFonte');
             $dadosChecklist['avaliaGabinete'] = $this->input->post('gabineteRadios');
             $dadosChecklist['corGabinete'] = $this->input->post('corGabineteRadios');
             $dadosChecklist['avaliaLimpeza'] = $this->input->post('limpezaCheckbox');
             $dadosChecklist['nomeComputador'] = $this->input->post('nomeComputador');
-
+            $dadosOs['laudo'] = $this->input->post('laudo');
+            
 //      var_dump($dadosCkecklist);
 
             if ($this->OS_model->edit('checklist_Computador', $dadosChecklist, 'idCheckComputador', $this->input->post('idCheckComputador')) == TRUE) {
+                $this->OS_model->edit('ordem_servico', $dadosOs, 'idOS', $this->input->post('idOS'));
                 $this->session->set_flashdata('success_msg', 'Checklist atualizado com sucesso!');
                 $this->data['formErrors'] = null;
                 redirect(base_url() . 'index.php/os/editarOS/' . $this->input->post('idOS'));
@@ -788,6 +794,7 @@ class Os extends CI_Controller {
 
         $this->data['checklistComputador'] = $this->OS_model->getByIdChecklistComputador($this->uri->segment(3));
         $this->data['idOS'] = $this->uri->segment(3);
+        $this->data['os'] = $this->OS_model->getOS($this->uri->segment(4));
         $this->load->view('os/checklist/alterarChecklistComputador', $this->data);
     }
 

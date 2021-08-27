@@ -1,4 +1,7 @@
 <?php $this->load->view('template/menu'); ?>
+<div class="col-md-12">
+    <a title="voltar" href="<?php echo base_url() ?>index.php/os/editarOS/<?php echo $checklistComputador->idOS ?>" class="btn btn-danger btn-small"><i class="fa fa-arrow-left"></i>Voltar para a OS </a>
+</div>
 <section class="content">
     <form action="<?php echo base_url() ?>index.php/os/adicionarChecklistNobreakEstabilizador" method="post">
         <div class="row">

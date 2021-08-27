@@ -37,7 +37,38 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#tab_1-1" data-toggle="tab">OS</a></li>
                     <li><a href="#tab_2-2" data-toggle="tab">Timeline</a></li>
-                    <li><a href="#tab_3-3" data-toggle="tab">Checklist</a></li>
+<!--                                        <li><a href="#tab_3-3" data-toggle="tab">Checklist</a></li>-->
+                    <?php
+                    if (($equipamento->tipo == 3 or $equipamento->tipo == 10)) {
+                        if ($countChecklistComputador == 0) {
+                            ?>
+                            <li> <a href="<?php echo base_url(); ?>index.php/os/adicionarChecklistComputador/<?php echo $os->idOS; ?>" > Checklist</a></li>
+                            <?php
+                        } elseif ($countChecklistComputador > 0) {
+                            foreach ($checklistComputador as $r) {
+                                ?>
+                                <li><a title="editar" href="<?php echo base_url() ?>index.php/os/editarChecklistComputador/<?php echo $r->idCheckComputador."/".$r->idOS; ?>" > Checklist </a>  </li>
+                                <?php
+                            }
+                        }
+                    }
+                    ?>
+                    <?php
+                    if (($equipamento->tipo == 1 or $equipamento->tipo == 2)) {
+                        if ($countChecklistNobreakEstabilizador == 0) {
+                            ?>
+                            <li><a href="<?php echo base_url(); ?>index.php/os/adicionarChecklistNobreakEstabilizador/<?php echo $os->idOS; ?>" > Checklist</a></li>
+                            <?php
+                        } elseif ($countChecklistNobreakEstabilizador > 0) {
+                            foreach ($checklistNobreakEstabilizador as $r) {
+                                ?>
+                                <li><a href="<?php echo base_url() ?>index.php/os/editarChecklistNobreakEstabilizador/<?php echo $r->idCheckNobEst; ?>/<?php echo $r->idOS; ?>" > Checklist </a></li>
+                                <?php
+                            }
+                        }
+                    }
+                    ?>
+
                     <li><a href="#tab_4-4" data-toggle="tab">Peças</a></li>
                     <li><a href="#tab_5-5" data-toggle="tab">Serviços</a></li>
                     <li><a title="foto" href="<?php echo base_url() . 'index.php/os/arquivoUpload/' . $os->idOS ?>" >Fotos </a></li>
@@ -436,7 +467,7 @@
                         </div>
                     </div>
                     <!-- ABA CHECKLIST-->
-                    <div class="tab-pane" id="tab_3-3">
+<!--                    <div class="tab-pane" id="tab_3-3">
                         <?php if (($equipamento->tipo == 3 or $equipamento->tipo == 10) and $countChecklistComputador == 0) { ?>
                             <a href="<?php echo base_url(); ?>index.php/os/adicionarChecklistComputador/<?php echo $os->idOS; ?>" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-plus-sign"></i> Adicionar Checklist</a>
                         <?php } ?>
@@ -478,7 +509,7 @@
                                                             <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'dOS')) { ?>
                                                                 <a title="excluir"  class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger<?php echo $r->idCheckComputador; ?>"><i class="fa-fw glyphicon glyphicon-trash"></i> </a>
                                                             <?php } ?>
-                                                            <!--MODAL BOTÃO EXCLUIR-->
+                                                            MODAL BOTÃO EXCLUIR
                                                             <div class="modal modal-default fade" id="modal-danger<?php echo $r->idCheckComputador; ?>">
                                                                 <div class="modal-dialog">
                                                                     <div class="modal-content">
@@ -495,10 +526,10 @@
                                                                                 <button type="submit" class="btn btn-danger ">Excluir<i class="icon-remove icon-white"></i></button>
                                                                             </div>
                                                                         </form>
-                                                                    </div><!-- /.modal-content -->
-                                                                </div><!-- /.modal-dialog -->
+                                                                    </div> /.modal-content 
+                                                                </div> /.modal-dialog 
                                                             </div>
-                                                            <!--MODAL BOTÃO EXCLUIR-->
+                                                            MODAL BOTÃO EXCLUIR
                                                         </td>
                                                     </tr>
 
@@ -549,7 +580,7 @@
                                                             <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'dOS')) { ?>
                                                                 <a title="excluir"  class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger<?php echo $r->idCheckNobEst; ?>"><i class="fa-fw glyphicon glyphicon-trash"></i> </a>
                                                             <?php } ?>
-                                                            <!--MODAL BOTÃO EXCLUIR-->
+                                                            MODAL BOTÃO EXCLUIR
                                                             <div class="modal modal-default fade" id="modal-danger<?php echo $r->idCheckNobEst; ?>">
                                                                 <div class="modal-dialog">
                                                                     <div class="modal-content">
@@ -566,10 +597,10 @@
                                                                                 <button type="submit" class="btn btn-danger ">Excluir<i class="icon-remove icon-white"></i></button>
                                                                             </div>
                                                                         </form>
-                                                                    </div><!-- /.modal-content -->
-                                                                </div><!-- /.modal-dialog -->
+                                                                    </div> /.modal-content 
+                                                                </div> /.modal-dialog 
                                                             </div>
-                                                            <!--MODAL BOTÃO EXCLUIR-->
+                                                            MODAL BOTÃO EXCLUIR
                                                         </td>
                                                     </tr>
 
@@ -585,7 +616,7 @@
                                 </div>
                             </div>
                         <?php } ?>
-                    </div>
+                    </div>-->
                     <!-- ABA PEÇAS  -->
                     <div class="tab-pane" id="tab_4-4">
                         <div class="box box-success">
@@ -725,48 +756,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!--  ABA FOTOS -->
-                    <div class="tab-pane" id="tab_6-6">
-                        <?php echo form_open_multipart('biblioteca/add'); ?>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="box box-success">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">PREENCHA OS DADOS DO ARQUIVO</h3>
-                                    </div>
-                                    <div class="box-body">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Nome </label>
-                                                <input type="text" class="form-control" name="nome" placeholder="Ex.: Arquivo XXXX" value="<?= set_value('nome') ?>">
-                                                <input type="hidden" class="form-control" name="idOS" value="<?php echo $os->idOS ?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="form-group">
-                                                <label for="">Descrição</label>
-                                                <textarea class="form-control" name="descricao" id="descricao" rows="3" placeholder="Descreva mais informações sobre o arquivo"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="form-group">
-                                                <label for="">Arquivo (pdf | png | jpeg | jpg | tamanho máximo 15mb)</label>
-                                                <input type="file" class="form-control-file" name="arquivo">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group text-left">
-                                                <button type="submit" class="btn btn-success"> SALVAR </button>
-                                                <a title="cancelar" href="<?php echo base_url() ?>index.php/biblioteca/gerenciar" class="btn btn-danger btn-small">CANCELAR </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        </form>
-                    </div>
                 </div>
             </div>
         </div>
@@ -774,9 +763,9 @@
 <?php $this->load->view('template/footer'); ?>
 
 <script>
-$('#bt-copiar').on('click', function(){
-  $('#laudo').val($('#observacaoInterna').val());    
-});
+    $('#bt-copiar').on('click', function () {
+        $('#laudo').val($('#observacaoInterna').val());
+    });
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
