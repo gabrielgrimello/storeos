@@ -53,6 +53,12 @@ class Dashboard extends CI_Controller {
         $this->data['saidasReparado'] = $this->getSaidasReparado();
         $this->data['saidasSemReparo'] = $this->getSaidasSemReparo();
         $this->data['saidasDescarte'] = $this->getSaidasDescarte();
+
+        $this->data['mediaEntrada'] = $this->getMediaEntradas();
+        $this->data['mediaSaida'] = $this->getMediaSaidas();
+        $this->data['mediaSemReparo'] = $this->getMediaSaidasSemReparo();
+        $this->data['mediaDescarte'] = $this->getMediaSaidasDescarte();
+
         $this->data['meses'] = $this->ultimos12Meses();
 
         $this->load->view('dashboard/dashboard', $this->data);
@@ -75,9 +81,20 @@ class Dashboard extends CI_Controller {
         for ($i = 12; $i >= 0; $i--) {
             $whereInicio['dataEntrada >='] = date("Y-m-01", strtotime(date('Y-m-01') . " -$i months"));
             $whereFinal['dataEntrada <='] = date("Y-m-31", strtotime(date('Y-m-01') . " -$i months"));
-            $totalAbertas[] = $this->dashboard_model->countEntradasSaidas('ordem_servico', $whereInicio, $whereFinal,'');
+            $totalAbertas[] = $this->dashboard_model->countEntradasSaidas('ordem_servico', $whereInicio, $whereFinal, '');
         }
         return json_encode($totalAbertas);
+    }
+
+    public function getMediaEntradas() {
+        $totalAbertas = 0;
+        for ($i = 12; $i >= 0; $i--) {
+            $whereInicio['dataEntrada >='] = date("Y-m-01", strtotime(date('Y-m-01') . " -$i months"));
+            $whereFinal['dataEntrada <='] = date("Y-m-31", strtotime(date('Y-m-01') . " -$i months"));
+            $totalAbertas = $totalAbertas + $this->dashboard_model->countEntradasSaidas('ordem_servico', $whereInicio, $whereFinal, '');
+        }
+
+        return number_format((float) $totalAbertas / 13, 2, ',', '');
     }
 
     public function getSaidasReparado() {
@@ -86,31 +103,67 @@ class Dashboard extends CI_Controller {
             $where['encerrada'] = 'sim';
             $whereInicio['dataEncerra >='] = date("Y-m-01", strtotime(date('Y-m-01') . " -$i months"));
             $whereFinal['dataEncerra <='] = date("Y-m-31", strtotime(date('Y-m-01') . " -$i months"));
-            $totalFechadas[] = $this->dashboard_model->countEntradasSaidas('ordem_servico', $whereInicio, $whereFinal,$where);
+            $totalFechadas[] = $this->dashboard_model->countEntradasSaidas('ordem_servico', $whereInicio, $whereFinal, $where);
         }
         return json_encode($totalFechadas);
     }
-    
+
+    public function getMediaSaidas() {
+        $totalFechadas = 0;
+        for ($i = 12; $i >= 0; $i--) {
+            $where['status'] = 3;
+            $where['encerrada'] = 'sim';
+            $whereInicio['dataEncerra >='] = date("Y-m-01", strtotime(date('Y-m-01') . " -$i months"));
+            $whereFinal['dataEncerra <='] = date("Y-m-31", strtotime(date('Y-m-01') . " -$i months"));
+            $totalFechadas = $totalFechadas + $this->dashboard_model->countEntradasSaidas('ordem_servico', $whereInicio, $whereFinal, $where);
+        }
+        return number_format((float) $totalFechadas / 13, 2, ',', '');
+    }
+
     public function getSaidasSemReparo() {
         for ($i = 12; $i >= 0; $i--) {
             $where['status'] = 4;
             $where['encerrada'] = 'sim';
             $whereInicio['dataEncerra >='] = date("Y-m-01", strtotime(date('Y-m-01') . " -$i months"));
             $whereFinal['dataEncerra <='] = date("Y-m-31", strtotime(date('Y-m-01') . " -$i months"));
-            $totalFechadas[] = $this->dashboard_model->countEntradasSaidas('ordem_servico', $whereInicio, $whereFinal,$where);
+            $totalFechadas[] = $this->dashboard_model->countEntradasSaidas('ordem_servico', $whereInicio, $whereFinal, $where);
         }
         return json_encode($totalFechadas);
     }
-    
+
+    public function getMediaSaidasSemReparo() {
+        $totalFechadas = 0;
+        for ($i = 12; $i >= 0; $i--) {
+            $where['status'] = 4;
+            $where['encerrada'] = 'sim';
+            $whereInicio['dataEncerra >='] = date("Y-m-01", strtotime(date('Y-m-01') . " -$i months"));
+            $whereFinal['dataEncerra <='] = date("Y-m-31", strtotime(date('Y-m-01') . " -$i months"));
+            $totalFechadas = $totalFechadas + $this->dashboard_model->countEntradasSaidas('ordem_servico', $whereInicio, $whereFinal, $where);
+        }
+        return number_format((float) $totalFechadas / 13, 2, ',', '');
+    }
+
     public function getSaidasDescarte() {
         for ($i = 12; $i >= 0; $i--) {
             $where['status'] = 21;
             $where['encerrada'] = 'sim';
             $whereInicio['dataEncerra >='] = date("Y-m-01", strtotime(date('Y-m-01') . " -$i months"));
             $whereFinal['dataEncerra <='] = date("Y-m-31", strtotime(date('Y-m-01') . " -$i months"));
-            $totalFechadas[] = $this->dashboard_model->countEntradasSaidas('ordem_servico', $whereInicio, $whereFinal,$where);
+            $totalFechadas[] = $this->dashboard_model->countEntradasSaidas('ordem_servico', $whereInicio, $whereFinal, $where);
         }
         return json_encode($totalFechadas);
+    }
+
+    public function getMediaSaidasDescarte() {
+        $totalFechadas = 0;
+        for ($i = 12; $i >= 0; $i--) {
+            $where['status'] = 21;
+            $where['encerrada'] = 'sim';
+            $whereInicio['dataEncerra >='] = date("Y-m-01", strtotime(date('Y-m-01') . " -$i months"));
+            $whereFinal['dataEncerra <='] = date("Y-m-31", strtotime(date('Y-m-01') . " -$i months"));
+            $totalFechadas = $totalFechadas + $this->dashboard_model->countEntradasSaidas('ordem_servico', $whereInicio, $whereFinal, $where);
+        }
+        return number_format((float) $totalFechadas / 13, 2, ',', '');
     }
 
 }

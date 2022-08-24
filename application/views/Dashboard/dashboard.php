@@ -9,6 +9,44 @@
                         <canvas id="myChart" ></canvas>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="col-md-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-green-active"><i class="fa fa-arrow-down"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Média de entrada</span>
+                                <span class="info-box-number"><h2><?php echo $mediaEntrada ?></h2></span>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-md-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-blue"><i class="fa fa-arrow-up"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Média de saída</span>
+                                <span class="info-box-number"><h2><?php echo $mediaSaida ?></h2></span>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-md-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-black"><i class="fa fa-arrow-circle-up"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Média sem reparo</span>
+                                <span class="info-box-number"><h2><?php echo $mediaSemReparo?></h2></span>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-md-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-red"><i class="fa fa-arrow-circle-up"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Média descarte</span>
+                                <span class="info-box-number"><h2><?php echo $mediaDescarte ?></h2></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -131,7 +169,7 @@
                     </div>
                 </a>
             <?php } ?>
-            
+
         </div>
     </div>
 </div>
@@ -145,7 +183,7 @@
     const valorSaidaReparado = <?php echo $saidasReparado ?>;
     const valorSaidaSemReparo = <?php echo $saidasSemReparo ?>;
     const valorSaidaDescarte = <?php echo $saidasDescarte ?>;
-     const meses = <?php echo $meses ?>;
+    const meses = <?php echo $meses ?>;
 
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
@@ -156,10 +194,10 @@
                     label: 'Entrada',
                     data: valorEntrada,
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)'
+                        'rgba(0, 128, 0, 0.2)'
                     ],
                     borderColor: [
-                        'rgba(255, 99, 132, 1)'
+                        'rgba(0, 128, 0, 1)'
                     ],
                     borderWidth: 4
                 },
@@ -168,10 +206,10 @@
                     label: 'Saídas com reparo',
                     data: valorSaidaReparado,
                     backgroundColor: [
-                        'rgba(0, 0, 0, 0.2)'
+                        'rgba(0, 0, 255, 0.2)'
                     ],
                     borderColor: [
-                        'rgba(0, 128, 0, 1)'
+                        'rgba(0, 0, 255, 1)'
                     ],
                     borderWidth: 4
                 },
@@ -192,7 +230,7 @@
                     label: 'Descarte',
                     data: valorSaidaDescarte,
                     backgroundColor: [
-                        'rgba(0, 0, 0, 0.2)'
+                        'rgba(200, 0, 0, 0.2)'
                     ],
                     borderColor: [
                         'rgba(200, 0, 0, 1)'
