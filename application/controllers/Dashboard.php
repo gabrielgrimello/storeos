@@ -50,7 +50,9 @@ class Dashboard extends CI_Controller {
         $this->data['aguardandoEntrega'] = $this->dashboard_model->getStatusAguardandoEntrega();
 
         $this->data['entradas'] = $this->getEntradas();
-        $this->data['saidas'] = $this->getSaidas();
+        $this->data['saidasReparado'] = $this->getSaidasReparado();
+        $this->data['saidasSemReparo'] = $this->getSaidasSemReparo();
+        $this->data['saidasDescarte'] = $this->getSaidasDescarte();
         $this->data['meses'] = $this->ultimos12Meses();
 
         $this->load->view('dashboard/dashboard', $this->data);
@@ -78,9 +80,31 @@ class Dashboard extends CI_Controller {
         return json_encode($totalAbertas);
     }
 
-    public function getSaidas() {
+    public function getSaidasReparado() {
         for ($i = 12; $i >= 0; $i--) {
             $where['status'] = 3;
+            $where['encerrada'] = 'sim';
+            $whereInicio['dataEncerra >='] = date("Y-m-01", strtotime(date('Y-m-01') . " -$i months"));
+            $whereFinal['dataEncerra <='] = date("Y-m-31", strtotime(date('Y-m-01') . " -$i months"));
+            $totalFechadas[] = $this->dashboard_model->countEntradasSaidas('ordem_servico', $whereInicio, $whereFinal,$where);
+        }
+        return json_encode($totalFechadas);
+    }
+    
+    public function getSaidasSemReparo() {
+        for ($i = 12; $i >= 0; $i--) {
+            $where['status'] = 4;
+            $where['encerrada'] = 'sim';
+            $whereInicio['dataEncerra >='] = date("Y-m-01", strtotime(date('Y-m-01') . " -$i months"));
+            $whereFinal['dataEncerra <='] = date("Y-m-31", strtotime(date('Y-m-01') . " -$i months"));
+            $totalFechadas[] = $this->dashboard_model->countEntradasSaidas('ordem_servico', $whereInicio, $whereFinal,$where);
+        }
+        return json_encode($totalFechadas);
+    }
+    
+    public function getSaidasDescarte() {
+        for ($i = 12; $i >= 0; $i--) {
+            $where['status'] = 21;
             $where['encerrada'] = 'sim';
             $whereInicio['dataEncerra >='] = date("Y-m-01", strtotime(date('Y-m-01') . " -$i months"));
             $whereFinal['dataEncerra <='] = date("Y-m-31", strtotime(date('Y-m-01') . " -$i months"));

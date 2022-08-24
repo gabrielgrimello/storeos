@@ -142,7 +142,9 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.0/dist/helpers.esm.min.js"></script>
 <script>
     const valorEntrada = <?php echo $entradas ?>;
-    const valorSaida = <?php echo $saidas ?>;
+    const valorSaidaReparado = <?php echo $saidasReparado ?>;
+    const valorSaidaSemReparo = <?php echo $saidasSemReparo ?>;
+    const valorSaidaDescarte = <?php echo $saidasDescarte ?>;
      const meses = <?php echo $meses ?>;
 
     var ctx = document.getElementById('myChart').getContext('2d');
@@ -164,7 +166,19 @@
                 {
                     type: 'line',
                     label: 'Saídas com reparo',
-                    data: valorSaida,
+                    data: valorSaidaReparado,
+                    backgroundColor: [
+                        'rgba(0, 0, 0, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(0, 128, 0, 1)'
+                    ],
+                    borderWidth: 4
+                },
+                {
+                    type: 'line',
+                    label: 'Saídas sem reparo',
+                    data: valorSaidaSemReparo,
                     backgroundColor: [
                         'rgba(0, 0, 0, 0.2)'
                     ],
@@ -172,7 +186,20 @@
                         'rgba(0, 0, 0, 1)'
                     ],
                     borderWidth: 4
-                }]
+                },
+                {
+                    type: 'line',
+                    label: 'Descarte',
+                    data: valorSaidaDescarte,
+                    backgroundColor: [
+                        'rgba(0, 0, 0, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(200, 0, 0, 1)'
+                    ],
+                    borderWidth: 4
+                }
+            ]
         },
         options: {
             scales: {
