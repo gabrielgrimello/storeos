@@ -21,29 +21,39 @@ class Dashboard_model extends CI_Model {
 
         return $this->db->count_all_results();
     }
-    
-    function count_ultimos_7dias($table,$data) {
+
+    function countEntradasSaidas($table, $inicio, $final) {
+        $this->db->select('*');
+        $this->db->from($table);
+
+        $this->db->where($inicio);
+        $this->db->where($final);
+
+        return $this->db->count_all_results();
+    }
+
+    function count_ultimos_7dias($table, $data) {
         $this->db->from($table);
         $this->db->where('dataEntrada >=', $data);
         return $this->db->count_all_results();
     }
-    
-    function count_fechadas_ultimos_7dias($table,$data) {
+
+    function count_fechadas_ultimos_7dias($table, $data) {
         $this->db->from($table);
         $this->db->where('dataEncerra >=', $data);
-         $this->db->where('encerrada', "sim");
+        $this->db->where('encerrada', "sim");
         return $this->db->count_all_results();
     }
-    
-     function count_garantia_prox_prazo($table,$data) {
+
+    function count_garantia_prox_prazo($table, $data) {
         $this->db->from($table);
         $this->db->where('encerrada', 'nao');
         $this->db->where('garantia', 1);
         $this->db->where('dataEntrada <=', $data);
         return $this->db->count_all_results();
     }
-    
-    function count_os_mais3dias_seminteracao($table,$data) {
+
+    function count_os_mais3dias_seminteracao($table, $data) {
         $this->db->from($table);
         $this->db->where('encerrada', 'nao');
         $this->db->where('dataAlteracao <', $data);
@@ -64,13 +74,13 @@ class Dashboard_model extends CI_Model {
 
         return $this->db->get()->result();
     }
-    
+
     function getStatusAberto() {
 
         $this->db->select('*');
         $this->db->from('status_os');
         $this->db->order_by('posicaoMenu', 'ASC');
-        $this->db->where('encerra',0);
+        $this->db->where('encerra', 0);
         return $this->db->get()->result();
     }
 
@@ -88,10 +98,10 @@ class Dashboard_model extends CI_Model {
 
         return $this->db->count_all_results();
     }
-    
+
     function countOsStatus($idStatus) {
         $this->db->from('ordem_servico');
-        $this->db->where('status',$idStatus);
+        $this->db->where('status', $idStatus);
         return $this->db->count_all_results();
     }
 
@@ -129,7 +139,6 @@ class Dashboard_model extends CI_Model {
         $this->db->where('YEAR(data_encerra)', $ano);
         $this->db->where('situacao', 'ganho');
 
-
         $total = $this->db->count_all_results();
         return $total;
     }
@@ -154,8 +163,8 @@ class Dashboard_model extends CI_Model {
 
         return FALSE;
     }
-    
-    function edit($mes,$ano,$dados) {
+
+    function edit($mes, $ano, $dados) {
         $this->db->where('MONTH(data)', $mes);
         $this->db->where('YEAR(data)', $ano);
         $this->db->update('estatisticas', $dados);
@@ -169,9 +178,10 @@ class Dashboard_model extends CI_Model {
 
     function getStatusAguardandoEntrega() {
         $this->db->from('ordem_servico');
-        $this->db->where('status',23);
-        $this->db->or_where('status',24);
-        $this->db->or_where('status',25);
+        $this->db->where('status', 23);
+        $this->db->or_where('status', 24);
+        $this->db->or_where('status', 25);
         return $this->db->count_all_results();
     }
+
 }

@@ -1,5 +1,19 @@
 <?php $this->load->view('template/menu'); ?>
 
+<section>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="col-md-11" style="background-color: white">
+                        <canvas id="myChart" ></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <div class="row">
     <div class="col-md-12">
         <div class="text-center">
@@ -104,21 +118,71 @@
             <h2>QUANTIDADE DE OS's SEPARADAS POR STATUS</h2>
         </div>
         <div class="row">
-           <?php foreach ($status as $s) { ?>
-            <a href="<?php echo base_url() ?>index.php/os/gerenciar?status%5B%5D=<?php echo $s->idStatus ?>" target="_blank">
-                <div class="col-md-3 text-center">
-                    <div class="info-box">
-                        <span class="info-box-icon" style="background: <?php echo $s->cor; ?>"><i class="ion ion-android-clipboard" style="color: white" target="_blank"></i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text"><?php echo $s->descricao ?> </span>
-                            <span class="info-box-number"><h2><?php echo $this->dashboard_model->countOsStatus($s->idStatus);?></h2></span>
+            <?php foreach ($status as $s) { ?>
+                <a href="<?php echo base_url() ?>index.php/os/gerenciar?status%5B%5D=<?php echo $s->idStatus ?>" target="_blank">
+                    <div class="col-md-3 text-center">
+                        <div class="info-box">
+                            <span class="info-box-icon" style="background: <?php echo $s->cor; ?>"><i class="ion ion-android-clipboard" style="color: white" target="_blank"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text"><?php echo $s->descricao ?> </span>
+                                <span class="info-box-number"><h2><?php echo $this->dashboard_model->countOsStatus($s->idStatus); ?></h2></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </a>
-            <?php }?>
+                </a>
+            <?php } ?>
+            
         </div>
     </div>
 </div>
+
+<script src=" https://cdn.jsdelivr.net/npm/chart.js@3.4.0/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.0/dist/chart.esm.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.0/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.0/dist/helpers.esm.min.js"></script>
+<script>
+    const valorEntrada = <?php echo $entradas ?>;
+    const valorSaida = <?php echo $saidas ?>;
+     const meses = <?php echo $meses ?>;
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        data: {
+            labels: meses,
+            datasets: [{
+                    type: 'bar',
+                    label: 'Entrada',
+                    data: valorEntrada,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 4
+                },
+                {
+                    type: 'line',
+                    label: 'Saídas com reparo',
+                    data: valorSaida,
+                    backgroundColor: [
+                        'rgba(0, 0, 0, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(0, 0, 0, 1)'
+                    ],
+                    borderWidth: 4
+                }]
+        },
+        options: {
+            scales: {
+                y: {
+                    // reverse: true,
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
 
 <?php $this->load->view('template/footer'); ?>
