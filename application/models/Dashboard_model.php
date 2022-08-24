@@ -22,12 +22,15 @@ class Dashboard_model extends CI_Model {
         return $this->db->count_all_results();
     }
 
-    function countEntradasSaidas($table, $inicio, $final) {
+    function countEntradasSaidas($table, $inicio, $final,$where) {
         $this->db->select('*');
         $this->db->from($table);
 
         $this->db->where($inicio);
         $this->db->where($final);
+        if ($where) {
+            $this->db->where($where);
+        }
 
         return $this->db->count_all_results();
     }

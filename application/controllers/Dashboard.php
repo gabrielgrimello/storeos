@@ -73,16 +73,18 @@ class Dashboard extends CI_Controller {
         for ($i = 12; $i >= 0; $i--) {
             $whereInicio['dataEntrada >='] = date("Y-m-01", strtotime(date('Y-m-01') . " -$i months"));
             $whereFinal['dataEntrada <='] = date("Y-m-31", strtotime(date('Y-m-01') . " -$i months"));
-            $totalAbertas[] = $this->dashboard_model->countEntradasSaidas('ordem_servico', $whereInicio, $whereFinal);
+            $totalAbertas[] = $this->dashboard_model->countEntradasSaidas('ordem_servico', $whereInicio, $whereFinal,'');
         }
         return json_encode($totalAbertas);
     }
 
     public function getSaidas() {
         for ($i = 12; $i >= 0; $i--) {
+            $where['status'] = 3;
+            $where['encerrada'] = 'sim';
             $whereInicio['dataEncerra >='] = date("Y-m-01", strtotime(date('Y-m-01') . " -$i months"));
             $whereFinal['dataEncerra <='] = date("Y-m-31", strtotime(date('Y-m-01') . " -$i months"));
-            $totalFechadas[] = $this->dashboard_model->countEntradasSaidas('ordem_servico', $whereInicio, $whereFinal);
+            $totalFechadas[] = $this->dashboard_model->countEntradasSaidas('ordem_servico', $whereInicio, $whereFinal,$where);
         }
         return json_encode($totalFechadas);
     }
