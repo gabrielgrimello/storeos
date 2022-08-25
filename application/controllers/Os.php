@@ -31,12 +31,11 @@ class Os extends CI_Controller {
         }
         $this->load->library('table');
         $this->load->library('pagination');
-        
 
         $where_array = array();
         $where_status = array();
         $whereRazaoOuFantasia = array();
-       
+
         $idOS = $this->input->get('idOS');
         $cnpjCliente = $this->input->get('cnpj');
         $nomeCliente = $this->input->get('nomeCliente');
@@ -126,7 +125,6 @@ class Os extends CI_Controller {
         $this->data['cnpjget'] = $this->input->get('cnpj');
         $this->data['razaoget'] = $this->input->get('nomeCliente');
         $this->data['fantasiaget'] = $this->input->get('fantasiaCliente');
-        
 
         $this->data['totalEquipamentos'] = $this->OS_model->countGerenciar('ordem_servico', $where_array, $whereRazaoOuFantasia, $where_status);
         $this->data['status'] = $this->OS_model->getConfig('status_os', 'idStatus,descricao,encerra');
@@ -320,7 +318,6 @@ class Os extends CI_Controller {
         $this->form_validation->set_rules('marca', 'Marca', 'trim|required');
         $this->form_validation->set_rules('modelo', 'Modelo', 'trim|required');
 
-
         if ($this->form_validation->run() == FALSE) {//valida se campos estão OK
             $data['formErrors'] = validation_errors();
         } else {
@@ -452,7 +449,6 @@ class Os extends CI_Controller {
         $this->form_validation->set_rules('tipo', 'Tipo', 'trim|required');
         $this->form_validation->set_rules('marca', 'Marca', 'trim|required');
         $this->form_validation->set_rules('modelo', 'Modelo', 'trim|required');
-
 
         if ($this->form_validation->run() == FALSE) {//valida se campos estão OK
             $data['formErrors'] = validation_errors();
@@ -700,7 +696,6 @@ class Os extends CI_Controller {
             $dadosChecklist['nomeComputador'] = $this->input->post('nomeComputador');
             $dadosOs['laudo'] = $this->input->post('laudo');
 
-
             if ($this->OS_model->add('checklist_computador', $dadosChecklist) == TRUE) {
                 $this->OS_model->edit('ordem_servico', $dadosOs, 'idOS', $this->input->post('idOS'));
                 $this->session->set_flashdata('success_msg', 'Checklist adicionado com sucesso!');
@@ -779,7 +774,7 @@ class Os extends CI_Controller {
             $dadosChecklist['avaliaLimpeza'] = $this->input->post('limpezaCheckbox');
             $dadosChecklist['nomeComputador'] = $this->input->post('nomeComputador');
             $dadosOs['laudo'] = $this->input->post('laudo');
-            
+
 //      var_dump($dadosCkecklist);
 
             if ($this->OS_model->edit('checklist_Computador', $dadosChecklist, 'idCheckComputador', $this->input->post('idCheckComputador')) == TRUE) {
@@ -1252,7 +1247,7 @@ class Os extends CI_Controller {
         $data = array();
 
         // Get files data from the database 
-        $data['files'] = $this->OS_model->getArquivoUpload('',$this->uri->segment(3));
+        $data['files'] = $this->OS_model->getArquivoUpload('', $this->uri->segment(3));
         $data['idOS'] = $this->uri->segment(3);
         // Pass the files data to view 
         $this->load->view('os/arquivoUpload', $data);
@@ -1290,7 +1285,7 @@ class Os extends CI_Controller {
         $uploadPath = 'upload/';
         $ID = $this->input->post('idArquivo');
         $idOS = $this->input->post('idOS');
-        
+
         if ($this->OS_model->delete('arquivos', 'idArquivos', $ID) == true) {
             $file = $this->input->post("file");
             if ($file && file_exists($uploadPath . "/" . $file)) {
@@ -1301,5 +1296,44 @@ class Os extends CI_Controller {
             echo json_encode(array('result' => false));
         }
     }
+
+    function enviarWhatsapp() {
+         $this->data['os'] = $this->OS_model->getOSJoin($this->uri->segment(3));
+        // $this->data['equipamento'] = $this->OS_model->getEquipamentoById($this->data['os']->idEquipamento);
+        
+
+        $this->data['pecas'] = $this->OS_model->getPecas($this->uri->segment(3));
+        $this->data['servicos'] = $this->OS_model->getServicos($this->uri->segment(3));
+        $totalServicos = 0;
+        $totalPecas = 0;
+        foreach ($this->data['pecas'] as $s) {
+            $totalPecas = $totalPecas + $s->total;
+        }
+        foreach ($this->data['servicos'] as $s) {
+            $totalServicos = $totalServicos + $s->total;
+        }
+
+        $this->load->view('os/enviarWhatsapp', $this->data);
+    }
+    
+    function enviarEmail() {
+         $this->data['os'] = $this->OS_model->getOSJoin($this->uri->segment(3));
+        // $this->data['equipamento'] = $this->OS_model->getEquipamentoById($this->data['os']->idEquipamento);
+        
+
+        $this->data['pecas'] = $this->OS_model->getPecas($this->uri->segment(3));
+        $this->data['servicos'] = $this->OS_model->getServicos($this->uri->segment(3));
+        $totalServicos = 0;
+        $totalPecas = 0;
+        foreach ($this->data['pecas'] as $s) {
+            $totalPecas = $totalPecas + $s->total;
+        }
+        foreach ($this->data['servicos'] as $s) {
+            $totalServicos = $totalServicos + $s->total;
+        }
+
+        $this->load->view('os/enviarEmail', $this->data);
+    }
+
 
 }

@@ -49,16 +49,19 @@ class Dashboard extends CI_Controller {
         //TOTAL DE OSs POR STATUS
         $this->data['aguardandoEntrega'] = $this->dashboard_model->getStatusAguardandoEntrega();
 
+        //pega os numeros dos ultimos 13 meses
         $this->data['entradas'] = $this->getEntradas();
         $this->data['saidasReparado'] = $this->getSaidasReparado();
         $this->data['saidasSemReparo'] = $this->getSaidasSemReparo();
         $this->data['saidasDescarte'] = $this->getSaidasDescarte();
 
+        //pega as médias dos ultimos 13 meses
         $this->data['mediaEntrada'] = $this->getMediaEntradas();
         $this->data['mediaSaida'] = $this->getMediaSaidas();
         $this->data['mediaSemReparo'] = $this->getMediaSaidasSemReparo();
         $this->data['mediaDescarte'] = $this->getMediaSaidasDescarte();
 
+        //pega nomes dos últimos 13 meses
         $this->data['meses'] = $this->ultimos12Meses();
 
         $this->load->view('dashboard/dashboard', $this->data);

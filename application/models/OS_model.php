@@ -33,7 +33,7 @@ class OS_model extends CI_Model {
         return FALSE;
     }
 
-    function get($table, $fields, $where = '', $perpage = 0, $start = 0, $one = false, $campoOrdem, $tipoOrdem, $whereRazaoOuFantasia,$where_status) {
+    function get($table, $fields, $where = '', $perpage = 0, $start = 0, $one = false, $campoOrdem, $tipoOrdem, $whereRazaoOuFantasia, $where_status) {
 
         $this->db->select($fields);
         $this->db->from($table);
@@ -45,7 +45,7 @@ class OS_model extends CI_Model {
         if ($whereRazaoOuFantasia) {
             $this->db->like($whereRazaoOuFantasia);
         }
-        
+
         if ($where_status) {
             $this->db->group_start();
             foreach ($where_status as $w) {
@@ -65,7 +65,7 @@ class OS_model extends CI_Model {
         $this->db->from('equipamentos_cliente');
         $this->db->where('serie', $ns);
         $this->db->limit(1);
-        if ($ns == "nao"){
+        if ($ns == "nao") {
             return FALSE;
         }
         return $this->db->get()->row();
@@ -92,7 +92,7 @@ class OS_model extends CI_Model {
         return $this->db->count_all_results();
     }
 
-    function countGerenciar($table, $where, $whereRazaoOuFantasia,$where_status) {
+    function countGerenciar($table, $where, $whereRazaoOuFantasia, $where_status) {
         $this->db->select('*');
         $this->db->from($table);
         if ($where) {
@@ -101,7 +101,7 @@ class OS_model extends CI_Model {
         if ($whereRazaoOuFantasia) {
             $this->db->like($whereRazaoOuFantasia);
         }
-        
+
         if ($where_status) {
             $this->db->group_start();
             foreach ($where_status as $w) {
@@ -135,14 +135,23 @@ class OS_model extends CI_Model {
         return $this->db->get()->row();
     }
 
+    public function getOSJoin($id = null) {
+        $this->db->select('*');
+        $this->db->from('ordem_servico');
+        $this->db->join('equipamentos_cliente', 'equipamentos_cliente.idEquipamento = ordem_servico.idEquipamento');
+        $this->db->join('tipo_equipamento', 'tipo_equipamento.idTipo = equipamentos_cliente.tipo');
+        $this->db->where('idOS', $id);
+        return $this->db->get()->row();
+    }
+
     function getConfig($table, $fields) {
 
         $this->db->select($fields);
         $this->db->from($table);
-        
-       if($table=="status_os"){
-            $this->db->where('status',1);
-       }
+
+        if ($table == "status_os") {
+            $this->db->where('status', 1);
+        }
         return $this->db->get()->result();
     }
 
@@ -159,7 +168,7 @@ class OS_model extends CI_Model {
         $this->db->limit(1);
         return $this->db->get('checklist_nobreakestabilizador')->row();
     }
-    
+
     function getByIdChecklistComputador($id) {
         $this->db->where('idCheckComputador', $id);
         $this->db->limit(1);
@@ -240,31 +249,32 @@ class OS_model extends CI_Model {
         $this->db->order_by('idTimeline_os', 'desc');
         return $this->db->get()->result();
     }
-    
-    public function getArquivoUpload($id = '',$idOS){ 
-        $this->db->select('idArquivos,idusuarios,idOS,file_name,uploaded_on'); 
+
+    public function getArquivoUpload($id = '', $idOS) {
+        $this->db->select('idArquivos,idusuarios,idOS,file_name,uploaded_on');
         $this->db->from('arquivos');
-        $this->db->where('idOS',$idOS);
-        if($id){ 
-            $this->db->where('id',$id); 
-            $query = $this->db->get(); 
-            $result = $query->row_array(); 
-        }else{ 
-            $this->db->order_by('uploaded_on','desc'); 
-            $query = $this->db->get(); 
-            $result = $query->result_array(); 
-        } 
-         
-        return !empty($result)?$result:false; 
-    } 
-     
-    /* 
+        $this->db->where('idOS', $idOS);
+        if ($id) {
+            $this->db->where('id', $id);
+            $query = $this->db->get();
+            $result = $query->row_array();
+        } else {
+            $this->db->order_by('uploaded_on', 'desc');
+            $query = $this->db->get();
+            $result = $query->result_array();
+        }
+
+        return !empty($result) ? $result : false;
+    }
+
+    /*
      * Insert file data into the database 
      * @param array the data for inserting into the table 
-     */ 
-    public function insertArquivoUpload($data = array()){ 
-        $insert = $this->db->insert('arquivos', $data); 
-        return $insert?true:false; 
-    } 
+     */
+
+    public function insertArquivoUpload($data = array()) {
+        $insert = $this->db->insert('arquivos', $data);
+        return $insert ? true : false;
+    }
 
 }
