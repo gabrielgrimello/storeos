@@ -1,9 +1,9 @@
 
-<?php // echo json_encode($os);   ?>
+<?php // echo json_encode($os);     ?>
 <a title="editar" href="<?php echo base_url() ?>index.php/os/editarOS/<?php echo $os->idOS; ?>">Voltar </a>
 
 <p>Prezado cliente,</p>
-<p>Segue abaixo o orçamento do conserto do seu <?php echo $os->descricao . " " . $os->marca . " " . $os->modelo . " " ?> da sua OS <?php echo $os->idOS ?> . </p><br>
+<p>Segue abaixo o orçamento do conserto do seu *<?php echo $os->descricao . " " . $os->marca . " " . $os->modelo . " " ?> da sua OS <?php echo $os->idOS ?>* . </p><br>
 
 
 <table class="table table-hover">
@@ -38,7 +38,13 @@
             echo '<td style="text-align: center;">R$ ' . number_format($p->total, 2, ',', '.') . '</td>';
             echo '</tr>';
         }
+        $totalGeral = $totalPecas + $totalServicos;
         ?>
+        <tr>
+            <td></td>
+            <td style="text-align: center"><strong>*TOTAL*</strong></td>
+            <td style="text-align: center"><strong>*R$ <?php echo number_format($totalGeral, 2, ',', '.'); ?>*</strong></td>
+        </tr>
 
     </tbody>
 </table>

@@ -3,7 +3,7 @@
 <?php // echo json_encode($os);  ?>
 <div class="col-md-12" style="background-color: white">
     <p>Prezado cliente,</p>
-    <p>Segue abaixo o orçamento do conserto do seu <?php echo "<b>".$os->descricao . " " . $os->marca . " " . $os->modelo . " </b>" ?> da sua <b>OS <?php echo $os->idOS. "</b>" ?> . </p><br>
+    <p>Segue abaixo o orçamento do conserto do seu <?php echo "<b>" . $os->descricao . " " . $os->marca . " " . $os->modelo . " </b>" ?> da sua <b>OS <?php echo $os->idOS . "</b>" ?> . </p><br>
 
 
     <table class="table table-hover" style="border: 1px solid black">
@@ -28,17 +28,23 @@
             }
             ?>
             <?php
-        $totalPecas = 0;
-        foreach ($pecas as $p) {
+            $totalPecas = 0;
+            foreach ($pecas as $p) {
 
-            $totalPecas = $totalPecas + $p->total;
-            echo '<tr style="border: 1px solid black">';
-            echo '<td style="border: 1px solid black">' . $p->descricao . '</td>';
-            echo '<td style="text-align: center; border: 1px solid black">' . $p->quantidade . '</td>';
-            echo '<td style="text-align: center; border: 1px solid black">R$ ' . number_format($p->total, 2, ',', '.') . '</td>';
-            echo '</tr>';
-        }
-        ?>
+                $totalPecas = $totalPecas + $p->total;
+                echo '<tr style="border: 1px solid black">';
+                echo '<td style="border: 1px solid black">' . $p->descricao . '</td>';
+                echo '<td style="text-align: center; border: 1px solid black">' . $p->quantidade . '</td>';
+                echo '<td style="text-align: center; border: 1px solid black">R$ ' . number_format($p->total, 2, ',', '.') . '</td>';
+                echo '</tr>';
+            }
+            $totalGeral = $totalPecas + $totalServicos;
+            ?>
+            <tr>
+                <td></td>
+                <td style="text-align: center; border: 1px solid black "><strong>TOTAL</strong></td>
+                <td style="text-align: center; border: 1px solid black"><strong>R$ <?php echo number_format($totalGeral, 2, ',', '.'); ?></strong></td>
+            </tr>
 
         </tbody>
     </table>
