@@ -26,8 +26,8 @@
 
             $totalPecas = $totalPecas + $p->total;
             echo '<tr>';
+            echo '<td>' . $p->quantidade . '</td>';
             echo '<td>' . $p->descricao . '</td>';
-            echo '<td style="text-align: center;">' . $p->quantidade . '</td>';
             echo '<td style="text-align: center;">*R$ ' . number_format($p->total, 2, ',', '.') . '*</td>';
             echo '</tr>';
         }
