@@ -7,23 +7,16 @@
 
 
 <table class="table table-hover">
-    <thead>
-        <tr>
-            <th>*DESCRIÇÃO*</th>
-            <th>*QUANTIDADE*</th>
-            <th>*SUB-TOTAL*</th>
-        </tr>
-    </thead>
-    <tbody>
+   <tbody>
         <?php
         $totalServicos = 0;
         foreach ($servicos as $s) {
 
             $totalServicos = $totalServicos + $s->total;
             echo '<tr>';
+            echo '<td>' . $s->quantidade . ' - </td>';
             echo '<td>' . $s->descricao . '</td>';
-            echo '<td style="text-align: center;">' . $s->quantidade . '</td>';
-            echo '<td style="text-align: center;">R$ ' . number_format($s->total, 2, ',', '.') . '</td>';
+            echo '<td style="text-align: center;">*R$ ' . number_format($s->total, 2, ',', '.') . '*</td>';
             echo '</tr>';
         }
         ?>
@@ -35,7 +28,7 @@
             echo '<tr>';
             echo '<td>' . $p->descricao . '</td>';
             echo '<td style="text-align: center;">' . $p->quantidade . '</td>';
-            echo '<td style="text-align: center;">R$ ' . number_format($p->total, 2, ',', '.') . '</td>';
+            echo '<td style="text-align: center;">*R$ ' . number_format($p->total, 2, ',', '.') . '*</td>';
             echo '</tr>';
         }
         $totalGeral = $totalPecas + $totalServicos;
