@@ -142,7 +142,7 @@
                     </div>
 
                     <div class="col-md-2 text-right">
-                        <a title="Exportar" href="<?php echo base_url(); ?>index.php/os/exportarExcelListaOS?<?php echo "status=" . $statusget . "&abertoFechado=" . $abertoFechadoget . "&filtroDataEncerraMaior=" . $filtroDataEncerraMaior . "&filtroDataEncerraMenor=" . $filtroDataEncerraMenor ?>" class="bnt bntmpresa-xs" style="color: green"><i class="fa fa-file-excel-o"></i></a>
+                       <!-- <a title="Exportar" href="<?php// echo base_url(); ?>index.php/os/exportarExcelListaOS?<?php// echo "status=" . $statusget . "&abertoFechado=" . $abertoFechadoget . "&filtroDataEncerraMaior=" . $filtroDataEncerraMaior . "&filtroDataEncerraMenor=" . $filtroDataEncerraMenor ?>" class="bnt bntmpresa-xs" style="color: green"><i class="fa fa-file-excel-o"></i></a>-->
                         <a class="btn btn-success btn-xs"><?php echo "Total: " . $totalEquipamentos ?></a>
                     </div>
                     <br><br>
