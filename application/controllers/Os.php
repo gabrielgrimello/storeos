@@ -41,6 +41,7 @@ class Os extends CI_Controller {
         $nomeCliente = $this->input->get('nomeCliente');
         $fantasiaCliente = $this->input->get('fantasiaCliente');
         $status = $this->input->get('status');
+        $abertoFechado = $this->input->get('abertoFechado');
         $garantia = $this->input->get('garantia');
         $encerrada = $this->input->get('encerrada');
         $dataEntrada = $this->input->get('dataEntrada');
@@ -48,6 +49,8 @@ class Os extends CI_Controller {
         $dataEntradaMaior = $this->input->get('dataEntradaMaior');
         $dataEncerraMaior = $this->input->get('dataEncerraMaior');
         $dataAlteracaoMenor = $this->input->get('dataAlteracaoMenor');
+        $filtroDataEncerraMaior = $this->input->get('filtroDataEncerraMaior');
+        $filtroDataEncerraMenor = $this->input->get('filtroDataEncerraMenor');
 
         if ($idOS) {
             $where_array['idOS'] = $idOS;
@@ -96,6 +99,20 @@ class Os extends CI_Controller {
             $where_array['dataAlteracao <'] = $dataAlteracaoMenor;
         }
 
+        if ($abertoFechado) {
+            $where_array['encerrada'] = $this->input->get('abertoFechado');
+        }
+
+        if ($filtroDataEncerraMaior) {
+            $where_array['dataEncerra >='] = $filtroDataEncerraMaior;
+            //$dataInicio = $filtroDataEncerraMaior;
+        }
+
+        if ($filtroDataEncerraMenor) {
+            $where_array['dataEncerra <='] = $filtroDataEncerraMenor;
+            // $dataFim = $filtroDataEncerraMenor;
+        }
+
         $config['base_url'] = base_url() . 'index.php/os/gerenciar';
         $config['total_rows'] = $this->OS_model->countGerenciar('ordem_servico', $where_array, $whereRazaoOuFantasia, $where_status);
         $config['per_page'] = 20;
@@ -125,6 +142,9 @@ class Os extends CI_Controller {
         $this->data['cnpjget'] = $this->input->get('cnpj');
         $this->data['razaoget'] = $this->input->get('nomeCliente');
         $this->data['fantasiaget'] = $this->input->get('fantasiaCliente');
+        $this->data['abertoFechadoget'] = $this->input->get('abertoFechado');
+        $this->data['filtroDataEncerraMaior'] = $this->input->get('filtroDataEncerraMaior');
+        $this->data['filtroDataEncerraMenor'] = $this->input->get('filtroDataEncerraMenor');
 
         $this->data['totalEquipamentos'] = $this->OS_model->countGerenciar('ordem_servico', $where_array, $whereRazaoOuFantasia, $where_status);
         $this->data['status'] = $this->OS_model->getConfig('status_os', 'idStatus,descricao,encerra');
@@ -1298,9 +1318,9 @@ class Os extends CI_Controller {
     }
 
     function enviarWhatsapp() {
-         $this->data['os'] = $this->OS_model->getOSJoin($this->uri->segment(3));
+        $this->data['os'] = $this->OS_model->getOSJoin($this->uri->segment(3));
         // $this->data['equipamento'] = $this->OS_model->getEquipamentoById($this->data['os']->idEquipamento);
-        
+
 
         $this->data['pecas'] = $this->OS_model->getPecas($this->uri->segment(3));
         $this->data['servicos'] = $this->OS_model->getServicos($this->uri->segment(3));
@@ -1315,11 +1335,11 @@ class Os extends CI_Controller {
 
         $this->load->view('os/enviarWhatsapp', $this->data);
     }
-    
+
     function enviarEmail() {
-         $this->data['os'] = $this->OS_model->getOSJoin($this->uri->segment(3));
+        $this->data['os'] = $this->OS_model->getOSJoin($this->uri->segment(3));
         // $this->data['equipamento'] = $this->OS_model->getEquipamentoById($this->data['os']->idEquipamento);
-        
+
 
         $this->data['pecas'] = $this->OS_model->getPecas($this->uri->segment(3));
         $this->data['servicos'] = $this->OS_model->getServicos($this->uri->segment(3));
@@ -1335,5 +1355,53 @@ class Os extends CI_Controller {
         $this->load->view('os/enviarEmail', $this->data);
     }
 
+    public function exportarExcelListaOS() {
+
+        $status = $this->input->get('status');
+        $abertoFechado = $this->input->get('abertoFechado');
+        $filtroDataEncerraMaior = $this->input->get('filtroDataEncerraMaior');
+        $filtroDataEncerraMenor = $this->input->get('filtroDataEncerraMenor');
+
+        echo $status . "<br>" . $abertoFechado . "<br>" . $filtroDataEncerraMaior . "<br>" . $filtroDataEncerraMenor;
+
+        $fileName = 'OS encerradas.xlsx';
+        $employeeData = $this->OS_model->getExportarExcelListaOS($status, $abertoFechado, $filtroDataEncerraMaior, $filtroDataEncerraMenor);
+
+        var_dump($employeeData);
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'OS');
+        $sheet->setCellValue('B1', 'Código cliente');
+        $sheet->setCellValue('C1', 'CNPJ');
+        $sheet->setCellValue('D1', 'Nome Cliente');
+        $sheet->setCellValue('E1', 'Fantasia Cliente');
+        $sheet->setCellValue('F1', 'Endereço Cliente');
+        $sheet->setCellValue('G1', 'Cidade Cliente');
+        $sheet->setCellValue('H1', 'E-mail Cliente');
+        $sheet->setCellValue('I1', 'Celular Cliente');
+        $sheet->setCellValue('J1', 'Telefone Cliente');
+        $sheet->setCellValue('K1', 'Contato Cliente');
+        $sheet->setCellValue('L1', 'Laudo');
+        $rows = 2;
+        foreach ($employeeData as $val) {
+            $sheet->setCellValue('A' . $rows, $val['idOS']);
+            $sheet->setCellValue('B' . $rows, $val['codigoCliente']);
+            $sheet->setCellValue('C' . $rows, $val['cnpjCliente']);
+            $sheet->setCellValue('D' . $rows, $val['nomeCliente']);
+            $sheet->setCellValue('E' . $rows, $val['fantasiaCliente']);
+            $sheet->setCellValue('F' . $rows, $val['enderecoCliente']);
+            $sheet->setCellValue('G' . $rows, $val['cidadeCliente']);
+            $sheet->setCellValue('H' . $rows, $val['emailCliente']);
+            $sheet->setCellValue('I' . $rows, $val['celularCliente']);
+            $sheet->setCellValue('J' . $rows, $val['telefoneCliente']);
+            $sheet->setCellValue('K' . $rows, $val['contatoCliente']);
+            $sheet->setCellValue('L' . $rows, $val['laudo']);
+            $rows++;
+        }
+        $writer = new Xlsx($spreadsheet);
+        $writer->save("upload/" . $fileName);
+        header("Content-Type: application/vnd.ms-excel");
+        redirect(base_url() . "/upload/" . $fileName);
+    }
 
 }

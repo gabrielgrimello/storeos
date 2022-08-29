@@ -59,6 +59,34 @@ class OS_model extends CI_Model {
         $result = !$one ? $query->result() : $query->row();
         return $result;
     }
+    
+    function getExportarExcelListaOS($status, $abertoFechado, $filtroDataEncerraMaior, $filtroDataEncerraMenor) {
+        $response = array();
+        $this->db->select('idOS,codigoCliente,cnpjCliente,nomeCliente,fantasiaCliente,enderecoCliente,cidadeCliente,emailCliente,celularCliente,telefoneCliente,contatoCliente,laudo');
+       //$this->db->join('contatos', 'contatos.idEmpresas = empresas.idEmpresas');
+       // $this->db->where('contatoPrincipal', 1);
+       // $this->db->where('tipo', 2);
+        
+        if ($status) {
+            $this->db->where('status', $status);
+        }
+        if ($abertoFechado) {
+            $this->db->where('encerrada', $abertoFechado);
+        }
+        if ($filtroDataEncerraMaior) {
+            $this->db->where('dataEncerra', $filtroDataEncerraMaior);
+        }
+        if ($filtroDataEncerraMenor) {
+            $this->db->where('dataEncerra', $filtroDataEncerraMenor);
+        }
+
+
+        $q = $this->db->get('ordem_servico');
+
+        $response = $q->result_array();
+
+        return $response;
+    }
 
     function getEquipamentoByNs($ns) {
         $this->db->select('*');

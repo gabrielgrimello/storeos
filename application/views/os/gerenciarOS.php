@@ -23,58 +23,109 @@
                 </div> <!-- /.box-header -->
                 <div class="box-body">
                     <form method="get" action="<?php echo base_url(); ?>index.php/os/gerenciar"> <!-- INICIO DE FORM DE FILTRO DE BUSCA -->
-                        <div class="col-md-1">
-                            <input class="form-control" type="number" name="idOS"  id="idOS"  placeholder="OS" value="<?php
+                        <div class="row">
+                            <div class="col-md-2">
+                                <input class="form-control" type="number" name="idOS"  id="idOS"  placeholder="OS" value="<?php
                                 if ($osget) {
                                     echo $osget;
                                 }
                                 ?>" > 
-                        </div>
-                        <div class="col-md-2">
-                            <input class="form-control" type="number" name="cnpj"  id="cnpj"  placeholder="CNPJ" value="<?php
+                            </div>
+                            <div class="col-md-3">
+                                <input class="form-control" type="number" name="cnpj"  id="cnpj"  placeholder="CNPJ" value="<?php
                                 if ($cnpjget) {
                                     echo $cnpjget;
                                 }
                                 ?>" > 
-                        </div>
-                        <div class="col-md-2">
-                            <input class="form-control" type="text" name="nomeCliente"  id="cnpj"  placeholder="Razão social" value="<?php
+                            </div>
+                            <div class="col-md-3">
+                                <input class="form-control" type="text" name="nomeCliente"  id="cnpj"  placeholder="Razão social" value="<?php
                                 if ($razaoget) {
                                     echo $razaoget;
                                 }
                                 ?>" > 
-                        </div>
-                        <div class="col-md-2">
-                            <input class="form-control" type="text" name="fantasiaCliente"  id="cnpj"  placeholder="Fantasia" value="<?php
+                            </div>
+                            <div class="col-md-4">
+                                <input class="form-control" type="text" name="fantasiaCliente"  id="cnpj"  placeholder="Fantasia" value="<?php
                                 if ($fantasiaget) {
                                     echo $fantasiaget;
                                 }
                                 ?>" > 
-                        </div>
-                        <div class="form-group col-md-4">
-                            <select name="status[]" id="status" class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Selecione um ou mais status" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                <?php
-                                foreach ($status as $value) {
-                                    ?>
-                                    <option value = "<?php echo $value->idStatus; ?>" <?php
-                                    if ($statusget) {
-                                        for ($i = 0; $i < sizeof($statusget); $i++) {
-                                            if ($value->idStatus == $statusget[$i]) {
-                                                echo "selected";
-                                            }
-                                        }
-                                    }
-                                    ?> ><?php echo $value->descricao; ?></option>
-                                            <?php
-                                        }
-                                        ?>
-                            </select>
-                        </div>
-                        <div class="col-md-1 text-right">
-                            <a href="<?php echo base_url(); ?>index.php/os/gerenciar" class="btn btn-primary"><i class="glyphicon glyphicon-erase"></i></a>
-                            <button class="btn btn-danger"> <i class="glyphicon glyphicon-search"></i></button>
+                            </div>
                         </div>
                         <br>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label>Status</label>
+                                <select name="status[]" id="status" class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Selecione um ou mais status" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                    <?php
+                                    foreach ($status as $value) {
+                                        ?>
+                                        <option value = "<?php echo $value->idStatus; ?>" <?php
+                                        if ($statusget) {
+                                            for ($i = 0; $i < sizeof($statusget); $i++) {
+                                                if ($value->idStatus == $statusget[$i]) {
+                                                    echo "selected";
+                                                }
+                                            }
+                                        }
+                                        ?> ><?php echo $value->descricao; ?></option>
+                                                <?php
+                                            }
+                                            ?>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3 col-lg-1">
+                                <div>
+                                    <input type="radio" name="abertoFechado"  id="abertoFechado" <?php
+                                    if ($abertoFechadoget == "") {
+                                        echo "checked";
+                                    }
+                                    ?> value="">
+                                    <label>Todos</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="abertoFechado"  id="abertoFechado" <?php
+                                    if ($abertoFechadoget == "nao") {
+                                        echo "checked";
+                                    }
+                                    ?> value="nao">
+                                    <label>Abertos</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="abertoFechado"  id="abertoFechado" <?php
+                                    if ($abertoFechadoget == "sim") {
+                                        echo "checked";
+                                    }
+                                    ?> value="sim">
+                                    <label>Fechados</label>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4  col-lg-2">
+                                <label>Data encerrada inicial</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                    <input type="date" class="form-control" name="filtroDataEncerraMaior" id="filtroDataEncerraMaior" value="<?php echo $filtroDataEncerraMaior ?>">
+                                </div> <!-- /.input group -->
+                            </div>
+                            <div class="form-group col-md-4  col-lg-2">
+                                <label>Data encerrada final</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                    <input type="date" class="form-control" name="filtroDataEncerraMenor" id="filtroDataEncerraMenor" value="<?php echo $filtroDataEncerraMenor ?>">
+                                </div>
+                            </div>
+                            <label>.</label>
+                            <div class="col-md-1 text-right">
+                                <a href="<?php echo base_url(); ?>index.php/os/gerenciar" class="btn btn-primary"><i class="glyphicon glyphicon-erase"></i></a>
+                                <button class="btn btn-danger"> <i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+
                     </form> <!-- FIM DE FORM DE FILTRO DE BUSCA -->
                 </div> <!-- /.box-body -->
             </div><!-- /.box -->
@@ -89,8 +140,10 @@
                             <a href="<?php echo base_url(); ?>index.php/os/adicionarOS" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-plus-sign"></i> Adicionar OS</a>
                         <?php } ?>
                     </div>
+
                     <div class="col-md-2 text-right">
-                        <a class="btn btn-success btn-xs"><?php echo "Total: ". $totalEquipamentos ?></a>
+                        <a title="Exportar" href="<?php echo base_url(); ?>index.php/os/exportarExcelListaOS?<?php echo "status=" . $statusget . "&abertoFechado=" . $abertoFechadoget . "&filtroDataEncerraMaior=" . $filtroDataEncerraMaior . "&filtroDataEncerraMenor=" . $filtroDataEncerraMenor ?>" class="bnt bntmpresa-xs" style="color: green"><i class="fa fa-file-excel-o"></i></a>
+                        <a class="btn btn-success btn-xs"><?php echo "Total: " . $totalEquipamentos ?></a>
                     </div>
                     <br><br>
                     <?php if (!$results) { ?>
@@ -204,7 +257,7 @@
                                                         <a title="visualizar" href="<?php echo base_url() . 'index.php/os/visualizarOS/' . $r->idOS ?>" class="btn btn-success btn-xs"><i class="fa-fw glyphicon glyphicon-eye-open"></i> </a>
                                                     <?php } ?>
                                                     <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'eOS')) { ?>
-                                                        <a title="editar" href="<?php echo base_url() ?>index.php/os/editarOS/<?php echo $r->idOS; ?>" class="btn btn-primary btn-xs 
+                                                        <a title="editar" href="<?php echo base_url() ?>index.php/os/editarOS/<?php echo $r->idOS; ?>" class="btn btn-primary btn-xs
                                                         <?php
                                                         foreach ($status as $value) {
                                                             if ($r->status == $value->idStatus) {
