@@ -183,6 +183,7 @@
     const valorSaidaReparado = <?php echo $saidasReparado ?>;
     const valorSaidaSemReparo = <?php echo $saidasSemReparo ?>;
     const valorSaidaDescarte = <?php echo $saidasDescarte ?>;
+    const valorSaidaGarantia = <?php echo $saidasGarantia ?>;
     const meses = <?php echo $meses ?>;
 
     var ctx = document.getElementById('myChart').getContext('2d');
@@ -234,6 +235,18 @@
                     ],
                     borderColor: [
                         'rgba(200, 0, 0, 1)'
+                    ],
+                    borderWidth: 4
+                },
+                {
+                    type: 'line',
+                    label: 'Descarte',
+                    data: valorSaidaGarantia,
+                    backgroundColor: [
+                        'rgba(236, 88, 0, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(236, 88, 0, 1)'
                     ],
                     borderWidth: 4
                 }

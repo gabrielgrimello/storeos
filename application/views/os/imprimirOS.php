@@ -35,7 +35,7 @@
                     <label>WBA Santos Tecnologia e Software LTDA</label>
                 </div>
                 <div class="col-xs-12">
-                    <label>Rua Euclides da Cunha, 198, bairro Pompéia - Santos</label>
+                    <label>Rua Marquês de São Vicente, 134, Campo Grande - Santos</label>
                 </div>
                 <div class="col-xs-12">
                     <label>Fone: (13)3257-8080 / whatsapp: (13)99774-8943 / E-mail assistencia@wbagestao.com</label>
@@ -129,12 +129,11 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <ul> 
-                <li class="text-sm">Declaro estar ciente da taxa de R$30,00 em caso de recusa de orçamento para estabilizadores e nobreaks com capacidade de 1000VA ou superior</li> 
-                <li class="text-sm">Declaro estar ciente da taxa de R$15,00 em caso de recusa de orçamento para estabilizadores e nobreaks com capacidade abaixo de 1000VA e monitores</li> 
+            <ul > 
+                <li class="text-lg bg-black" >Declaro estar ciente da taxa de R$30,00 em caso de recusa de orçamento</li> 
                 <li class="text-sm">Declaro ser de minha responsabilidade a origem e procedência do equipamento constante nesta ordem de serviço</li> 
                 <li class="text-sm">Declaro ter ciência e autorizo a venda ou desmanche do meu equipamento caso o mesmo não seja retirado em 90 dias</li> 
-                <li class="text-sm">Quando se tratar de computadores ou notebooks, corre única e exclusicamente por responsabilidade docliente a integridade dos dados existentes no mesmo, inclusive cópias de segurança.</li>
+                <li class="text-sm">Quando se tratar de computadores ou notebooks, corre única e exclusicamente por responsabilidade do cliente a integridade dos dados existentes no mesmo, inclusive cópias de segurança.</li>
                 <li class="text-sm">Não nos responsabilizamos no caso de perda de dados, programas e/ou arquivos</li>
             </ul>
         </div>
@@ -223,12 +222,11 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <ul> 
-                <li class="text-sm">Declaro estar ciente da taxa de R$30,00 em caso de recusa de orçamento para estabilizadores e nobreaks com capacidade de 1000VA ou superior</li> 
-                <li class="text-sm">Declaro estar ciente da taxa de R$15,00 em caso de recusa de orçamento para estabilizadores e nobreaks com capacidade abaixo de 1000VA e monitores</li> 
+            <ul > 
+                <li class="text-lg bg-black">Declaro estar ciente da taxa de R$30,00 em caso de recusa de orçamento</li> 
                 <li class="text-sm">Declaro ser de minha responsabilidade a origem e procedência do equipamento constante nesta ordem de serviço</li> 
                 <li class="text-sm">Declaro ter ciência e autorizo a venda ou desmanche do meu equipamento caso o mesmo não seja retirado em 90 dias</li> 
-                <li class="text-sm">Quando se tratar de computadores ou notebooks, corre única e exclusicamente por responsabilidade docliente a integridade dos dados existentes no mesmo, inclusive cópias de segurança.</li>
+                <li class="text-sm">Quando se tratar de computadores ou notebooks, corre única e exclusicamente por responsabilidade do cliente a integridade dos dados existentes no mesmo, inclusive cópias de segurança.</li>
                 <li class="text-sm">Não nos responsabilizamos no caso de perda de dados, programas e/ou arquivos</li>
             </ul>
         </div>

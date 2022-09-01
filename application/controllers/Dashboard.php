@@ -54,12 +54,14 @@ class Dashboard extends CI_Controller {
         $this->data['saidasReparado'] = $this->getSaidasReparado();
         $this->data['saidasSemReparo'] = $this->getSaidasSemReparo();
         $this->data['saidasDescarte'] = $this->getSaidasDescarte();
+        $this->data['saidasGarantia'] = $this->getSaidasGarantia();
 
         //pega as médias dos ultimos 13 meses
         $this->data['mediaEntrada'] = $this->getMediaEntradas();
         $this->data['mediaSaida'] = $this->getMediaSaidas();
         $this->data['mediaSemReparo'] = $this->getMediaSaidasSemReparo();
         $this->data['mediaDescarte'] = $this->getMediaSaidasDescarte();
+        $this->data['mediaGarantia'] = $this->getMediaSaidasGarantia();
 
         //pega nomes dos últimos 13 meses
         $this->data['meses'] = $this->ultimos12Meses();
@@ -161,6 +163,29 @@ class Dashboard extends CI_Controller {
         $totalFechadas = 0;
         for ($i = 12; $i >= 0; $i--) {
             $where['status'] = 21;
+            $where['encerrada'] = 'sim';
+            $whereInicio['dataEncerra >='] = date("Y-m-01", strtotime(date('Y-m-01') . " -$i months"));
+            $whereFinal['dataEncerra <='] = date("Y-m-31", strtotime(date('Y-m-01') . " -$i months"));
+            $totalFechadas = $totalFechadas + $this->dashboard_model->countEntradasSaidas('ordem_servico', $whereInicio, $whereFinal, $where);
+        }
+        return number_format((float) $totalFechadas / 13, 2, ',', '');
+    }
+    
+    public function getSaidasGarantia() {
+        for ($i = 12; $i >= 0; $i--) {
+            $where['status'] = 22;
+            $where['encerrada'] = 'sim';
+            $whereInicio['dataEncerra >='] = date("Y-m-01", strtotime(date('Y-m-01') . " -$i months"));
+            $whereFinal['dataEncerra <='] = date("Y-m-31", strtotime(date('Y-m-01') . " -$i months"));
+            $totalFechadas[] = $this->dashboard_model->countEntradasSaidas('ordem_servico', $whereInicio, $whereFinal, $where);
+        }
+        return json_encode($totalFechadas);
+    }
+
+    public function getMediaSaidasGarantia() {
+        $totalFechadas = 0;
+        for ($i = 12; $i >= 0; $i--) {
+            $where['status'] = 22;
             $where['encerrada'] = 'sim';
             $whereInicio['dataEncerra >='] = date("Y-m-01", strtotime(date('Y-m-01') . " -$i months"));
             $whereFinal['dataEncerra <='] = date("Y-m-31", strtotime(date('Y-m-01') . " -$i months"));
