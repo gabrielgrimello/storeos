@@ -46,6 +46,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-orange"><i class="fa fa-arrow-circle-up"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Média garantia</span>
+                                <span class="info-box-number"><h2><?php echo $mediaGarantia ?></h2></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
