@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <title>StoreOS</title>
         <link rel="shortcut icon" href="<?php echo base_url('assets/favicon.png') ?>" type="image/x-png"
               <!-- Tell the browser to be responsive to screen width -->
-              <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.7 -->
         <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/bootstrap/dist/css/bootstrap.min.css') ?>">
         <!-- Font Awesome -->
@@ -56,7 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <script src="<?php echo base_url('assets/fullcalendar/packages/timegrid/main.js') ?>"></script>
         <script src="<?php echo base_url('assets/fullcalendar/packages/list/main.js') ?>"></script>
         <script src="<?php echo base_url('assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') ?>"></script>
-        
+
         <!-- ARRASTA E SOLTA FOTOS OS -->
         <script type="text/javascript" src="<?php echo base_url('assets/js/dropzone/dist/dropzone.js') ?>"></script>
         <link rel="stylesheet" href="<?php echo base_url('assets/js/dropzone/dist/dropzone.css') ?>">
@@ -104,11 +104,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </li>
 
                                 <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'mOS')) { ?>
-                                                    <!--                                    <li class="<?= ($this->router->fetch_class() == 'calendario') ? 'active' : null; ?>">
-                                                                                            <a href="<?php echo base_url() ?>index.php/calendario">
-                                                                                                <i class="fa fa-calendar"></i> <span>Calendario</span>
-                                                                                            </a>
-                                                                                        </li>-->
+                                                        <!--                                    <li class="<?= ($this->router->fetch_class() == 'calendario') ? 'active' : null; ?>">
+                                                                                                <a href="<?php echo base_url() ?>index.php/calendario">
+                                                                                                    <i class="fa fa-calendar"></i> <span>Calendario</span>
+                                                                                                </a>
+                                                                                            </li>-->
                                 <?php } ?>
                                 <?php if ($this->permission->checkPermission($this->session->userdata('permissao'), 'mBiblioteca')) { ?>
                                     <!--                                    <li>
@@ -158,6 +158,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                         <li><a href="<?php echo base_url() ?>index.php/login/sair"><i class="fa  fa-power-off"></i> Sair</a></li>
                                     </ul>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url() ?>index.php/mensageria/pegaosenviaremail"><span>Notificar cliente</span></a>
                                 </li>
 
                             </ul>
