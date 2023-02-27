@@ -2,10 +2,12 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 //configurações para envio de email
+$estrutura = & get_instance();
+$estrutura->load->model('mensageria_model');
 $whereEmail = array();
 $whereEmail['idEmailConfig'] = 1;
-$configuracoes = $this->mensageria_model->get('email_config', $whereEmail);
-var_dump($configuracoes);
+$configuracoes = $estrutura->mensageria_model->get('email_config', $whereEmail);
+
 $config = array(
     'protocol' => $configuracoes->protocolo, // 'mail', 'sendmail', or 'smtp'
     'smtp_host' => $configuracoes->endereco,

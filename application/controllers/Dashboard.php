@@ -170,7 +170,7 @@ class Dashboard extends CI_Controller {
         }
         return number_format((float) $totalFechadas / 13, 2, ',', '');
     }
-    
+
     public function getSaidasGarantia() {
         for ($i = 12; $i >= 0; $i--) {
             $where['status'] = 22;

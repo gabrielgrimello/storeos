@@ -33,10 +33,18 @@ class Mensageria_model extends CI_Model {
         return FALSE;
     }
 
-    function get($table,$where) {
+    function getOsEnviarEmail($fields,$table, $where) {
+        $this->db->select($fields);
         $this->db->from($table);
         $this->db->where($where);
-        
+
+        return $this->db->get()->result();
+    }
+
+    function get($table, $where) {
+        $this->db->from($table);
+        $this->db->where($where);
+
         return $this->db->get()->row();
     }
 

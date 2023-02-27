@@ -24,7 +24,12 @@
                 $fileMime = mime_content_type($filePath);
                 ?> 
                 <div class="col-md-3" align="center">
-                    <img src="<?php echo base_url('upload/' . $row["file_name"]); ?>" width="100%" height="100%" /> 
+                    <?php if (substr($row["file_name"], -3) === 'pdf') { ?>
+                        <img src="<?php echo base_url('upload/pdf.png'); ?>" width="250px" height="250px" /> 
+                    <?php } ?>
+                    <?php if (substr($row["file_name"], -3) != 'pdf') { ?>
+                        <img src="<?php echo base_url('upload/' . $row["file_name"]); ?>" width="250px" height="250px" /> 
+                    <?php } ?>
                     <label>Enviado em: <?php
                         $date1 = new DateTime($row['uploaded_on']);
                         echo $date1->format('d/m/Y H:m');
@@ -68,7 +73,7 @@
     Dropzone.autoDiscover = false;
     var myDropzone = new Dropzone("#my-dropzone", {
         url: "<?php echo site_url("os/dragDropUpload") ?>",
-        acceptedFiles: "image/*",
+        acceptedFiles: "image/*,application/pdf",
         //addRemoveLinks: true,
         params: {'idOS': <?php echo $this->uri->segment(3) ?>},
         removedfile: function (file) {

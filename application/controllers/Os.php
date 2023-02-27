@@ -1272,7 +1272,7 @@ class Os extends CI_Controller {
         // Pass the files data to view 
         $this->load->view('os/arquivoUpload', $data);
     }
-
+    
     function dragDropUpload() {
         if (!empty($_FILES)) {
             // File upload configuration 
@@ -1284,7 +1284,7 @@ class Os extends CI_Controller {
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
             $uploadData['idOS'] = $this->uri->segment(3);
-            // $uploadData['idOS'] = $this->input->post('idOS'); 
+            
             // Upload file to the server 
             if ($this->upload->do_upload('file')) {
                 $fileData = $this->upload->data();
@@ -1317,7 +1317,7 @@ class Os extends CI_Controller {
         }
     }
 
-    function enviarWhatsapp() {
+       function enviarWhatsapp() {
         $this->data['os'] = $this->OS_model->getOSJoin($this->uri->segment(3));
         // $this->data['equipamento'] = $this->OS_model->getEquipamentoById($this->data['os']->idEquipamento);
 
