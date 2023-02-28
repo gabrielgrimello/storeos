@@ -6,6 +6,7 @@ class Mensageria extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('Mensageria_model');
+        $this->load->model('OS_model');
     }
 
     public function index() {
@@ -65,8 +66,10 @@ class Mensageria extends CI_Controller {
     private function atualizarStatusOs($os) {
         $dados = [
             'status' => 16,
+            'dataAlteracao' => date("Y/m/d"),
         ];
         $editado = $this->Mensageria_model->edit('ordem_servico', $dados, 'idOS', $os);
+        $this->addTimeline($os, "E-mail automático enviado com sucesso", "Storeos serviço de e-mail");
         if ($editado) {
             return true;
         } else {
@@ -92,8 +95,6 @@ class Mensageria extends CI_Controller {
     Tenha uma excelente semana.<br>
     Atenciosamente<br>
     Carol, assistência técnica WBA SANTOS.";
-        
-        
 
         $retorno = $this->dispararEmail($os, $para, $assunto, $mensagem);
         echo $retorno;
@@ -110,6 +111,7 @@ class Mensageria extends CI_Controller {
 
         $this->email->from($configuracoes->email, $configuracoes->nome);
         $this->email->to($para);
+        $this->email->cc('assistencia@wbagestao.com');
 
         $this->email->subject($assunto);
         $this->email->message($mensagem);
@@ -178,6 +180,27 @@ class Mensageria extends CI_Controller {
                 show_error($this->email->print_debugger());
         }
         $this->load->view('mensageria/email');
+    }
+
+    public function addTimeline($os, $mensagem, $responsavel) {
+        date_default_timezone_set('America/Sao_Paulo');
+        $date = date('d-m-Y H:i');
+        $idos = $os;
+        $descricao = $mensagem;
+        $nome = $responsavel;
+
+        $data = array(
+            'idos' => $idos,
+            'descricao' => $descricao,
+            'nome' => $nome,
+            'data' => $date
+        );
+
+        if ($this->OS_model->add('timeline_os', $data) == true) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
